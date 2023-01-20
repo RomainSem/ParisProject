@@ -15,4 +15,4 @@ MonoBehaviour:
   id: 1
   itemName: Cup of coffee
   value: 0
-  icon: {fileID: 21300000, guid: e2c5b5fd326069d478508b2241167f66, type: 3}
+  icon: {fileID: 21300000, guid: dc2fc907b7c58f0448b65822e5def6d7, type: 3}
