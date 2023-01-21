@@ -8,12 +8,13 @@ public class InventoryManager : MonoBehaviour
 {
 
     public static InventoryManager Instance;
+    #region Exposed
+
     [SerializeField] List<Item> Items = new List<Item>();
     [SerializeField] Transform ItemContent;
     [SerializeField] GameObject InventoryItem;
-    #region Exposed
+    [SerializeField] InventoryItemController[] InventoryItems;
 
-    
 
     #endregion
 
@@ -26,17 +27,17 @@ public class InventoryManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
     {
-        
+
     }
 
     #endregion
@@ -48,8 +49,8 @@ public class InventoryManager : MonoBehaviour
         Items.Add(item);
     }
 
-    public void RemoveItem(Item item) 
-    { 
+    public void RemoveItem(Item item)
+    {
         Items.Remove(item);
     }
 
@@ -66,9 +67,22 @@ public class InventoryManager : MonoBehaviour
             GameObject obj = Instantiate(InventoryItem, ItemContent);
             var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
             var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+            var removeButton = obj.transform.Find("RemoveItemButton").GetComponent<Button>();
 
             itemName.text = item.ItemName;
             itemIcon.sprite = item.Icon;
+        }
+
+        SetInventoryItems();
+    }
+
+    public void SetInventoryItems()
+    {
+        InventoryItems = ItemContent.GetComponentsInChildren<InventoryItemController>();
+
+        for (int i = 0; i < Items.Count; i++)
+        {
+            InventoryItems[i].AddItem(Items[i]);
         }
     }
 
@@ -76,7 +90,7 @@ public class InventoryManager : MonoBehaviour
 
     #region Private & Protected
 
-    
+
 
     #endregion
 }
