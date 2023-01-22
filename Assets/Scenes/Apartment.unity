@@ -3457,6 +3457,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1138743560}
     m_Modifications:
+    - target: {fileID: 2029845160, guid: 9c7f97eb257571446a2c55ad625cac36, type: 3}
+      propertyPath: outlineMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1000013553094718, guid: 9c7f97eb257571446a2c55ad625cac36, type: 3}
       propertyPath: m_Name
       value: PFB_ChestOfDraws
@@ -3969,6 +3973,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5567274482262479495, guid: 2c955ce5cc6b1a542900b51ed266259c,
         type: 3}
+      propertyPath: outlineMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567274482262479495, guid: 2c955ce5cc6b1a542900b51ed266259c,
+        type: 3}
       propertyPath: outlineColor.b
       value: 0
       objectReference: {fileID: 0}
@@ -4302,6 +4311,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6496981595906245736, guid: 8573759d3a770094eb2998662fadeb64,
         type: 3}
+      propertyPath: outlineMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6496981595906245736, guid: 8573759d3a770094eb2998662fadeb64,
+        type: 3}
       propertyPath: outlineColor.b
       value: 0
       objectReference: {fileID: 0}
@@ -4383,6 +4397,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827582447251355872, guid: 247f5f8d919d4bb4fb28134a78b299fc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.026
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 247f5f8d919d4bb4fb28134a78b299fc, type: 3}
