@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
     }
 
@@ -69,7 +68,6 @@ public class Player : MonoBehaviour
     Vector3 right;
     Vector3 forward;
     Animator _animator;
-    Rigidbody _rigidbody;
 
 
     #endregion
