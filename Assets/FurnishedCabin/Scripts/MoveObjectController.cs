@@ -13,7 +13,7 @@ public class MoveObjectController : MonoBehaviour
     private const string animBoolName = "isOpen_Obj_";
 
     private bool playerEntered;
-    //private bool showInteractMsg;
+    private bool showInteractMsg;
     private bool _isOpen;
     private GUIStyle guiStyle;
     private string msg;
@@ -30,6 +30,8 @@ public class MoveObjectController : MonoBehaviour
 
         //Initialize moveDrawController if script is enabled.
         _player = GameObject.FindGameObjectWithTag("Player");
+        _anim = GetComponent<Animator>();
+        _anim.enabled = false;  //disable animation states by default.  
 
         //fpsCam = Camera.main;
         //if (fpsCam == null) //a reference to Camera is required for rayasts
@@ -38,8 +40,6 @@ public class MoveObjectController : MonoBehaviour
         //}
 
         //create AnimatorOverrideController to re-use animationController for sliding draws.
-        _anim = GetComponent<Animator>();
-        _anim.enabled = false;  //disable animation states by default.  
 
         //the layer used to mask raycast for interactable objects only
         //LayerMask iRayLM = LayerMask.NameToLayer("InteractRaycast");
@@ -54,6 +54,7 @@ public class MoveObjectController : MonoBehaviour
     {
         if (other.gameObject == _player)        //player has collided with trigger
         {
+            Debug.Log("PLYAEYGYGZE");
             playerEntered = true;
             ActivateOutline(1f);
             _anim.enabled = true;
