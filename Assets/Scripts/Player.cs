@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
     #region Exposed
 
     [SerializeField] float _moveSpeed = 1;
-
+    [Range(1.1f, 5)]
+    [SerializeField] float _runSpeed = 1.3f;
 
     #endregion
 
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
+        //Run();
         Move();
 
 
@@ -53,6 +54,10 @@ public class Player : MonoBehaviour
             transform.forward += heading;
             transform.position += rightMovement;
             transform.position += upMovement;
+            if (Input.GetAxis("Fire3") == 1)
+            {
+                _animator.SetFloat("moveSpeed", _runSpeed);
+            }
         }
         else
         {
@@ -61,7 +66,22 @@ public class Player : MonoBehaviour
 
     }
 
-    
+    //void Run()
+    //{
+    //    if (Input.GetAxis("Fire3") == 1)
+    //    {
+    //        _moveSpeed = _runSpeed;
+    //        _animator.SetFloat("moveSpeed", _moveSpeed);
+    //    }
+    //    else
+    //    {
+    //        _moveSpeed = 1;
+    //    }
+    //}
+
+
+
+
 
     #endregion
 
@@ -72,6 +92,7 @@ public class Player : MonoBehaviour
     Animator _animator;
 
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
+    public float RunSpeed { get => _runSpeed; set => _runSpeed = value; }
 
 
     #endregion
