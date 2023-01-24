@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        _animator.SetBool("IsSleeping", false);
     }
 
     void Update()
@@ -42,7 +43,6 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        _animator.SetBool("IsSleeping", false);
         _animator.SetFloat("moveSpeed", _moveSpeed);
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         if (direction != Vector3.zero)
@@ -70,6 +70,8 @@ public class Player : MonoBehaviour
     Vector3 right;
     Vector3 forward;
     Animator _animator;
+
+    public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
 
 
     #endregion

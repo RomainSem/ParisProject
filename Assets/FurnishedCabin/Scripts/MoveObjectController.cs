@@ -54,7 +54,6 @@ public class MoveObjectController : MonoBehaviour
     {
         if (other.gameObject == _player)        //player has collided with trigger
         {
-            Debug.Log("PLYAEYGYGZE");
             playerEntered = true;
             ActivateOutline(1f);
             _anim.enabled = true;
