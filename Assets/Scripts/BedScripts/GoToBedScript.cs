@@ -46,25 +46,7 @@ public class GoToBedScript : MonoBehaviour
         if (_isPlayerInTrigger)
         {
             _isPlayerInTrigger = false;
-            //float timer = Time.timeSinceLevelLoad + _timeLayingDown;
-
-
-            //while (Time.timeSinceLevelLoad <= timer)
-            //{
-            //    _isTransformLocked = true;
-            //    if (_isTransformLocked)
-            //    {
-                    StartCoroutine(GoToBed(5f));
-            //    }
-            //    else
-            //    {
-            //        _isTransformLocked = false;
-            //    }
-            //    return;
-            //}
-            
-
-
+            StartCoroutine(GoToBed(5f));
         }
         else
         {
@@ -76,7 +58,6 @@ public class GoToBedScript : MonoBehaviour
     {
         other = _player.GetComponent<Collider>();
         _isPlayerInTrigger = true;
-
     }
 
     private IEnumerator GoToBed(float time)
