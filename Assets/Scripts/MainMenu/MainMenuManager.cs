@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -25,7 +26,8 @@ public class MainMenuManager : MonoBehaviour
 
     void Update()
     {
-        
+        Vector3 _mousePosition = Camera.main.ScreenToWorldPoint((Input.mousePosition));
+        Debug.DrawRay(transform.position, _mousePosition, Color.yellow);
     }
 
     
@@ -33,6 +35,10 @@ public class MainMenuManager : MonoBehaviour
 
     #region Methods
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Apartment");
+    }
 
     #endregion
 
