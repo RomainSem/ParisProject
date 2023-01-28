@@ -34,7 +34,8 @@ public class Player : MonoBehaviour
         forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        right = Camera.main.transform.right;
+        //right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         _animator.SetBool("IsSleeping", false);
     }
 
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
     {
         Move();
         // WalkToClick();
+        Aim();
 
 
 
@@ -61,6 +63,7 @@ public class Player : MonoBehaviour
     {
         _animator.SetFloat("moveSpeed", _moveSpeed);
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        direction = Vector3.ClampMagnitude(direction, 1);
         if (direction != Vector3.zero)
         {
             Vector3 rightMovement = right * _moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
@@ -77,6 +80,23 @@ public class Player : MonoBehaviour
         else
         {
             _animator.SetFloat("moveSpeed", 0f);
+        }
+    }
+
+    void Aim()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(cameraRay, out hit))
+            {
+                Vector3 PointToLookAt = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+
+                Quaternion rotation = Quaternion.LookRotation(PointToLookAt - transform.position);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.fixedDeltaTime);
+            }
+
         }
     }
 
@@ -179,6 +199,7 @@ public class Player : MonoBehaviour
     Vector3 right;
     Vector3 forward;
     Animator _animator;
+    int _rotationSpeed = 1000;
 
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
     public float RunSpeed { get => _runSpeed; set => _runSpeed = value; }
