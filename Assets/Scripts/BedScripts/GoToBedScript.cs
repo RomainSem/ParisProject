@@ -66,13 +66,12 @@ public class GoToBedScript : MonoBehaviour
         _playerTransform.position = new Vector3(-0.56f, 0.62f, 3.54f);
         _player.gameObject.GetComponent<Player>().MoveSpeed = 0;
         _player.gameObject.GetComponent<Player>().RunSpeed = 0;
-        Debug.Log(_player.gameObject.GetComponent<Player>().MoveSpeed);
-        _rgbdPlayer.constraints = RigidbodyConstraints.FreezePosition;
+        _rgbdPlayer.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(time);
         _animPlayer.SetBool("IsSleeping", false);
         _playerTransform.position = new Vector3(-0.56f, 0f, 3.0f);
-        _player.gameObject.GetComponent<Player>().MoveSpeed = 1;
-        _player.gameObject.GetComponent<Player>().RunSpeed = 1.3f;
+        _player.gameObject.GetComponent<Player>().MoveSpeed = 2.5f;
+        _player.gameObject.GetComponent<Player>().RunSpeed = 4.5f;
         _rgbdPlayer.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
     }
 

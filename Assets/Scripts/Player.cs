@@ -28,15 +28,14 @@ public class Player : MonoBehaviour
         forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
-        right = Camera.main.transform.right;
-        //right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        //right = Camera.main.transform.right;
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         _animator.SetBool("IsSleeping", false);
     }
 
     void Update()
     {
         _rigidbdy.velocity = Vector3.zero;
-        Move();
         Aim();
 
 
@@ -46,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        Move();
     }
 
 
@@ -58,8 +57,7 @@ public class Player : MonoBehaviour
     {
         _animator.SetFloat("moveSpeed", _walkSpeed);
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        //direction = direction.normalized * Time.deltaTime;
-        if (direction != Vector3.zero)
+        if (direction != Vector3.zero && direction.magnitude > 0.1f)
         {
 
             if (Input.GetAxis("Fire3") == 1)
@@ -82,10 +80,10 @@ public class Player : MonoBehaviour
         Vector3 rightMovement = right * _walkSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
         Vector3 upMovement = forward * _walkSpeed * Time.deltaTime * Input.GetAxis("Vertical");
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-        transform.forward += heading;
-        transform.position += rightMovement;
-        transform.position += upMovement;
-        Debug.Log(heading);
+        transform.forward = heading;
+        _rigidbdy.MovePosition(transform.position += heading * _walkSpeed * Time.deltaTime);
+        //transform.position += heading * _walkSpeed * Time.deltaTime;
+        
     }
 
     void Run()
@@ -94,10 +92,11 @@ public class Player : MonoBehaviour
         Vector3 rightMovement = right * _runSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
         Vector3 upMovement = forward * _runSpeed * Time.deltaTime * Input.GetAxis("Vertical");
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-        transform.forward += heading;
-        transform.position += rightMovement;
-        transform.position += upMovement;
-        Debug.Log(heading);
+        transform.forward = heading;
+        _rigidbdy.MovePosition(transform.position += heading * _runSpeed * Time.deltaTime);
+        //_rigidbdy.AddForce((upMovement + rightMovement) * _runSpeed, ForceMode.VelocityChange);
+        //transform.position += heading * _runSpeed * Time.deltaTime;
+
     }
 
     void Aim()
