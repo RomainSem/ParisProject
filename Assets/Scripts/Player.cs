@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-//[RequireComponent(typeof(CharacterController))]
-//[RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
     #region Exposed
 
-    [SerializeField] float _moveSpeed = 1;
-    [Range(1.1f, 5)]
-    [SerializeField] float _runSpeed = 1.3f;
+    [Range(1f, 10f)]
+    [SerializeField] float _walkSpeed = 1f;
+    [Range(1f, 50f)]
+    [SerializeField] float _runSpeed = 4f;
 
-    // MouseClick
-    //[SerializeField] InputAction _mouseClickAction;
 
     #endregion
 
@@ -22,15 +19,12 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        //_mainCamera = Camera.main;
-        //_characterController = GetComponent<CharacterController>();
+        _rigidbdy = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
-        //_rigidBody = GetComponent<Rigidbody>();
     }
 
     void Start()
     {
-        //_newPosition = transform.position;
         forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
@@ -41,9 +35,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        _rigidbdy.velocity = Vector3.zero;
         Move();
-        // WalkToClick();
         Aim();
+
 
 
 
@@ -61,26 +56,48 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        _animator.SetFloat("moveSpeed", _moveSpeed);
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        direction = Vector3.ClampMagnitude(direction, 1);
+        _animator.SetFloat("moveSpeed", _walkSpeed);
+        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        //direction = direction.normalized * Time.deltaTime;
         if (direction != Vector3.zero)
         {
-            Vector3 rightMovement = right * _moveSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
-            Vector3 upMovement = forward * _moveSpeed * Time.deltaTime * Input.GetAxis("Vertical");
-            Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-            transform.forward += heading;
-            transform.position += rightMovement;
-            transform.position += upMovement;
+
             if (Input.GetAxis("Fire3") == 1)
             {
-                _animator.SetFloat("moveSpeed", _runSpeed);
+                Run();
+            }
+            else
+            {
+                Walk();
             }
         }
         else
         {
             _animator.SetFloat("moveSpeed", 0f);
         }
+    }
+
+    void Walk()
+    {
+        Vector3 rightMovement = right * _walkSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
+        Vector3 upMovement = forward * _walkSpeed * Time.deltaTime * Input.GetAxis("Vertical");
+        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
+        transform.forward += heading;
+        transform.position += rightMovement;
+        transform.position += upMovement;
+        Debug.Log(heading);
+    }
+
+    void Run()
+    {
+        _animator.SetFloat("moveSpeed", _runSpeed);
+        Vector3 rightMovement = right * _runSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
+        Vector3 upMovement = forward * _runSpeed * Time.deltaTime * Input.GetAxis("Vertical");
+        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
+        transform.forward += heading;
+        transform.position += rightMovement;
+        transform.position += upMovement;
+        Debug.Log(heading);
     }
 
     void Aim()
@@ -100,120 +117,20 @@ public class Player : MonoBehaviour
         }
     }
 
-    //void WalkToClick()
-    //{
-    //    float step = 0;
-
-    //    // Move via le clic
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-
-    //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // le ray
-    //        RaycastHit hit; // La collision du raycast
-
-    //        if (Physics.Raycast(ray, out hit) /*&& hit.collider.tag == "Floor"*/)// si le rayon touche quelque chose on le stock dans hit
-    //        {
-    //            _newPosition = hit.point;
-    //            transform.LookAt(new Vector3(_newPosition.x, transform.position.y, _newPosition.z));
-    //            if (Time.timeSinceLevelLoad - _lastClickTime < _catchTime)
-    //            {
-    //                step = _runSpeed;
-    //                _animator.SetFloat("moveSpeed", _runSpeed);
-    //                //transform.position = Vector3.MoveTowards(transform.position, new Vector3(_newPosition.x, transform.position.y, _newPosition.z), step);
-    //            }
-    //            else
-    //            {
-    //                step = _moveSpeed;
-    //                _animator.SetFloat("moveSpeed", _moveSpeed);
-    //            }
-    //            Debug.Log(step);
-    //        }
-    //    }
-    //    if (Vector3.Distance(transform.position, _newPosition) < 1)
-    //    {
-    //        _animator.SetFloat("moveSpeed", 0f);
-    //    }
-    //    transform.position = Vector3.MoveTowards(transform.position, new Vector3(_newPosition.x, transform.position.y, _newPosition.z), step);
-    //}
-
-    //void ClickToMove(InputAction.CallbackContext context)
-    //{
-    //    Ray ray = _mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-    //    if (Physics.Raycast(ray: ray, hitInfo: out RaycastHit hit) && hit.collider)
-    //    {
-    //        if (_coroutine != null)
-    //        {
-    //            StopCoroutine(_coroutine);
-    //        }
-    //        _coroutine = StartCoroutine(PlayerMoveTowards(hit.point));
-    //        _targetPosition= hit.point;
-    //    }
-    //}
-
-    //private IEnumerator PlayerMoveTowards(Vector3 target)
-    //{
-    //    float playerDistanceToFloor = transform.position.y - target.y;
-    //    target.y += playerDistanceToFloor;
-    //    while (Vector3.Distance(transform.position, target) > 1f)
-    //    {
-    //        // Ignore les collisions apparemment
-    //        Vector3 destination = Vector3.MoveTowards(transform.position, target, _moveSpeed * Time.deltaTime);
-    //        //transform.position = destination;
-
-    //        // autre méthode :  Character Controller
-    //        Vector3 direction = target - transform.position;
-    //        Vector3 movement = direction.normalized * _moveSpeed * Time.deltaTime;
-    //        _characterController.Move(movement);
-
-    //        // autre méthode : Rigidbody
-    //        //_rigidBody.velocity = direction.normalized * _moveSpeed;
-    //        yield return null;
-    //    }
-    //}
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawSphere(_targetPosition, 1);
-    //}
-
-    //private void OnEnable()
-    //{
-    //    _mouseClickAction.Enable();
-    //    _mouseClickAction.performed += ClickToMove;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    _mouseClickAction.performed -= ClickToMove;
-    //    _mouseClickAction.Disable();
-    //}
-
-
-
     #endregion
 
     #region Private & Protected
 
-
+    Rigidbody _rigidbdy;
     Vector3 right;
     Vector3 forward;
     Animator _animator;
     int _rotationSpeed = 1000;
 
-    public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
+    public float MoveSpeed { get => _walkSpeed; set => _walkSpeed = value; }
     public float RunSpeed { get => _runSpeed; set => _runSpeed = value; }
 
-    // MouseClick
-    //Vector3 _newPosition;
-    //private Rigidbody _rigidBody;
-    //float _lastClickTime;
-    //float _catchTime = 0.25f;
-    //Camera _mainCamera;
-    //Coroutine _coroutine;
-    //Vector3 _targetPosition;
-
-    //CharacterController _characterController;
+    
 
     #endregion
 }
