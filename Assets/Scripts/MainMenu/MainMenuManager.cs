@@ -40,6 +40,16 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("Apartment");
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void DisplayOptions()
+    {
+
+    }
+
     #endregion
 
     #region Private & Protected
