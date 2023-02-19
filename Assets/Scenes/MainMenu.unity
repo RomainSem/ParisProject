@@ -2170,6 +2170,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bed_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4206221036645350, guid: be584151e13f7ac459ffd0815bcad512, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.634
+      objectReference: {fileID: 0}
     - target: {fileID: 4813155984126450, guid: be584151e13f7ac459ffd0815bcad512, type: 3}
       propertyPath: m_RootOrder
       value: 6
