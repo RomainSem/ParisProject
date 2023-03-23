@@ -18,8 +18,9 @@ public class GoToBedScript : MonoBehaviour
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
+        _playerRefScript = _player.GetComponent<Player>();
         _playerTransform = _player.GetComponent<Transform>();
-        _rgbdPlayer = _player.GetComponent<Rigidbody>();
+        _playerRGBD = _player.GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -64,15 +65,15 @@ public class GoToBedScript : MonoBehaviour
     {
         _animPlayer.SetBool("IsSleeping", true);
         _playerTransform.position = new Vector3(-0.56f, 0.62f, 3.54f);
-        _player.gameObject.GetComponent<Player>().MoveSpeed = 0;
-        _player.gameObject.GetComponent<Player>().RunSpeed = 0;
-        _rgbdPlayer.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+        _playerRefScript.MoveSpeed = 0;
+        _playerRefScript.RunSpeed = 0;
+        _playerRGBD.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(time);
         _animPlayer.SetBool("IsSleeping", false);
         _playerTransform.position = new Vector3(-0.56f, 0f, 3.0f);
-        _player.gameObject.GetComponent<Player>().MoveSpeed = 2.5f;
-        _player.gameObject.GetComponent<Player>().RunSpeed = 4.5f;
-        _rgbdPlayer.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+        _playerRefScript.MoveSpeed = 2.5f;
+        _playerRefScript.RunSpeed = 4.5f;
+        _playerRGBD.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
     }
 
     #endregion
@@ -81,7 +82,8 @@ public class GoToBedScript : MonoBehaviour
 
     Transform _playerTransform;
     GameObject _player;
-    Rigidbody _rgbdPlayer;
+    Player _playerRefScript;
+    Rigidbody _playerRGBD;
     bool _isPlayerInTrigger;
     //bool _isTransformLocked;
 
