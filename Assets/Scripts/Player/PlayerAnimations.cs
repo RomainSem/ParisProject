@@ -16,6 +16,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _playerMovScript = GetComponent<PlayerMovement>();
+        _goToBedScript = GameObject.FindGameObjectWithTag("Bed").GetComponent<GoToBedScript>();
     }
 
     void Start()

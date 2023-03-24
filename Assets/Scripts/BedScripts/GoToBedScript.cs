@@ -18,7 +18,6 @@ public class GoToBedScript : MonoBehaviour
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
-        _playerRefScript = _player.GetComponent<PlayerMovement>();
         _playerTransform = _player.GetComponent<Transform>();
         _playerRGBD = _player.GetComponent<Rigidbody>();
     }
@@ -61,7 +60,6 @@ public class GoToBedScript : MonoBehaviour
         {
             _isPlayerInTrigger = true;
         }
-        //other = _player.GetComponent<Collider>();
     }
 
     private IEnumerator GoToBed(float time)
@@ -81,13 +79,11 @@ public class GoToBedScript : MonoBehaviour
 
     Transform _playerTransform;
     GameObject _player;
-    PlayerMovement _playerRefScript;
     Rigidbody _playerRGBD;
     bool _isPlayerInTrigger;
     bool _isSleeping;
 
     public bool IsSleeping { get => _isSleeping; set => _isSleeping = value; }
-    //bool _isTransformLocked;
 
     #endregion
 }

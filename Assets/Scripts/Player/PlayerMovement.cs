@@ -48,7 +48,8 @@ public class PlayerMovement : MonoBehaviour
             Vector3 upMovement = forward * MoveSpeed * Time.deltaTime * Input.GetAxis("Vertical");
             Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
             transform.forward = heading;
-            _rigidbdy.MovePosition(transform.position += heading * MoveSpeed * Time.deltaTime);
+            _rigidbdy.AddForce(heading * MoveSpeed * Time.deltaTime, ForceMode.Force);
+            //_rigidbdy.MovePosition(transform.position += heading * MoveSpeed * Time.deltaTime);
 
             if (Input.GetAxis("Fire3") == 1)
             {

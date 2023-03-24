@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InteractibleObjects
   - Floor
+  - Bed
   layers:
   - Default
   - TransparentFX
