@@ -4,11 +4,11 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Exposed
 
-    [Range(1f, 10f)]
+    [Range(1f, 1000f)]
     [SerializeField] float _walkSpeed = 1f;
-    [Range(1f, 10f)]
+    [Range(1f, 100f)]
     [SerializeField] float _runSpeed = 4f;
-    [Range(1f, 50f)]
+    [Range(1f, 500f)]
     [SerializeField] float _speed;
 
 
@@ -31,8 +31,20 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Move();
-        _rigidbdy.velocity = Vector3.zero;
+        //Move();
+        //_rigidbdy.velocity = Vector3.zero;
+    }
+
+    private void FixedUpdate()
+    {
+        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+        {
+            Move();
+        }
+        else
+        {
+            MoveSpeed = 0f;
+        }
     }
 
     #endregion
@@ -41,29 +53,28 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        if (direction != Vector3.zero && direction.magnitude > 0.1f)
+        //Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        //if (direction != Vector3.zero && direction.magnitude > 0.1f)
+        //{
+        Vector3 rightMovement = right * MoveSpeed * Time.fixedDeltaTime * Input.GetAxis("Horizontal");
+        Vector3 upMovement = forward * MoveSpeed * Time.fixedDeltaTime * Input.GetAxis("Vertical");
+        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
+        transform.forward = heading;
+        if (Input.GetAxis("Fire3") == 1)
         {
-            Vector3 rightMovement = right * MoveSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
-            Vector3 upMovement = forward * MoveSpeed * Time.deltaTime * Input.GetAxis("Vertical");
-            Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-            transform.forward = heading;
-            _rigidbdy.AddForce(heading * MoveSpeed * Time.deltaTime, ForceMode.Force);
-            //_rigidbdy.MovePosition(transform.position += heading * MoveSpeed * Time.deltaTime);
-
-            if (Input.GetAxis("Fire3") == 1)
-            {
-                MoveSpeed = _runSpeed;
-            }
-            else
-            {
-                MoveSpeed = _walkSpeed;
-            }
+            MoveSpeed = _runSpeed;
         }
         else
         {
-            MoveSpeed = 0f;
+            MoveSpeed = _walkSpeed;
         }
+        //_rigidbdy.AddForce((upMovement + rightMovement) * MoveSpeed, ForceMode.Force);
+        //_rigidbdy.MovePosition(transform.position += heading * MoveSpeed * Time.fixedDeltaTime);
+        _rigidbdy.velocity = heading * MoveSpeed /** Time.fixedDeltaTime*/;
+
+
+
+        //}
     }
 
     #endregion
