@@ -18,7 +18,7 @@ public class GoToBedScript : MonoBehaviour
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
-        _playerRefScript = _player.GetComponent<Player>();
+        _playerRefScript = _player.GetComponent<PlayerMovement>();
         _playerTransform = _player.GetComponent<Transform>();
         _playerRGBD = _player.GetComponent<Rigidbody>();
     }
@@ -46,8 +46,8 @@ public class GoToBedScript : MonoBehaviour
     {
         if (_isPlayerInTrigger)
         {
-            _isPlayerInTrigger = false;
             StartCoroutine(GoToBed(5f));
+            _isPlayerInTrigger = false;
         }
         else
         {
@@ -57,22 +57,21 @@ public class GoToBedScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other = _player.GetComponent<Collider>();
-        _isPlayerInTrigger = true;
+        if (other.gameObject.tag == "Player")
+        {
+            _isPlayerInTrigger = true;
+        }
+        //other = _player.GetComponent<Collider>();
     }
 
     private IEnumerator GoToBed(float time)
     {
-        _animPlayer.SetBool("IsSleeping", true);
+        IsSleeping = true;
         _playerTransform.position = new Vector3(-0.56f, 0.62f, 3.54f);
-        _playerRefScript.MoveSpeed = 0;
-        _playerRefScript.RunSpeed = 0;
         _playerRGBD.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
         yield return new WaitForSeconds(time);
-        _animPlayer.SetBool("IsSleeping", false);
+        IsSleeping = false;
         _playerTransform.position = new Vector3(-0.56f, 0f, 3.0f);
-        _playerRefScript.MoveSpeed = 2.5f;
-        _playerRefScript.RunSpeed = 4.5f;
         _playerRGBD.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
     }
 
@@ -82,9 +81,12 @@ public class GoToBedScript : MonoBehaviour
 
     Transform _playerTransform;
     GameObject _player;
-    Player _playerRefScript;
+    PlayerMovement _playerRefScript;
     Rigidbody _playerRGBD;
     bool _isPlayerInTrigger;
+    bool _isSleeping;
+
+    public bool IsSleeping { get => _isSleeping; set => _isSleeping = value; }
     //bool _isTransformLocked;
 
     #endregion
