@@ -62,10 +62,12 @@ public class PlayerMovement : MonoBehaviour
         transform.forward = heading;
         if (Input.GetAxis("Fire3") == 1)
         {
+            IsRunning = true;
             MoveSpeed = _runSpeed;
         }
         else
         {
+            IsRunning = false;
             MoveSpeed = _walkSpeed;
         }
         //_rigidbdy.AddForce((upMovement + rightMovement) * MoveSpeed, ForceMode.Force);
@@ -84,8 +86,10 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody _rigidbdy;
     Vector3 right;
     Vector3 forward;
+    bool _isRunning;
 
     public float MoveSpeed { get => _speed; set => _speed = value; }
+    public bool IsRunning { get => _isRunning; set => _isRunning = value; }
 
     #endregion
 }

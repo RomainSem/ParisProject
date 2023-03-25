@@ -15,22 +15,25 @@ public class PlayerAim : MonoBehaviour
 
     private void Awake()
     {
-        
+        _playerMovScript = GetComponent<PlayerMovement>();
     }
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        Aim();
+        if (!_playerMovScript.IsRunning)
+        {
+            Aim();
+        }
     }
 
     private void FixedUpdate()
     {
-        
+
     }
 
     #endregion
@@ -57,6 +60,7 @@ public class PlayerAim : MonoBehaviour
 
     #region Private & Protected
 
+    PlayerMovement _playerMovScript;
 
     #endregion
 }

@@ -6,7 +6,7 @@ public class PlayerAnimations : MonoBehaviour
 {
     #region Exposed
 
-    
+
 
     #endregion
 
@@ -14,25 +14,21 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         _playerMovScript = GetComponent<PlayerMovement>();
-        _goToBedScript = GameObject.FindGameObjectWithTag("Bed").GetComponent<GoToBedScript>();
-    }
-
-    void Start()
-    {
-        
+        if (_goToBedScript != null)
+        {
+            _goToBedScript = GameObject.FindGameObjectWithTag("Bed").GetComponent<GoToBedScript>();
+        }
     }
 
     void Update()
     {
         _animator.SetFloat("moveSpeed", _playerMovScript.MoveSpeed);
-        _animator.SetBool("IsSleeping", _goToBedScript.IsSleeping);
-    }
-
-    private void FixedUpdate()
-    {
-        
+        if (_goToBedScript != null)
+        {
+            _animator.SetBool("IsSleeping", _goToBedScript.IsSleeping);
+        }
     }
 
     #endregion
