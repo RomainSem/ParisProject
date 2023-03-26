@@ -39,6 +39,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
         Vector3 directionToPlayer = _player.transform.position - transform.position;
         Gizmos.DrawLine(transform.position, transform.position + directionToPlayer);
     }
