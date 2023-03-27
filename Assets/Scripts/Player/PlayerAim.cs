@@ -44,6 +44,7 @@ public class PlayerAim : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
+            IsAiming = true;
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(cameraRay, out hit))
@@ -54,6 +55,11 @@ public class PlayerAim : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.fixedDeltaTime);
             }
         }
+        else
+        {
+            IsAiming = false;
+        }
+        Debug.Log(IsAiming);
     }
 
     #endregion
@@ -61,6 +67,9 @@ public class PlayerAim : MonoBehaviour
     #region Private & Protected
 
     PlayerMovement _playerMovScript;
+    bool _isAiming;
+
+    public bool IsAiming { get => _isAiming; set => _isAiming = value; }
 
     #endregion
 }

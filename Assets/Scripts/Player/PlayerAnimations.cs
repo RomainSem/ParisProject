@@ -16,6 +16,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _playerMovScript = GetComponent<PlayerMovement>();
+        _playerAimScript = GetComponent<PlayerAim>();
         if (_goToBedScript != null)
         {
             _goToBedScript = GameObject.FindGameObjectWithTag("Bed").GetComponent<GoToBedScript>();
@@ -25,6 +26,7 @@ public class PlayerAnimations : MonoBehaviour
     void Update()
     {
         _animator.SetFloat("moveSpeed", _playerMovScript.MoveSpeed);
+        _animator.SetBool("IsAiming", _playerAimScript.IsAiming);
         if (_goToBedScript != null)
         {
             _animator.SetBool("IsSleeping", _goToBedScript.IsSleeping);
@@ -41,6 +43,7 @@ public class PlayerAnimations : MonoBehaviour
 
     Animator _animator;
     PlayerMovement _playerMovScript;
+    PlayerAim _playerAimScript;
     GoToBedScript _goToBedScript;
 
     #endregion

@@ -27,7 +27,6 @@ public class PlayerDetected : MonoBehaviour
         if (other.gameObject.tag == "EnemyCone")
         {
             _isPlayerInCone = true;
-            Debug.Log("PLAYERDETECT : " + _enemyBehaviourScript.IsEnemyRayHittingPlayer);
             if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
             {
                 IsDetectedByEnemy = true;
