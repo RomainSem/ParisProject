@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -15,7 +16,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Awake()
     {
-
     }
 
     void Start()
@@ -25,7 +25,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        
+        RaycastToPlayer();
     }
 
     private void FixedUpdate()
@@ -36,6 +36,23 @@ public class EnemyBehaviour : MonoBehaviour
     #endregion
 
     #region Methods
+
+    private void RaycastToPlayer()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(gameObject.transform.position, _player.transform.position - gameObject.transform.position, out hit))
+        {
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                Debug.Log("RAYCAST TRUE");
+                IsEnemyRayHittingPlayer = true;
+            }
+            else
+            {
+                IsEnemyRayHittingPlayer = false;
+            }
+        }
+    }
 
     private void OnDrawGizmos()
     {
@@ -48,6 +65,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     #region Private & Protected
 
+    bool _isEnemyRayHittingPlayer;
+
+    public bool IsEnemyRayHittingPlayer { get => _isEnemyRayHittingPlayer; set => _isEnemyRayHittingPlayer = value; }
 
     #endregion
 }

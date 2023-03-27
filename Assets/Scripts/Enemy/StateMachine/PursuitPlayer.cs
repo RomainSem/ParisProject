@@ -11,13 +11,14 @@ public class PursuitPlayer : StateMachineBehaviour
         _enemy = animator.gameObject;
         _agent = _enemy.GetComponent<NavMeshAgent>();
         _player = GameObject.FindGameObjectWithTag("Player");
+        _playerDetectedScript = _player.GetComponent<PlayerDetected>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _agent.SetDestination(_player.transform.position);
-        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1)
+        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 10)
         {
             _playerDetectedScript.IsPlayerCloseToEnemy = true;
         }
