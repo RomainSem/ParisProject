@@ -6,8 +6,8 @@ public class InstantiateGun : MonoBehaviour
 {
     #region Expose
 
-    [SerializeField] GameObject _gunPrefab;
-    
+    [SerializeField] GameObject _gun;
+
     #endregion
 
     #region Unity Lyfecycle
@@ -24,17 +24,23 @@ public class InstantiateGun : MonoBehaviour
 
     void Update()
     {
-        if (_playerAimScript.IsAiming && !_isGunInstantiated)
-        {
-            Vector3 pos = new Vector3(0.0368000008f, 1.41100001f, 0.414700001f);
-            gun = Instantiate(_gunPrefab, pos, Quaternion.identity);
-            _isGunInstantiated = true;
-        }
-        else
-        {
-            Destroy(gun);
-            _isGunInstantiated = false;
-        }
+        //if (_playerAimScript.IsAiming)
+        //{
+        //    if (!_isGunInstantiated)
+        //    {
+        //        _isGunInstantiated = true;
+        //        _gun.SetActive(true);
+        //        //gun = Instantiate(_gunPrefab, transform.position, Quaternion.);
+        //        //gun.transform.parent = transform;
+        //    }
+        //}
+        //else
+        //{
+        //    //Destroy(gun);
+        //    _gun.SetActive(false);
+        //    _isGunInstantiated = false;
+        //}
+
     }
 
 
