@@ -15,22 +15,6 @@ public class PlayerDetected : MonoBehaviour
 
     private void Awake()
     {
-        _player = GameObject.FindGameObjectWithTag("Player");
-    }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-
     }
 
     #endregion
@@ -42,9 +26,14 @@ public class PlayerDetected : MonoBehaviour
         if (other.gameObject.tag == "EnemyCone")
         {
             _isPlayerInCone = true;
+            Debug.Log(_newPosToGoGeneratorScript.IsEnemyRayHittingPlayer);
             if (_newPosToGoGeneratorScript.IsEnemyRayHittingPlayer)
             {
                 IsDetectedByEnemy = true;
+            }
+            else
+            {
+                IsDetectedByEnemy = false;
             }
         }
     }
@@ -53,12 +42,13 @@ public class PlayerDetected : MonoBehaviour
 
     #region Private & Protected
 
-    GameObject _player;
     bool _isPlayerInCone;
     bool _isDetectedByEnemy;
+    bool _isPlayerCloseToEnemy;
     NewPosToGoGenerator _newPosToGoGeneratorScript;
 
     public bool IsDetectedByEnemy { get => _isDetectedByEnemy; set => _isDetectedByEnemy = value; }
+    public bool IsPlayerCloseToEnemy { get => _isPlayerCloseToEnemy; set => _isPlayerCloseToEnemy = value; }
 
     #endregion
 }

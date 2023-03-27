@@ -30,11 +30,10 @@ public class NewPosToGoGenerator : StateMachineBehaviour
             else
             {
                 IsEnemyRayHittingPlayer = false;
-                Debug.Log("ALLO");
             }
             if (_playerDetectedScript != null)
             {
-                animator.SetBool("IsDetectedByEnemy", _playerDetectedScript.IsDetectedByEnemy);
+                animator.SetBool("IsPlayerDetected", _playerDetectedScript.IsDetectedByEnemy);
             }
         }
     }
@@ -46,11 +45,16 @@ public class NewPosToGoGenerator : StateMachineBehaviour
             _agent.SetDestination(_randomPosScript.RandomPos);
             if (Vector3.Distance(_enemy.transform.position, _randomPosScript.RandomPos) <= 1f)
             {
-                _randomPosScript.IsPosGenerated = false;
+                _timer += Time.deltaTime;
+                if (_timer >= 3)
+                {
+                    _randomPosScript.IsPosGenerated = false;
+                    _timer = 0;
+                }
             }
         }
-        Debug.Log(_randomPosScript.IsPosGenerated);
     }
+
 
 
     NavMeshAgent _agent;
@@ -58,6 +62,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
     GameObject _enemy;
     GameObject _player;
 
+    float _timer = 0f;
     bool _isEnemyRayHittingPlayer;
 
     PlayerDetected _playerDetectedScript;
