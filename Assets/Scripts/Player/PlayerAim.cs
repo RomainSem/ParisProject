@@ -6,7 +6,7 @@ public class PlayerAim : MonoBehaviour
 {
     #region Exposed
 
-    [SerializeField] float _rotationSpeed = 1000f;
+    [SerializeField] float _rotationSpeed = 500f;
 
 
     #endregion
@@ -59,7 +59,6 @@ public class PlayerAim : MonoBehaviour
         {
             IsAiming = false;
         }
-        Debug.Log(IsAiming);
     }
 
     #endregion
