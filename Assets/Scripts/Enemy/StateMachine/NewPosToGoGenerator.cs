@@ -28,6 +28,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
                 animator.SetBool("IsPlayerDetected", _playerDetectedScript.IsDetectedByEnemy);
             }
         }
+        animator.SetBool("IsGoneToRandomPos", true);
     }
 
     private void GoToRandomPosInCircle()
@@ -37,12 +38,13 @@ public class NewPosToGoGenerator : StateMachineBehaviour
             _agent.SetDestination(_randomPosScript.RandomPos);
             if (Vector3.Distance(_enemy.transform.position, _randomPosScript.RandomPos) <= 1f)
             {
-                _timer += Time.deltaTime;
-                if (_timer >= 3)
-                {
+                //_timer += Time.deltaTime;
+                //if (_timer >= 3)
+                //{
                     _randomPosScript.IsPosGenerated = false;
-                    _timer = 0;
-                }
+                    
+                    //_timer = 0;
+                //}
             }
         }
     }
