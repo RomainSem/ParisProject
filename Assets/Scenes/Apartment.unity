@@ -5205,7 +5205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b7d9381dd237840bdf01e7c207ea29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animPlayer: {fileID: 1641403257}
+  _animPlayer: {fileID: 0}
 --- !u!65 &1185132758
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7276,12 +7276,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3107428233365495025}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1641403257 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8824055983200301584, guid: a1689dafca1b24f459362178fc0d00d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 3107428233365495025}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1648754253 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3196072848877498805, guid: 4ef0f02e3ac9cea48901c4ca2913685d,
@@ -8516,6 +8510,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 209202315, guid: a1689dafca1b24f459362178fc0d00d1, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 209202315, guid: a1689dafca1b24f459362178fc0d00d1, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3107428232698025168, guid: a1689dafca1b24f459362178fc0d00d1,
         type: 3}
       propertyPath: m_RootOrder

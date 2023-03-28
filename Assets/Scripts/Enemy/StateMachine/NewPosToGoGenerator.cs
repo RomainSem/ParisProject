@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,25 +36,16 @@ public class NewPosToGoGenerator : StateMachineBehaviour
             _agent.SetDestination(_randomPosScript.RandomPos);
             if (Vector3.Distance(_enemy.transform.position, _randomPosScript.RandomPos) <= 1f)
             {
-                //_timer += Time.deltaTime;
-                //if (_timer >= 3)
-                //{
                     _randomPosScript.IsPosGenerated = false;
-                    
-                    //_timer = 0;
-                //}
             }
         }
     }
-
 
 
     NavMeshAgent _agent;
 
     GameObject _enemy;
     GameObject _player;
-
-    float _timer = 0f;
 
     PlayerDetected _playerDetectedScript;
     EnemyBehaviour _enemyBehaviourScript;

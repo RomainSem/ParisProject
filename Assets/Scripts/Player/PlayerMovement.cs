@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         forward = Camera.main.transform.forward;
+        //forward = Input.mousePosition;
+
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
@@ -72,8 +74,8 @@ public class PlayerMovement : MonoBehaviour
             MoveSpeed = _walkSpeed;
         }
         //_rigidbdy.AddForce((upMovement + rightMovement) * MoveSpeed, ForceMode.Force);
-        //_rigidbdy.MovePosition(transform.position += heading * MoveSpeed * Time.fixedDeltaTime);
-        _rigidbdy.velocity = heading * MoveSpeed /** Time.fixedDeltaTime*/;
+        _rigidbdy.MovePosition(transform.position += heading * MoveSpeed * Time.fixedDeltaTime);
+        //_rigidbdy.velocity = heading * MoveSpeed /** Time.fixedDeltaTime*/;
 
 
 
