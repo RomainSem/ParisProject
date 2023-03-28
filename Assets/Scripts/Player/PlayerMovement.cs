@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidbdy = GetComponent<Rigidbody>();
+        _playerAimScript = GetComponent<PlayerAim>();
     }
 
     void Start()
@@ -60,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 upMovement = forward * MoveSpeed * Time.fixedDeltaTime * Input.GetAxis("Vertical");
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
         transform.forward = heading;
-        if (Input.GetAxis("Fire3") == 1)
+        if (Input.GetAxis("Fire3") == 1 && !_playerAimScript.IsAiming)
         {
             IsRunning = true;
             MoveSpeed = _runSpeed;
@@ -87,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 right;
     Vector3 forward;
     bool _isRunning;
+    PlayerAim _playerAimScript;
 
     public float MoveSpeed { get => _speed; set => _speed = value; }
     public bool IsRunning { get => _isRunning; set => _isRunning = value; }
