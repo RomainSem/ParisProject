@@ -9,15 +9,11 @@ public class AttackPlayer : StateMachineBehaviour
     {
         _enemy = animator.gameObject;
         _player = GameObject.FindGameObjectWithTag("Player");
+        _playerDetectedScript = _player.GetComponent<PlayerDetected>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        
-    }
-
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1)
         {
@@ -28,6 +24,11 @@ public class AttackPlayer : StateMachineBehaviour
             _playerDetectedScript.IsPlayerCloseToEnemy = false;
         }
         animator.SetBool("IsPlayerCloseToEnemy", _playerDetectedScript.IsPlayerCloseToEnemy);
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
     }
 
 

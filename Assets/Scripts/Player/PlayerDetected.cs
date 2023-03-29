@@ -38,6 +38,14 @@ public class PlayerDetected : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            IsPlayerCloseToEnemy = true;
+        }
+    }
+
     #endregion
 
     #region Private & Protected

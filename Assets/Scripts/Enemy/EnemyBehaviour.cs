@@ -8,6 +8,7 @@ public class EnemyBehaviour : MonoBehaviour
     #region Exposed
 
     [SerializeField] GameObject _player;
+    [SerializeField] byte _health;
 
 
     #endregion
@@ -20,11 +21,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Start()
     {
-        
+        NbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
     void Update()
     {
+        Debug.Log(NbEnemies);
         RaycastToPlayer();
     }
 
@@ -49,7 +51,21 @@ public class EnemyBehaviour : MonoBehaviour
             }
             else
             {
+                Debug.Log("RAYCAST FALSE");
                 IsEnemyRayHittingPlayer = false;
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            _health--;
+            if (_health <= 0)
+            {
+                NbEnemies--;
+                Destroy(gameObject);
             }
         }
     }
@@ -66,8 +82,11 @@ public class EnemyBehaviour : MonoBehaviour
     #region Private & Protected
 
     bool _isEnemyRayHittingPlayer;
+    int _nbEnemies;
 
     public bool IsEnemyRayHittingPlayer { get => _isEnemyRayHittingPlayer; set => _isEnemyRayHittingPlayer = value; }
+    public byte Health { get => _health; set => _health = value; }
+    public int NbEnemies { get => _nbEnemies; set => _nbEnemies = value; }
 
     #endregion
 }

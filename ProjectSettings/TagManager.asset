@@ -9,6 +9,7 @@ TagManager:
   - Bed
   - Enemy
   - EnemyCone
+  - Bullet
   layers:
   - Default
   - TransparentFX

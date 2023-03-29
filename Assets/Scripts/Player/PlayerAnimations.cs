@@ -17,6 +17,7 @@ public class PlayerAnimations : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _playerMovScript = GetComponent<PlayerMovement>();
         _playerAimScript = GetComponent<PlayerAim>();
+        _rgbd = GetComponent<Rigidbody>();
         if (_goToBedScript != null)
         {
             _goToBedScript = GameObject.FindGameObjectWithTag("Bed").GetComponent<GoToBedScript>();
@@ -25,14 +26,21 @@ public class PlayerAnimations : MonoBehaviour
 
     void Update()
     {
-        _animator.SetFloat("moveSpeed", _playerMovScript.MoveSpeed);
+        if (_rgbd.velocity.magnitude <= 0.1f)
+        {
+            _animator.SetFloat("moveSpeed", 0);
+        }
+        else
+        {
+            _animator.SetFloat("moveSpeed", _playerMovScript.MoveSpeed);
+        }
         _animator.SetBool("IsAiming", _playerAimScript.IsAiming);
         if (_goToBedScript != null)
         {
             _animator.SetBool("IsSleeping", _goToBedScript.IsSleeping);
         }
         // transform the world forward into local space:
-        if (_playerMovScript.MoveSpeed <= 0)
+        if (_playerMovScript.MoveSpeed <= 0.1f)
         {
             _animator.SetFloat("headingX", 0);
             _animator.SetFloat("headingZ", 0);
@@ -57,6 +65,7 @@ public class PlayerAnimations : MonoBehaviour
     PlayerMovement _playerMovScript;
     PlayerAim _playerAimScript;
     GoToBedScript _goToBedScript;
+    Rigidbody _rgbd;
 
     #endregion
 }
