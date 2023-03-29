@@ -66,8 +66,8 @@ public class PlayerAim : MonoBehaviour
                 Quaternion rotation = Quaternion.LookRotation(PointToLookAt - transform.position);
                 //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.fixedDeltaTime);
                 //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 4f * Time.deltaTime);
-                //transform.LookAt(PointToLookAt);
-                _rigidbody.MoveRotation(rotation);
+                transform.LookAt(PointToLookAt);
+                //_rigidbody.MoveRotation(rotation);
             }
         }
         else

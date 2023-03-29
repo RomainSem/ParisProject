@@ -59,10 +59,10 @@ public class PlayerMovement : MonoBehaviour
         //Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         //if (direction != Vector3.zero && direction.magnitude > 0.1f)
         //{
-        Vector3 rightMovement = right * MoveSpeed * Time.fixedDeltaTime * Input.GetAxis("Horizontal");
-        Vector3 upMovement = forward * MoveSpeed * Time.fixedDeltaTime * Input.GetAxis("Vertical");
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-        transform.forward = heading;
+        Vector3 rightMovement = right * /*MoveSpeed * Time.fixedDeltaTime **/ Input.GetAxis("Horizontal");
+        Vector3 upMovement = forward * /*MoveSpeed * Time.fixedDeltaTime **/ Input.GetAxis("Vertical");
+        _heading = Vector3.Normalize(rightMovement + upMovement);
+        transform.forward = _heading;
         if (Input.GetAxis("Fire3") == 1 && !_playerAimScript.IsAiming)
         {
             IsRunning = true;
@@ -74,7 +74,10 @@ public class PlayerMovement : MonoBehaviour
             MoveSpeed = _walkSpeed;
         }
         //_rigidbdy.AddForce((upMovement + rightMovement) * MoveSpeed, ForceMode.Force);
-        _rigidbdy.MovePosition(transform.position += heading * MoveSpeed * Time.fixedDeltaTime);
+        if (_heading.magnitude >= 0.1f)
+        {
+            _rigidbdy.MovePosition(transform.position += _heading * MoveSpeed * Time.fixedDeltaTime);
+        }
         //_rigidbdy.velocity = heading * MoveSpeed /** Time.fixedDeltaTime*/;
 
 
@@ -91,9 +94,11 @@ public class PlayerMovement : MonoBehaviour
     Vector3 forward;
     bool _isRunning;
     PlayerAim _playerAimScript;
+    Vector3 _heading;
 
     public float MoveSpeed { get => _speed; set => _speed = value; }
     public bool IsRunning { get => _isRunning; set => _isRunning = value; }
+    public Vector3 Heading { get => _heading; set => _heading = value; }
 
     #endregion
 }

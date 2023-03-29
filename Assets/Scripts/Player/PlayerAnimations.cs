@@ -31,6 +31,18 @@ public class PlayerAnimations : MonoBehaviour
         {
             _animator.SetBool("IsSleeping", _goToBedScript.IsSleeping);
         }
+        // transform the world forward into local space:
+        if (_playerMovScript.MoveSpeed <= 0)
+        {
+            _animator.SetFloat("headingX", 0);
+            _animator.SetFloat("headingZ", 0);
+        }
+        else
+        {
+            Vector3 relative = transform.InverseTransformDirection(_playerMovScript.Heading);
+            _animator.SetFloat("headingX", relative.x);
+            _animator.SetFloat("headingZ", relative.z);
+        }
     }
 
     #endregion
