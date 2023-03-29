@@ -26,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     {
         forward = Camera.main.transform.forward;
         //forward = Input.mousePosition;
-
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
@@ -36,11 +35,19 @@ public class PlayerMovement : MonoBehaviour
     {
         //Move();
         //_rigidbdy.velocity = Vector3.zero;
+        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+        {
+            _isMoving = true;
+        }
+        else
+        {
+            _isMoving = false;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+        if (_isMoving)
         {
             Move();
         }
@@ -76,9 +83,13 @@ public class PlayerMovement : MonoBehaviour
         //_rigidbdy.AddForce((upMovement + rightMovement) * MoveSpeed, ForceMode.Force);
         if (_heading.magnitude >= 0.1f)
         {
-            _rigidbdy.MovePosition(transform.position += _heading * MoveSpeed * Time.fixedDeltaTime);
+            //_rigidbdy.MovePosition(transform.position += _heading * MoveSpeed * Time.fixedDeltaTime);
+            _rigidbdy.velocity = _heading * MoveSpeed /** Time.fixedDeltaTime*/;
         }
-        //_rigidbdy.velocity = heading * MoveSpeed /** Time.fixedDeltaTime*/;
+        else
+        {
+            _rigidbdy.velocity = Vector3.zero;
+        }
 
 
 
@@ -93,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 right;
     Vector3 forward;
     bool _isRunning;
+    bool _isMoving;
     PlayerAim _playerAimScript;
     Vector3 _heading;
 
