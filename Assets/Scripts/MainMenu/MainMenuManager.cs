@@ -37,7 +37,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Apartment");
+        SceneManager.LoadScene("PrototypeScene");
     }
 
     public void QuitGame()

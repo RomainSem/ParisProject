@@ -26,7 +26,7 @@ public class PlayerDetected : MonoBehaviour
     {
         if (other.gameObject.tag == "EnemyCone")
         {
-            _isPlayerInCone = true;
+            //_isPlayerInCone = true;
             if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
             {
                 IsDetectedByEnemy = true;
@@ -35,6 +35,7 @@ public class PlayerDetected : MonoBehaviour
             {
                 IsDetectedByEnemy = false;
             }
+            Debug.Log(IsDetectedByEnemy);
         }
     }
 
@@ -50,7 +51,7 @@ public class PlayerDetected : MonoBehaviour
 
     #region Private & Protected
 
-    bool _isPlayerInCone;
+    //bool _isPlayerInCone;
     bool _isDetectedByEnemy;
     bool _isPlayerCloseToEnemy;
     EnemyBehaviour _enemyBehaviourScript;

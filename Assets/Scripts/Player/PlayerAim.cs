@@ -6,8 +6,8 @@ public class PlayerAim : MonoBehaviour
 {
     #region Exposed
 
-    [SerializeField] float _rotationSpeed = 500f;
-    [SerializeField] float _turnSmoothTime = 0.1f;
+    //[SerializeField] float _rotationSpeed = 500f;
+    //[SerializeField] float _turnSmoothTime = 0.1f;
 
     #endregion
 
@@ -61,19 +61,20 @@ public class PlayerAim : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(cameraRay, out hit, Mathf.Infinity, 1 << 8))
             {
-                Vector3 PointToLookAt = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                PointToLookAt = new Vector3(hit.point.x, transform.position.y, hit.point.z);
                 //float targetAngle = Mathf.Atan2(hit.point.z, hit.point.x) * Mathf.Rad2Deg;
                 //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, 1);
 
                 //Quaternion rotation = Quaternion.LookRotation(PointToLookAt - transform.position);
                 //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.fixedDeltaTime);
                 //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 4f * Time.deltaTime);
-                transform.LookAt(PointToLookAt);
                 //_rigidbody.MoveRotation(rotation);
                 //transform.rotation = Quaternion.Euler(0f, angle, 0f);
                 //transform.eulerAngles = new Vector3 (0f, targetAngle, 0f);
                 //transform.Rotate( transform.position ,targetAngle);
             }
+                transform.LookAt(PointToLookAt);
+                Debug.Log(PointToLookAt);
         }
         else
         {
@@ -89,6 +90,7 @@ public class PlayerAim : MonoBehaviour
     bool _isAiming;
     Rigidbody _rigidbody;
     float _turnSmoothVelocity;
+    Vector3 PointToLookAt;
 
     public bool IsAiming { get => _isAiming; set => _isAiming = value; }
 

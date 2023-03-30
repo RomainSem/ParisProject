@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour
             _health--;
             if (_health <= 0)
             {
-                _isPlayerDead = true;
+                IsPlayerDead = true;
             }
         }
     }

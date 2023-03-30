@@ -18,15 +18,27 @@ public class SimpleShoot : MonoBehaviour
     [Header("Settings")]
     [Tooltip("Specify time to destory the casing object")][SerializeField] private float destroyTimer = 2f;
     [Tooltip("Bullet Speed")][SerializeField] private float shotPower = 500f;
+    //[Tooltip("Time Between each Bullet")][SerializeField] private float timeBetweenShots = 1f;
+    [Tooltip("Number of Bullets")][SerializeField] private float nbBullets = 7f;
     [Tooltip("Casing Ejection Speed")][SerializeField] private float ejectPower = 150f;
+
+    [SerializeField]
+    PlayerAim _playerAimScript;
 
     private void Awake()
     {
-        _playerAimScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
+        //_player = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     void Start()
     {
+#if DEVELOPMENT_BUILD
+if (_playerAimScript == null)
+	{
+        Debug.Log("PLAYER AIM IS NULL");
+	}
+#endif
         if (barrelLocation == null)
             barrelLocation = transform;
 
@@ -51,6 +63,9 @@ public class SimpleShoot : MonoBehaviour
     //This function creates the bullet behavior
     void Shoot()
     {
+        //_timer += Time.deltaTime;
+        //if (_timer >= timeBetweenShots && nbBullets > 0)
+        //{
         if (muzzleFlashPrefab)
         {
             //Create the muzzle flash
@@ -68,8 +83,11 @@ public class SimpleShoot : MonoBehaviour
         // Create a bullet and add force on it in direction of the barrel
         GameObject tempBullet;
         tempBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
+        nbBullets--;
         tempBullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
+        //_timer = 0f;
         Destroy(tempBullet, 5f);
+        //}
 
     }
 
@@ -93,5 +111,6 @@ public class SimpleShoot : MonoBehaviour
     }
 
 
-    PlayerAim _playerAimScript;
+    //float _timer = 0;
+    //GameObject _player;
 }
