@@ -9,7 +9,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _enemy = animator.gameObject;
-        _playerDetectedScript = _player.GetComponent<PlayerDetected>();
+        _coneDetection = _enemy.GetComponentInChildren<ConeDetection>();
         _randomPosScript = _enemy.transform.parent.GetComponentInChildren<RandomPosInCircle>();
         _agent = _enemy.GetComponent<NavMeshAgent>();
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
@@ -21,9 +21,9 @@ public class NewPosToGoGenerator : StateMachineBehaviour
         GoToRandomPosInCircle();
         if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
         {
-            if (_playerDetectedScript != null)
+            if (_coneDetection != null)
             {
-                animator.SetBool("IsPlayerDetected", _playerDetectedScript.IsDetectedByEnemy);
+                animator.SetBool("IsPlayerDetected", _coneDetection.IsDetectedByEnemy);
             }
         }
         animator.SetBool("IsGoneToRandomPos", true);
@@ -47,7 +47,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
     GameObject _enemy;
     GameObject _player;
 
-    PlayerDetected _playerDetectedScript;
+    ConeDetection _coneDetection;
     EnemyBehaviour _enemyBehaviourScript;
     RandomPosInCircle _randomPosScript;
 

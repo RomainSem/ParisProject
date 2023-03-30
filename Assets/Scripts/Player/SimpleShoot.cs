@@ -22,8 +22,8 @@ public class SimpleShoot : MonoBehaviour
     [Tooltip("Number of Bullets")][SerializeField] private float nbBullets = 7f;
     [Tooltip("Casing Ejection Speed")][SerializeField] private float ejectPower = 150f;
 
-    [SerializeField]
-    PlayerAim _playerAimScript;
+    [SerializeField] PlayerAim _playerAimScript;
+    [SerializeField] GameObject _pistolLaser;
 
     private void Awake()
     {
@@ -50,12 +50,17 @@ if (_playerAimScript == null)
     {
         if (_playerAimScript.IsAiming)
         {
+            _pistolLaser.SetActive(true);
             //If you want a different input, change it here
             if (Input.GetButtonDown("Fire1"))
             {
                 //Calls animation on the gun that has the relevant animation events that will fire
                 gunAnimator.SetTrigger("Fire");
             }
+        }
+        else
+        {
+            _pistolLaser.SetActive(false);
         }
     }
 

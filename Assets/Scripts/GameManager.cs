@@ -22,13 +22,15 @@ public class GameManager : MonoBehaviour
         _playerHealthScript = _player.GetComponent<PlayerHealth>();
         //Debug.Break();
         Debug.LogError("Force the build console open...");
-#if DEVELOPMENT_BUILD
 
-if (_playerHealthScript == null)
-	{
-        Debug.Log("PLAYER HEALTH IS NULL");
-	}
-#endif
+    #if DEVELOPMENT_BUILD
+
+        if (_playerHealthScript == null)
+	    {
+            Debug.Log("PLAYER HEALTH IS NULL");
+	    }
+    #endif
+
     }
 
     void Update()

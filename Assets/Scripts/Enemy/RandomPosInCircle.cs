@@ -32,7 +32,6 @@ public class RandomPosInCircle : MonoBehaviour
         {
             Vector3 pos  = Random.insideUnitCircle * _radius;
             RandomPos = new Vector3(pos.x, 0, pos.y);
-            Debug.Log(RandomPos);
             IsPosGenerated = true;
         }
     }

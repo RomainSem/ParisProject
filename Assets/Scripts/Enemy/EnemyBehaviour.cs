@@ -26,13 +26,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(NbEnemies);
+        //Debug.Log(NbEnemies);
+        
         RaycastToPlayer();
     }
 
     private void FixedUpdate()
     {
-        
+
     }
 
     #endregion

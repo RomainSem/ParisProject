@@ -8,7 +8,7 @@ public class EnemyWait : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _player = GameObject.FindGameObjectWithTag("Player");
-        _playerDetectedScript = _player.GetComponent<PlayerDetected>();
+        _coneDetectionScript = animator.gameObject.GetComponentInChildren<ConeDetection>();
         _enemyBehaviourScript = animator.gameObject.GetComponent<EnemyBehaviour>();
     }
 
@@ -17,15 +17,15 @@ public class EnemyWait : StateMachineBehaviour
     {
         if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
         {
-            if (_playerDetectedScript != null)
+            if (_coneDetectionScript != null)
             {
-                animator.SetBool("IsPlayerDetected", _playerDetectedScript.IsDetectedByEnemy);
+                animator.SetBool("IsPlayerDetected", _coneDetectionScript.IsDetectedByEnemy);
             }
         }
     }
 
 
-    PlayerDetected _playerDetectedScript;
+    ConeDetection _coneDetectionScript;
     EnemyBehaviour _enemyBehaviourScript;
     GameObject _player;
 

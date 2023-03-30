@@ -72,9 +72,8 @@ public class PlayerAim : MonoBehaviour
                 //transform.rotation = Quaternion.Euler(0f, angle, 0f);
                 //transform.eulerAngles = new Vector3 (0f, targetAngle, 0f);
                 //transform.Rotate( transform.position ,targetAngle);
-            }
                 transform.LookAt(PointToLookAt);
-                Debug.Log(PointToLookAt);
+            }
         }
         else
         {

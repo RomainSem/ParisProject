@@ -20,9 +20,16 @@ public class PursuitPlayer : StateMachineBehaviour
         _agent.SetDestination(_player.transform.position);
         if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 10)
         {
-            _playerDetectedScript.IsPlayerCloseToEnemy = true;
+            if (_playerDetectedScript != null)
+            {
+                _playerDetectedScript.IsPlayerCloseToEnemy = true;
+            }
         }
-        animator.SetBool("IsPlayerCloseToEnemy", _playerDetectedScript.IsPlayerCloseToEnemy);
+        if (_playerDetectedScript != null)
+        {
+            animator.SetBool("IsPlayerCloseToEnemy", _playerDetectedScript.IsPlayerCloseToEnemy);
+        }
+        Debug.Log("VARIABLE ISPLAYERCLOSE : " + _playerDetectedScript.IsPlayerCloseToEnemy);
     }
 
 
