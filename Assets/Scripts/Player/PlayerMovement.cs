@@ -85,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //_rigidbdy.MovePosition(transform.position += _heading * MoveSpeed * Time.fixedDeltaTime);
             // TEST ADDFORCE MODE VELOCITY
+            _heading.Normalize();
             _rigidbdy.AddForce(_heading * MoveSpeed, ForceMode.VelocityChange);
             //_rigidbdy.velocity = _heading * MoveSpeed /** Time.fixedDeltaTime*/;
         }
