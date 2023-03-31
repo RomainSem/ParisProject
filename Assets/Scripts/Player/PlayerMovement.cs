@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -49,7 +50,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isMoving)
         {
+            ComputeHeading();
             Move();
+            if (!_playerAimScript.IsAiming)
+            {
+               // ROTATE
+               Rotate();
+            }
         }
         else
         {
@@ -66,10 +73,10 @@ public class PlayerMovement : MonoBehaviour
         //Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         //if (direction != Vector3.zero && direction.magnitude > 0.1f)
         //{
-        Vector3 rightMovement = right * /*MoveSpeed * Time.fixedDeltaTime **/ Input.GetAxis("Horizontal");
-        Vector3 upMovement = forward * /*MoveSpeed * Time.fixedDeltaTime **/ Input.GetAxis("Vertical");
-        _heading = Vector3.Normalize(rightMovement + upMovement);
-        transform.forward = _heading;
+        //Vector3 rightMovement = right * /*MoveSpeed * Time.fixedDeltaTime **/ Input.GetAxis("Horizontal");
+        //Vector3 upMovement = forward * /*MoveSpeed * Time.fixedDeltaTime **/ Input.GetAxis("Vertical");
+        //_heading = Vector3.Normalize(rightMovement + upMovement);
+        //transform.forward = _heading;
         if (Input.GetAxis("Fire3") == 1 && !_playerAimScript.IsAiming)
         {
             IsRunning = true;
@@ -84,17 +91,29 @@ public class PlayerMovement : MonoBehaviour
         if (_heading.magnitude >= 0.1f)
         {
             //_rigidbdy.MovePosition(transform.position += _heading * MoveSpeed * Time.fixedDeltaTime);
+            // TEST ADDFORCE MODE VELOCITY
             _rigidbdy.velocity = _heading * MoveSpeed /** Time.fixedDeltaTime*/;
         }
         else
         {
             _rigidbdy.velocity = Vector3.zero;
         }
-
-
-
         //}
     }
+
+    void ComputeHeading()
+    {
+        _heading.x = Vector3.Project(PlayerInput._leftStickDirection, forward).x;
+        _heading.z = Vector3.Project(PlayerInput._leftStickDirection, right).z;
+        _heading.y = 0;
+        _heading = _heading.normalized;
+    }
+
+    void Rotate()
+    {
+        transform.forward = _heading;
+    }
+
 
     #endregion
 
