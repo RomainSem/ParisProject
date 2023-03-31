@@ -7,6 +7,7 @@ public class PistolLaser : MonoBehaviour
     #region Exposed
 
     [SerializeField] GameObject _pistol;
+    [SerializeField] PlayerAim _playerAimScript;
 
     #endregion
 
@@ -14,13 +15,12 @@ public class PistolLaser : MonoBehaviour
 
     private void Awake()
     {
-
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start()
     {
         _pistolLaser = GetComponent<LineRenderer>();
-        _playerAimScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
         _pistolLaser.widthMultiplier = 0.1f;
         _pistolLaser.positionCount = 20;
     }
@@ -51,7 +51,7 @@ public class PistolLaser : MonoBehaviour
     #region Private & Protected
 
     LineRenderer _pistolLaser;
-    PlayerAim _playerAimScript;
+    GameObject _player;
 
     #endregion
 }

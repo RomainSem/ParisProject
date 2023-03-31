@@ -70,13 +70,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        //Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        //if (direction != Vector3.zero && direction.magnitude > 0.1f)
-        //{
-        //Vector3 rightMovement = right * /*MoveSpeed * Time.fixedDeltaTime **/ Input.GetAxis("Horizontal");
-        //Vector3 upMovement = forward * /*MoveSpeed * Time.fixedDeltaTime **/ Input.GetAxis("Vertical");
-        //_heading = Vector3.Normalize(rightMovement + upMovement);
-        //transform.forward = _heading;
         if (Input.GetAxis("Fire3") == 1 && !_playerAimScript.IsAiming)
         {
             IsRunning = true;
@@ -92,7 +85,8 @@ public class PlayerMovement : MonoBehaviour
         {
             //_rigidbdy.MovePosition(transform.position += _heading * MoveSpeed * Time.fixedDeltaTime);
             // TEST ADDFORCE MODE VELOCITY
-            _rigidbdy.velocity = _heading * MoveSpeed /** Time.fixedDeltaTime*/;
+            _rigidbdy.AddForce(_heading * MoveSpeed, ForceMode.VelocityChange);
+            //_rigidbdy.velocity = _heading * MoveSpeed /** Time.fixedDeltaTime*/;
         }
         else
         {
