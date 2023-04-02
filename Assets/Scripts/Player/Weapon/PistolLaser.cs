@@ -33,8 +33,6 @@ public class PistolLaser : MonoBehaviour
             Vector3 pistolDirection = new Vector3(0, 0 , 100);
             //Vector3 pistolEndPosition = pistolDirection * 100;
             _pistolLaser.SetPosition(1 , pistolDirection);
-            Debug.Log("pistolposition " + _pistol.transform.position);
-            Debug.Log("pistolforward " + pistolDirection);
             //_pistolLaser.SetPosition(0, _pistol.transform.position);
         }
         else

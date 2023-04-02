@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Exposed
 
-    [Range(1f, 1000f)]
+    [Range(0f, 1000f)]
     [SerializeField] float _walkSpeed = 1f;
     [Range(1f, 100f)]
     [SerializeField] float _runSpeed = 4f;

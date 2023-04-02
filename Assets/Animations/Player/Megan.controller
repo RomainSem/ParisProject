@@ -153,7 +153,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: moveSpeed
-    m_EventTreshold: 2.6
+    m_EventTreshold: 1
   - m_ConditionMode: 2
     m_ConditionEvent: IsSleeping
     m_EventTreshold: 0
@@ -467,7 +467,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0.1
   - m_ConditionMode: 4
     m_ConditionEvent: moveSpeed
-    m_EventTreshold: 2.6
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7605524665181453055}
   m_Solo: 0
@@ -545,7 +545,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: moveSpeed
-    m_EventTreshold: 2.6
+    m_EventTreshold: 1
   - m_ConditionMode: 2
     m_ConditionEvent: IsSleeping
     m_EventTreshold: 0
@@ -576,7 +576,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 4
     m_ConditionEvent: moveSpeed
-    m_EventTreshold: 2.6
+    m_EventTreshold: 1
   - m_ConditionMode: 3
     m_ConditionEvent: moveSpeed
     m_EventTreshold: 0.1

@@ -80,7 +80,6 @@ if (_playerAimScript == null)
         { return; }
 
         // Create a bullet and add force on it in direction of the barrel
-        GameObject tempBullet;
         tempBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
         nbBullets--;
         tempBullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
@@ -109,7 +108,8 @@ if (_playerAimScript == null)
         Destroy(tempCasing, destroyTimer);
     }
 
+    
 
-    //float _timer = 0;
-    //GameObject _player;
+
+    GameObject tempBullet;
 }

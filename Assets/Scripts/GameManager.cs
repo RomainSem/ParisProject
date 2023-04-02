@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
         _playerHealthScript = _player.GetComponent<PlayerHealth>();
         //Debug.Break();
-        Debug.LogError("Force the build console open...");
+        //Debug.LogError("Force the build console open...");
 
     #if DEVELOPMENT_BUILD
 
