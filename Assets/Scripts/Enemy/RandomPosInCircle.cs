@@ -13,10 +13,6 @@ public class RandomPosInCircle : MonoBehaviour
 
     #region Unity Lifecycle
 
-    private void Awake()
-    {
-    }
-
     private void Update()
     {
         GetRandomPos();

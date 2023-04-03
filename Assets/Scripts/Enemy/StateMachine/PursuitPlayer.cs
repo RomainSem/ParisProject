@@ -18,7 +18,7 @@ public class PursuitPlayer : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _agent.SetDestination(_player.transform.position);
-        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 10)
+        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 3)
         {
             if (_playerDetectedScript != null)
             {

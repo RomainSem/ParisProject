@@ -10,6 +10,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _enemy = animator.gameObject;
         _coneDetection = _enemy.GetComponentInChildren<ConeDetection>();
+        _circleDetection = _enemy.GetComponentInChildren<CircleDetection>();
         _randomPosScript = _enemy.transform.parent.GetComponentInChildren<RandomPosInCircle>();
         _agent = _enemy.GetComponent<NavMeshAgent>();
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
@@ -48,6 +49,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
     GameObject _player;
 
     ConeDetection _coneDetection;
+    CircleDetection _circleDetection;
     EnemyBehaviour _enemyBehaviourScript;
     RandomPosInCircle _randomPosScript;
 
