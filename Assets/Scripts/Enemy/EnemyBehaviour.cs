@@ -8,7 +8,8 @@ public class EnemyBehaviour : MonoBehaviour
     #region Exposed
 
     [SerializeField] GameObject _player;
-    [SerializeField] byte _health;
+    [SerializeField] byte _health = 5;
+    [SerializeField] byte _damage = 1;
 
 
     #endregion
@@ -88,6 +89,7 @@ public class EnemyBehaviour : MonoBehaviour
     public bool IsEnemyRayHittingPlayer { get => _isEnemyRayHittingPlayer; set => _isEnemyRayHittingPlayer = value; }
     public byte Health { get => _health; set => _health = value; }
     public int NbEnemies { get => _nbEnemies; set => _nbEnemies = value; }
+    public byte Damage { get => _damage; set => _damage = value; }
 
     #endregion
 }

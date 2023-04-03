@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +14,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _enemy = GameObject.FindGameObjectWithTag("Enemy");
-        //_player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start()
@@ -23,13 +23,13 @@ public class GameManager : MonoBehaviour
         //Debug.Break();
         //Debug.LogError("Force the build console open...");
 
-    #if DEVELOPMENT_BUILD
+#if DEVELOPMENT_BUILD
 
         if (_playerHealthScript == null)
 	    {
             Debug.Log("PLAYER HEALTH IS NULL");
 	    }
-    #endif
+#endif
 
     }
 

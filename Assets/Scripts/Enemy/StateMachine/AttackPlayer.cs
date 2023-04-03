@@ -15,8 +15,13 @@ public class AttackPlayer : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 3)
+        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 2)
         {
+            Vector3 lookVector = _player.transform.position - _enemy.transform.position;
+            lookVector.x = _enemy.transform.position.x;
+            _enemy.transform.LookAt(lookVector);
+            //_enemy.transform.rotation = Quaternion.LookRotation(lookVector);
+            //_enemy.transform.rotation = Quaternion.LookRotation(_player.transform.position - _enemy.transform.position);
             _playerDetectedScript.IsPlayerCloseToEnemy = true;
         }
         else

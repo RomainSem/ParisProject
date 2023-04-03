@@ -8,6 +8,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _player = GameObject.FindGameObjectWithTag("Player");
+        _animator = animator;
         _enemy = animator.gameObject;
         _coneDetection = _enemy.GetComponentInChildren<ConeDetection>();
         _circleDetection = _enemy.GetComponentInChildren<CircleDetection>();
@@ -27,17 +28,19 @@ public class NewPosToGoGenerator : StateMachineBehaviour
                 animator.SetBool("IsPlayerDetected", _coneDetection.IsDetectedByEnemy);
             }
         }
-        animator.SetBool("IsGoneToRandomPos", true);
+        //animator.SetBool("IsGoneToRandomPos", true);
     }
 
     private void GoToRandomPosInCircle()
     {
         if (_randomPosScript.IsPosGenerated)
         {
+            _agent.speed = 3f;
             _agent.SetDestination(_randomPosScript.RandomPos);
             if (Vector3.Distance(_enemy.transform.position, _randomPosScript.RandomPos) <= 1f)
             {
-                    _randomPosScript.IsPosGenerated = false;
+                _randomPosScript.IsPosGenerated = false;
+                _animator.SetBool("IsGoneToRandomPos", true);
             }
         }
     }
@@ -47,6 +50,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
 
     GameObject _enemy;
     GameObject _player;
+    Animator _animator;
 
     ConeDetection _coneDetection;
     CircleDetection _circleDetection;

@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     #region Exposed
 
-    [SerializeField] byte _health = 1;
+    [SerializeField] float _maxHealth = 10;
+    [SerializeField] float _currentHealth;
+    [SerializeField] Image _healthBarGreen;
+    [SerializeField] Image _healthBarRed;
 
 
     #endregion
@@ -15,22 +19,32 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     void Start()
     {
-        
+        t = 0;
+        _currentHealth = _maxHealth;
+        _enemyBehaviour = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyBehaviour>();
     }
 
     void Update()
     {
-        
-    }
+        Debug.Log(_currentHealth);
+        if (_previousHealth != _currentHealth)
+        {
+            Debug.Log("ALKGEOKHGOZAE");
+            _previousHealth = Mathf.Lerp(_previousHealth, _currentHealth, t);
+            t += 0.01f * Time.deltaTime;
+        }
+        else
+        {
+            t = 0;
+        }
 
-    private void FixedUpdate()
-    {
-        
+        _healthBarGreen.fillAmount = _currentHealth / _maxHealth;
+        _healthBarRed.fillAmount = _previousHealth / _maxHealth;
     }
 
     #endregion
@@ -41,12 +55,17 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            _health--;
-            if (_health <= 0)
+            LoseHP(_enemyBehaviour.Damage);
+            if (_currentHealth <= 0)
             {
                 IsPlayerDead = true;
             }
         }
+    }
+
+    private void LoseHP(float enemyDamage)
+    {
+        _currentHealth -= enemyDamage;
     }
 
     #endregion
@@ -54,7 +73,10 @@ public class PlayerHealth : MonoBehaviour
     #region Private & Protected
 
     bool _isPlayerDead;
-    public byte Health { get => _health; set => _health = value; }
+    float t = 0;
+    EnemyBehaviour _enemyBehaviour;
+    float _previousHealth;
+
     public bool IsPlayerDead { get => _isPlayerDead; set => _isPlayerDead = value; }
 
     #endregion
