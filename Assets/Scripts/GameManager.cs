@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject _losePanel;
     [SerializeField] GameObject _winPanel;
+    [SerializeField] Image[] _nbBullets;
     [SerializeField] GameObject _player;
 
     private void Awake()
@@ -20,16 +21,17 @@ public class GameManager : MonoBehaviour
     {
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
         _playerHealthScript = _player.GetComponent<PlayerHealth>();
+        _simpleShootScript = _player.GetComponentInChildren<SimpleShoot>();
         //Debug.Break();
-        //Debug.LogError("Force the build console open...");
+        Debug.LogError("Force the build console open...");
 
-#if DEVELOPMENT_BUILD
+    #if DEVELOPMENT_BUILD
 
         if (_playerHealthScript == null)
 	    {
             Debug.Log("PLAYER HEALTH IS NULL");
 	    }
-#endif
+    #endif
 
     }
 
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        UpdateNbBullets();
 
         if (_playerHealthScript.IsPlayerDead)
         {
@@ -51,8 +54,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void UpdateNbBullets() 
+    {
+        for (int i = 0; i < _nbBullets.Length; i++)
+        {
+            if (i < _simpleShootScript.CurrentNbBullets)
+            {
+                _nbBullets[i].enabled = true;
+            }
+            else
+            {
+                _nbBullets[i].enabled = false;
+            }
+        }
+    }
 
     PlayerHealth _playerHealthScript;
     EnemyBehaviour _enemyBehaviourScript;
     GameObject _enemy;
+    SimpleShoot _simpleShootScript;
 }

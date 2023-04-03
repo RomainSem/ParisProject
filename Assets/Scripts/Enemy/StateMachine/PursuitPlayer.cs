@@ -28,7 +28,6 @@ public class PursuitPlayer : StateMachineBehaviour
         {
             animator.SetBool("IsPlayerCloseToEnemy", _playerDetectedScript.IsPlayerCloseToEnemy);
         }
-        Debug.Log("VARIABLE ISPLAYERCLOSE : " + _playerDetectedScript.IsPlayerCloseToEnemy);
     }
 
 

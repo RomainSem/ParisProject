@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")]
@@ -11,24 +12,22 @@ public class SimpleShoot : MonoBehaviour
     public GameObject muzzleFlashPrefab;
 
     [Header("Location Refrences")]
-    [SerializeField] private Animator gunAnimator;
-    [SerializeField] private Transform barrelLocation;
-    [SerializeField] private Transform casingExitLocation;
+    [SerializeField] Animator gunAnimator;
+    [SerializeField] Transform barrelLocation;
+    [SerializeField] Transform casingExitLocation;
 
     [Header("Settings")]
-    [Tooltip("Specify time to destory the casing object")][SerializeField] private float destroyTimer = 2f;
-    [Tooltip("Bullet Speed")][SerializeField] private float shotPower = 500f;
-    //[Tooltip("Time Between each Bullet")][SerializeField] private float timeBetweenShots = 1f;
-    [Tooltip("Number of Bullets")][SerializeField] private float nbBullets = 7f;
-    [Tooltip("Casing Ejection Speed")][SerializeField] private float ejectPower = 150f;
+    [Tooltip("Specify time to destroy the casing object")][SerializeField] float destroyTimer = 2f;
+    [Tooltip("Bullet Speed")][SerializeField] float shotPower = 500f;
+    [Tooltip("Casing Ejection Speed")][SerializeField] float ejectPower = 150f;
+
+    [Tooltip("Max Number of Bullets")][SerializeField] float maxNbBullets = 7f;
+    [Tooltip("Current Number of Bullets")][SerializeField] float currentNbBullets;
+    [Tooltip("Time To Reload")][SerializeField] float timeToReload = 1.5f;
+
+    [Tooltip("Reload Text Blink")][SerializeField] TextMeshProUGUI reloadTxt;
 
     [SerializeField] PlayerAim _playerAimScript;
-
-    private void Awake()
-    {
-        //_player = GameObject.FindGameObjectWithTag("Player");
-
-    }
 
     void Start()
     {
@@ -38,6 +37,8 @@ if (_playerAimScript == null)
         Debug.Log("PLAYER AIM IS NULL");
 	}
 #endif
+        reloadTxt.color = Color.clear;
+        currentNbBullets = maxNbBullets;
         if (barrelLocation == null)
             barrelLocation = transform;
 
@@ -52,8 +53,15 @@ if (_playerAimScript == null)
             //If you want a different input, change it here
             if (Input.GetButtonDown("Fire1"))
             {
-                //Calls animation on the gun that has the relevant animation events that will fire
-                gunAnimator.SetTrigger("Fire");
+                if (currentNbBullets > 0)
+                {
+                    //Calls animation on the gun that has the relevant animation events that will fire
+                    gunAnimator.SetTrigger("Fire");
+                }
+            }
+            if (currentNbBullets <= 0)
+            {
+                StartCoroutine("Reload");
             }
         }
     }
@@ -62,9 +70,6 @@ if (_playerAimScript == null)
     //This function creates the bullet behavior
     void Shoot()
     {
-        //_timer += Time.deltaTime;
-        //if (_timer >= timeBetweenShots && nbBullets > 0)
-        //{
         if (muzzleFlashPrefab)
         {
             //Create the muzzle flash
@@ -81,11 +86,9 @@ if (_playerAimScript == null)
 
         // Create a bullet and add force on it in direction of the barrel
         tempBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
-        nbBullets--;
+        currentNbBullets--;
         tempBullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
-        //_timer = 0f;
         Destroy(tempBullet, 5f);
-        //}
 
     }
 
@@ -108,8 +111,38 @@ if (_playerAimScript == null)
         Destroy(tempCasing, destroyTimer);
     }
 
-    
+    IEnumerator Reload()
+    {
+        float blinkSpeed = 0.2f; // La vitesse à laquelle le texte clignote
+        float blinkTime = 0; // Le temps écoulé depuis le dernier clignotement
+        bool blink = false; // Indique si le texte doit être visible ou non
+        isReloading = true;
 
+        for (int i = 0; i < 500; i++)
+        {
+            blinkTime += Time.deltaTime;
+
+            // Clignoter le texte
+            if (blinkTime >= blinkSpeed)
+            {
+                Debug.Log("BOUCLE FOR IF");
+                blink = !blink;
+                reloadTxt.color = blink ? Color.white : Color.clear;
+                blinkTime = 0;
+            }
+
+            yield return null;
+        }
+        currentNbBullets = maxNbBullets;
+        isReloading = false;
+
+        // Remettre la couleur normale du texte
+        reloadTxt.color = Color.clear;
+    }
 
     GameObject tempBullet;
+    bool isReloading;
+
+    public float CurrentNbBullets { get => currentNbBullets; set => currentNbBullets = value; }
+    public bool IsReloading { get => isReloading; set => isReloading = value; }
 }

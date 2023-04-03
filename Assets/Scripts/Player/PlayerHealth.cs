@@ -31,10 +31,8 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_currentHealth);
         if (_previousHealth != _currentHealth)
         {
-            Debug.Log("ALKGEOKHGOZAE");
             _previousHealth = Mathf.Lerp(_previousHealth, _currentHealth, t);
             t += 0.01f * Time.deltaTime;
         }
