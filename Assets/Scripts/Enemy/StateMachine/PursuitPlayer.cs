@@ -24,8 +24,6 @@ public class PursuitPlayer : StateMachineBehaviour
     {
         _agent.speed = 5f;
         _agent.SetDestination(_player.transform.position);
-        Debug.Log(Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1);
-        Debug.LogError(_enemyBehaviour.PlayerDetectedScript);
         if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1)
         {
             
