@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         NbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        _agent = GetComponent<NavMeshAgent>();
+        //_agent.updatePosition = false;
+        //_agent.updateRotation = false;
     }
 
     void Update()
@@ -85,6 +89,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool _isEnemyRayHittingPlayer;
     int _nbEnemies;
+    NavMeshAgent _agent;
 
     public bool IsEnemyRayHittingPlayer { get => _isEnemyRayHittingPlayer; set => _isEnemyRayHittingPlayer = value; }
     public byte Health { get => _health; set => _health = value; }

@@ -22,10 +22,9 @@ public class GameManager : MonoBehaviour
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
         _playerHealthScript = _player.GetComponent<PlayerHealth>();
         _simpleShootScript = _player.GetComponentInChildren<SimpleShoot>();
-        //Debug.Break();
-        Debug.LogError("Force the build console open...");
 
     #if DEVELOPMENT_BUILD
+        Debug.LogError("Force the build console open...");
 
         if (_playerHealthScript == null)
 	    {
