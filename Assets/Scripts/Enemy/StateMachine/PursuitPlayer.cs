@@ -3,14 +3,20 @@ using UnityEngine.AI;
 
 public class PursuitPlayer : StateMachineBehaviour
 {
+
+    private void Awake()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _enemy = animator.gameObject;
         _agent = _enemy.GetComponent<NavMeshAgent>();
         _agent.isStopped = false;
-        _player = GameObject.FindGameObjectWithTag("Player");
-        _playerDetectedScript = _player.GetComponent<PlayerDetected>();
+        _enemyBehaviour = _enemy.GetComponent<EnemyBehaviour>();
+       // _playerDetectedScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDetected>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -18,16 +24,19 @@ public class PursuitPlayer : StateMachineBehaviour
     {
         _agent.speed = 5f;
         _agent.SetDestination(_player.transform.position);
-        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 3)
+        Debug.Log(Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1);
+        Debug.LogError(_enemyBehaviour.PlayerDetectedScript);
+        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1)
         {
-            if (_playerDetectedScript != null)
+            
+            if (_enemyBehaviour.PlayerDetectedScript != null)
             {
-                _playerDetectedScript.IsPlayerCloseToEnemy = true;
+                _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true;
             }
         }
-        if (_playerDetectedScript != null)
+        if (_enemyBehaviour.PlayerDetectedScript != null)
         {
-            animator.SetBool("IsPlayerCloseToEnemy", _playerDetectedScript.IsPlayerCloseToEnemy);
+            animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
         }
     }
 
@@ -41,5 +50,5 @@ public class PursuitPlayer : StateMachineBehaviour
     GameObject _enemy;
     GameObject _player;
     NavMeshAgent _agent;
-    PlayerDetected _playerDetectedScript;
+    EnemyBehaviour _enemyBehaviour;
 }

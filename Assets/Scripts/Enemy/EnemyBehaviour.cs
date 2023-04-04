@@ -11,6 +11,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] GameObject _player;
     [SerializeField] byte _health = 5;
     [SerializeField] byte _damage = 1;
+    [SerializeField] PlayerDetected _playerDetectedScript;
+
 
 
     #endregion
@@ -95,6 +97,7 @@ public class EnemyBehaviour : MonoBehaviour
     public byte Health { get => _health; set => _health = value; }
     public int NbEnemies { get => _nbEnemies; set => _nbEnemies = value; }
     public byte Damage { get => _damage; set => _damage = value; }
+    public PlayerDetected PlayerDetectedScript { get => _playerDetectedScript; set => _playerDetectedScript = value; }
 
     #endregion
 }

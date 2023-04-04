@@ -9,7 +9,7 @@ public class AttackPlayer : StateMachineBehaviour
     {
         _enemy = animator.gameObject;
         _player = GameObject.FindGameObjectWithTag("Player");
-        _playerDetectedScript = _player.GetComponent<PlayerDetected>();
+        _enemyBehaviour = _enemy.GetComponent<EnemyBehaviour>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -22,13 +22,13 @@ public class AttackPlayer : StateMachineBehaviour
             //_enemy.transform.LookAt(lookVector);
             _enemy.transform.rotation = Quaternion.LookRotation(lookVector);
             //_enemy.transform.rotation = Quaternion.LookRotation(_player.transform.position - _enemy.transform.position);
-            _playerDetectedScript.IsPlayerCloseToEnemy = true;
+            _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true;
         }
         else
         {
-            _playerDetectedScript.IsPlayerCloseToEnemy = false;
+            _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = false;
         }
-        animator.SetBool("IsPlayerCloseToEnemy", _playerDetectedScript.IsPlayerCloseToEnemy);
+        animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -39,5 +39,5 @@ public class AttackPlayer : StateMachineBehaviour
 
     GameObject _enemy;
     GameObject _player;
-    PlayerDetected _playerDetectedScript;
+    EnemyBehaviour _enemyBehaviour;
 }
