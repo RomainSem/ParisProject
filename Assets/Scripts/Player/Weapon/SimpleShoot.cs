@@ -118,7 +118,7 @@ if (_playerAimScript == null)
         bool blink = false; // Indique si le texte doit être visible ou non
         isReloading = true;
 
-        for (int i = 0; i < 500; i++)
+        for (int i = 0; i < 450; i++)
         {
             blinkTime += Time.deltaTime;
 

@@ -8,6 +8,7 @@ public class PursuitPlayer : StateMachineBehaviour
     {
         _enemy = animator.gameObject;
         _agent = _enemy.GetComponent<NavMeshAgent>();
+        _agent.isStopped = false;
         _player = GameObject.FindGameObjectWithTag("Player");
         _playerDetectedScript = _player.GetComponent<PlayerDetected>();
     }
@@ -17,7 +18,7 @@ public class PursuitPlayer : StateMachineBehaviour
     {
         _agent.speed = 5f;
         _agent.SetDestination(_player.transform.position);
-        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 2)
+        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 3)
         {
             if (_playerDetectedScript != null)
             {
@@ -28,6 +29,12 @@ public class PursuitPlayer : StateMachineBehaviour
         {
             animator.SetBool("IsPlayerCloseToEnemy", _playerDetectedScript.IsPlayerCloseToEnemy);
         }
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        _agent.velocity = Vector3.zero;
+        _agent.isStopped = true;
     }
 
 
