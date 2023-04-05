@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _isMoving = false;
         }
+        Debug.Log(IsRunning);
     }
 
     private void FixedUpdate()
@@ -60,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            IsRunning = false;
             MoveSpeed = 0f;
         }
     }
@@ -70,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        if (Input.GetAxis("Fire3") == 1 && !_playerAimScript.IsAiming)
+        if (Input.GetButton("Fire3") && !_playerAimScript.IsAiming)
         {
             IsRunning = true;
             MoveSpeed = _runSpeed;

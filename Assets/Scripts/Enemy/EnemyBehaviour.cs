@@ -28,6 +28,7 @@ public class EnemyBehaviour : MonoBehaviour
         NbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         _agent = GetComponent<NavMeshAgent>();
         _coneDetectionScript = GetComponentInChildren<ConeDetection>();
+        _animator = GetComponent<Animator>();
         //_agent.updatePosition = false;
         //_agent.updateRotation = false;
     }
@@ -75,6 +76,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _isAttacked = true;
             _health--;
+            _animator.SetTrigger("IsHit");
             Debug.Log("Enemy Health: " + _health);
             if (_health <= 0)
             {
@@ -100,6 +102,7 @@ public class EnemyBehaviour : MonoBehaviour
     int _nbEnemies;
     NavMeshAgent _agent;
     ConeDetection _coneDetectionScript;
+    Animator _animator;
 
     public bool IsEnemyRayHittingPlayer { get => _isEnemyRayHittingPlayer; set => _isEnemyRayHittingPlayer = value; }
     public byte Health { get => _health; set => _health = value; }

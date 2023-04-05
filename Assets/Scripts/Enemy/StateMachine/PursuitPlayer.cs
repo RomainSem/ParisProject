@@ -29,7 +29,7 @@ public class PursuitPlayer : StateMachineBehaviour
             
             if (_enemyBehaviour.PlayerDetectedScript != null)
             {
-                _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true;
+                _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true; 
             }
         }
         if (_enemyBehaviour.PlayerDetectedScript != null)
