@@ -27,6 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         NbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         _agent = GetComponent<NavMeshAgent>();
+        _coneDetectionScript = GetComponentInChildren<ConeDetection>();
         //_agent.updatePosition = false;
         //_agent.updateRotation = false;
     }
@@ -34,8 +35,11 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         //Debug.Log(NbEnemies);
-        
         RaycastToPlayer();
+        if (_isAttacked)
+        {
+            _coneDetectionScript.IsDetectedByEnemy = true;
+        }
     }
 
     private void FixedUpdate()
@@ -69,7 +73,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            _isAttacked = true;
             _health--;
+            Debug.Log("Enemy Health: " + _health);
             if (_health <= 0)
             {
                 NbEnemies--;
@@ -90,8 +96,10 @@ public class EnemyBehaviour : MonoBehaviour
     #region Private & Protected
 
     bool _isEnemyRayHittingPlayer;
+    bool _isAttacked;
     int _nbEnemies;
     NavMeshAgent _agent;
+    ConeDetection _coneDetectionScript;
 
     public bool IsEnemyRayHittingPlayer { get => _isEnemyRayHittingPlayer; set => _isEnemyRayHittingPlayer = value; }
     public byte Health { get => _health; set => _health = value; }

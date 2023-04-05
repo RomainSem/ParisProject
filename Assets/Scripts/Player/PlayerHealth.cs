@@ -43,6 +43,8 @@ public class PlayerHealth : MonoBehaviour
 
         _healthBarGreen.fillAmount = _currentHealth / _maxHealth;
         _healthBarRed.fillAmount = _previousHealth / _maxHealth;
+
+        _lastDamageTime += Time.deltaTime;
     }
 
     #endregion
@@ -61,9 +63,33 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (_lastDamageTime >= 1f)
+            {
+                _lastDamageTime = 0f;
+                StartCoroutine(LoseHPSlow(_enemyBehaviour.Damage));
+            }
+        }
+    }
+
     private void LoseHP(float enemyDamage)
     {
+        {
+            _currentHealth -= enemyDamage;
+        }
+    }
+
+    IEnumerator LoseHPSlow(float enemyDamage)
+    {
         _currentHealth -= enemyDamage;
+        if (_currentHealth <= 0)
+        {
+            IsPlayerDead = true;
+        }
+        yield return null;
     }
 
     #endregion
@@ -74,6 +100,7 @@ public class PlayerHealth : MonoBehaviour
     float t = 0;
     EnemyBehaviour _enemyBehaviour;
     float _previousHealth;
+    float _lastDamageTime;
 
     public bool IsPlayerDead { get => _isPlayerDead; set => _isPlayerDead = value; }
 

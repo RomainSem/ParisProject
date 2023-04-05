@@ -29,15 +29,15 @@ public class PistolLaser : MonoBehaviour
     {
         if (_playerAimScript.IsAiming)
         {
-            RaycastHit hit;
+            //RaycastHit hit;
             Vector3 pistolDirection = new Vector3(0, 0, 100);
-            if (Physics.Raycast(transform.position, pistolDirection, out hit, Mathf.Infinity))
-            {
+            //if (Physics.Raycast(transform.position, pistolDirection, out hit, Mathf.Infinity))
+            //{
 
             _pistolLaser.enabled = true;
             //pistolDirection = new Vector3(0, 0 , 100);
             _pistolLaser.SetPosition(1 , pistolDirection);
-            }
+            //}
         }
         else
         {

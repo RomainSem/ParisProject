@@ -26,6 +26,7 @@ public class SimpleShoot : MonoBehaviour
     [Tooltip("Time To Reload")][SerializeField] float timeToReload = 1.5f;
 
     [Tooltip("Reload Text Blink")][SerializeField] TextMeshProUGUI reloadTxt;
+    [Tooltip("UI Bullets Panel")][SerializeField] GameObject _bulletPanel;
 
     [SerializeField] PlayerAim _playerAimScript;
 
@@ -53,14 +54,15 @@ if (_playerAimScript == null)
             //If you want a different input, change it here
             if (Input.GetButtonDown("Fire1"))
             {
-                if (currentNbBullets > 0)
+                if (currentNbBullets > 0 || IsReloading == false)
                 {
                     //Calls animation on the gun that has the relevant animation events that will fire
                     gunAnimator.SetTrigger("Fire");
                 }
             }
-            if (currentNbBullets <= 0)
+            if (currentNbBullets <= 0 && IsReloading == false || currentNbBullets < maxNbBullets && Input.GetButtonDown("Reload") && IsReloading == false)
             {
+                currentNbBullets = 0;
                 StartCoroutine("Reload");
             }
         }
@@ -117,8 +119,10 @@ if (_playerAimScript == null)
         float blinkTime = 0; // Le temps écoulé depuis le dernier clignotement
         bool blink = false; // Indique si le texte doit être visible ou non
         isReloading = true;
+        _bulletPanel.SetActive(false);
 
-        for (int i = 0; i < 450; i++)
+
+        for (int i = 0; i < 400; i++)
         {
             blinkTime += Time.deltaTime;
 
@@ -137,6 +141,7 @@ if (_playerAimScript == null)
         isReloading = false;
 
         // Remettre la couleur normale du texte
+        _bulletPanel.SetActive(true);
         reloadTxt.color = Color.clear;
     }
 
