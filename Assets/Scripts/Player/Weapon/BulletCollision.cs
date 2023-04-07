@@ -8,9 +8,9 @@ public class BulletCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.CompareTag == 8)
-        //{
-        //    Destroy(gameObject.transform.parent);
-        //}
+        if (collision.gameObject.layer == 8)
+        {
+            Destroy(gameObject);
+        }
     }
 }
