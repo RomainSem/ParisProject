@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - EnemyCone
   - Bullet
+  - Decal
   layers:
   - Default
   - TransparentFX
