@@ -96,7 +96,7 @@ public class PistolLaser : MonoBehaviour
                     if (hit.collider.gameObject.layer == 8)
                     {
                         // Créer un trou de balle sur l'objet touché
-                        GameObject decal = Instantiate(_bulletHole, hit.point- new Vector3(0, 0, -1f), Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        GameObject decal = Instantiate(_bulletHole, hit.point, Quaternion.FromToRotation(Vector3.forward, -hit.normal));
                         Destroy(decal, 5);
                     }
                 }
