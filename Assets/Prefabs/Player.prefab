@@ -184,7 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366df39ab90f6a54ea53da9ca8ffbf90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1
+  _maxHealth: 10
+  _currentHealth: 0
+  _healthBarGreen: {fileID: 0}
+  _healthBarRed: {fileID: 0}
 --- !u!1001 &178246154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,7 +218,7 @@ PrefabInstance:
     - target: {fileID: 2229708070336108900, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.05
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2634056916001665912, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
@@ -324,6 +327,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pistol: {fileID: 2867417286231276132}
   _playerAimScript: {fileID: 209202312}
+  _bulletHole: {fileID: 2799542576237128460, guid: c7f4e6c58a819ec4f8a5d019ccf73e01,
+    type: 3}
 --- !u!1 &2867417286231276132 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2867417286392604782, guid: 37e98970f8baf7647b735d9036006f0d,
