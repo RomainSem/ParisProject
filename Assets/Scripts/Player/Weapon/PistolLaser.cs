@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class PistolLaser : MonoBehaviour
 {
@@ -15,12 +11,6 @@ public class PistolLaser : MonoBehaviour
     #endregion
 
     #region Unity Lifecycle
-
-    private void Awake()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player");
-    }
-
     void Start()
     {
         _pistolLaser = GetComponent<LineRenderer>();
@@ -62,7 +52,6 @@ public class PistolLaser : MonoBehaviour
         }
     }
 
-
     #endregion
 
     #region Methods
@@ -72,7 +61,6 @@ public class PistolLaser : MonoBehaviour
     #region Private & Protected
 
     LineRenderer _pistolLaser;
-    GameObject _player;
     SimpleShoot _simpleShootScript;
     #endregion
 }
