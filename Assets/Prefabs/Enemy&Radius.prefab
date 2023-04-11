@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 254357756}
   - component: {fileID: 254357758}
   - component: {fileID: 254357757}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CircleDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3953,7 +3953,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3160
+  m_VersionIndex: 3163
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

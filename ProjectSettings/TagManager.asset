@@ -11,6 +11,7 @@ TagManager:
   - EnemyCone
   - Bullet
   - Decal
+  - Obstacle
   layers:
   - Default
   - TransparentFX

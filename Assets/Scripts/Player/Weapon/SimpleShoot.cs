@@ -61,11 +61,11 @@ if (_playerAimScript == null)
                     gunAnimator.SetTrigger("Fire");
                 }
             }
-            if (currentNbBullets <= 0 && IsReloading == false || currentNbBullets < maxNbBullets && Input.GetButtonDown("Reload") && IsReloading == false)
-            {
-                currentNbBullets = 0;
-                StartCoroutine("Reload");
-            }
+        }
+        if (currentNbBullets <= 0 && IsReloading == false || currentNbBullets < maxNbBullets && Input.GetButtonDown("Reload") && IsReloading == false)
+        {
+            currentNbBullets = 0;
+            StartCoroutine("Reload");
         }
     }
 

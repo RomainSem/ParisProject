@@ -37,10 +37,10 @@ public class PistolLaser : MonoBehaviour
                     GameObject hitObject = hit.transform.gameObject;
                     Debug.Log("Le Raycast a touché l'objet : " + hitObject.name);
 
-                    if (hit.collider.gameObject.layer == 8 && _simpleShootScript.IsShooting)
+                    if (/*hit.collider.gameObject.CompareTag("Obstacle") && */_simpleShootScript.IsShooting)
                     {
                         // Créer un trou sur l'objet touché
-                        GameObject decal = Instantiate(_bulletHole, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                        GameObject decal = Instantiate(_bulletHole, hit.point, Quaternion.FromToRotation(-Vector3.forward, hit.normal));
                         Destroy(decal, 5);
                     }
                 }
