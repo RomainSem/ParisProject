@@ -28,75 +28,28 @@ public class PistolLaser : MonoBehaviour
         _simpleShootScript = _pistol.GetComponentInChildren<SimpleShoot>();
     }
 
-    //WORKING UPDATE
-    //void Update()
-    //{
-    //    if (_playerAimScript.IsAiming)
-    //    {
-    //        Vector3 pistolDirection = new Vector3(0, 0, 100);
-    //            _pistolLaser.enabled = true;
-    //            _pistolLaser.SetPosition(1, pistolDirection);
-    //    }
-    //    else
-    //    {
-    //        _pistolLaser.enabled = false;
-    //    }
-    //}
-
-
-    //TESTS
-    //void Update()
-    //{
-    //    if (_playerAimScript.IsAiming)
-    //    {
-    //        _pistolLaser.enabled = true;
-
-    //        Vector3 pistolDirection = new Vector3(0, 0, 100);
-    //        RaycastHit hit;
-
-    //        //D�finir les couches qui doivent �tre touch�es par le Raycast
-    //        //int layerMask = LayerMask.GetMask("NomDeLaCouche");
-
-    //        if (Physics.Raycast(transform.position, pistolDirection, out hit, Mathf.Infinity))
-    //        {
-    //            //D�finir la position de la fin du laser sur le point d'impact
-    //            Debug.Log(hit.collider.gameObject.name);
-    //            _pistolLaser.SetPosition(0, hit.point);
-    //        }
-    //        else
-    //        {
-    //            //Si le Raycast ne touche aucun objet, d�finir la position de la fin du laser � 100 unit�s
-    //            _pistolLaser.SetPosition(0, pistolDirection);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        _pistolLaser.enabled = false;
-    //    }
-    //}
-
     void Update()
     {
         if (_playerAimScript.IsAiming)
         {
-            //_pistolLaser.SetPosition(1, new Vector3(0, 0, 100));
 
             // Lancer un Raycast dans la direction du pistolet
-            if (!_simpleShootScript.IsReloading && Input.GetButtonDown("Fire1"))
+            if (!_simpleShootScript.IsReloading)
             {
                 _pistolLaser.enabled = true;
-                Vector3 pistolDirection = new Vector3(0, 0, 100);
                 RaycastHit hit;
-                if (Physics.Raycast(transform.position, pistolDirection, out hit))
+                if (Physics.Raycast(transform.position, transform.forward * 100, out hit))
                 {
-                    _pistolLaser.SetPosition(1, pistolDirection);
+                    //Vector3 pistolDirection = new Vector3(0, 0, 100);
+                    Debug.DrawLine(transform.position, hit.point);
+                    _pistolLaser.SetPosition(1, transform.InverseTransformPoint(hit.point));
                     // Vérifier si le Raycast a touché un objet
                     GameObject hitObject = hit.transform.gameObject;
-                    Debug.Log("Le Raycast a touché l'objet : " + hitObject.layer);
+                    Debug.Log("Le Raycast a touché l'objet : " + hitObject.name);
 
-                    if (hit.collider.gameObject.layer == 8)
+                    if (hit.collider.gameObject.layer == 8 && _simpleShootScript.IsShooting)
                     {
-                        // Créer un trou de balle sur l'objet touché
+                        // Créer un trou sur l'objet touché
                         GameObject decal = Instantiate(_bulletHole, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
                         Destroy(decal, 5);
                     }
@@ -121,6 +74,5 @@ public class PistolLaser : MonoBehaviour
     LineRenderer _pistolLaser;
     GameObject _player;
     SimpleShoot _simpleShootScript;
-
     #endregion
 }

@@ -12,5 +12,7 @@ public class BulletCollision : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
     }
+
 }

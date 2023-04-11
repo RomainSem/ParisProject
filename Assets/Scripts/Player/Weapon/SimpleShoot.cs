@@ -49,6 +49,7 @@ if (_playerAimScript == null)
 
     void Update()
     {
+        isShooting = false;
         if (_playerAimScript.IsAiming)
         {
             //If you want a different input, change it here
@@ -89,6 +90,7 @@ if (_playerAimScript == null)
         // Create a bullet and add force on it in direction of the barrel
         tempBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
         currentNbBullets--;
+        isShooting = true;
         tempBullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
         Destroy(tempBullet, 5f);
 
@@ -147,7 +149,9 @@ if (_playerAimScript == null)
 
     GameObject tempBullet;
     bool isReloading;
+    bool isShooting;
 
     public float CurrentNbBullets { get => currentNbBullets; set => currentNbBullets = value; }
     public bool IsReloading { get => isReloading; set => isReloading = value; }
+    public bool IsShooting { get => isShooting; set => isShooting = value; }
 }
