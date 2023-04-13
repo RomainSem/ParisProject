@@ -12,6 +12,9 @@ TagManager:
   - Bullet
   - Decal
   - Obstacle
+  - GameManager
+  - PlayerKickLeg
+  - EnemyPunchArm
   layers:
   - Default
   - TransparentFX

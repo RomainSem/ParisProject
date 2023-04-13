@@ -17,6 +17,14 @@ public class PlayerInput : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         _leftStickDirection = new Vector3(horizontal, 0, vertical).normalized;
+        if (Input.GetButtonDown("Kick"))
+        {
+            _isKicking = true;
+        }
+        else
+        {
+            _isKicking = false;
+        }
     }
 
     #endregion
@@ -29,7 +37,9 @@ public class PlayerInput : MonoBehaviour
 
     #region Private & Protected
 
-    
+    bool _isKicking;
+
+    public bool IsKicking { get => _isKicking; set => _isKicking = value; }
 
     #endregion
 }

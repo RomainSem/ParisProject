@@ -17,11 +17,6 @@ public class PlayerHealth : MonoBehaviour
 
     #region Unity Lifecycle
 
-    private void Awake()
-    {
-
-    }
-
     void Start()
     {
         t = 0;
@@ -51,9 +46,9 @@ public class PlayerHealth : MonoBehaviour
 
     #region Methods
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("EnemyPunchArm"))
         {
             LoseHP(_enemyBehaviour.Damage);
             if (_currentHealth <= 0)
@@ -63,9 +58,9 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("EnemyPunchArm"))
         {
             if (_lastDamageTime >= 1f)
             {

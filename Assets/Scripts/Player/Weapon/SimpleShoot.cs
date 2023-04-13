@@ -26,7 +26,7 @@ public class SimpleShoot : MonoBehaviour
     [Tooltip("Time To Reload")][SerializeField] float timeToReload = 1.5f;
 
     [Tooltip("Reload Text Blink")][SerializeField] TextMeshProUGUI reloadTxt;
-    [Tooltip("UI Bullets Panel")][SerializeField] GameObject _bulletPanel;
+    [Tooltip("UI Bullets Panel")][SerializeField] GameObject _nbBulletPanel;
 
     [SerializeField] PlayerAim _playerAimScript;
 
@@ -121,7 +121,7 @@ if (_playerAimScript == null)
         float blinkTime = 0; // Le temps écoulé depuis le dernier clignotement
         bool blink = false; // Indique si le texte doit être visible ou non
         isReloading = true;
-        _bulletPanel.SetActive(false);
+        _nbBulletPanel.SetActive(false);
 
 
         for (int i = 0; i < 400; i++)
@@ -143,7 +143,7 @@ if (_playerAimScript == null)
         isReloading = false;
 
         // Remettre la couleur normale du texte
-        _bulletPanel.SetActive(true);
+        _nbBulletPanel.SetActive(true);
         reloadTxt.color = Color.clear;
     }
 

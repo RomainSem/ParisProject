@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] GameObject _player;
     [SerializeField] byte _health = 5;
     [SerializeField] byte _damage = 1;
+    [SerializeField] byte _kickImpact = 5;
     [SerializeField] PlayerDetected _playerDetectedScript;
 
 
@@ -29,6 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _coneDetectionScript = GetComponentInChildren<ConeDetection>();
         _animator = GetComponent<Animator>();
+        _rgbd = GetComponent<Rigidbody>();
         //_agent.updatePosition = false;
         //_agent.updateRotation = false;
     }
@@ -45,7 +47,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        if (_agent.enabled == false)
+        {
+            if (_rgbd.velocity.magnitude < 0.1f)
+            {
+                _agent.enabled = true;
+            }
+        }
     }
 
     #endregion
@@ -86,6 +94,17 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerKickLeg"))
+        {
+            _agent.enabled = false;
+            _animator.SetTrigger("IsHit");
+            Debug.Log("bgjezrngzjoenhoz");
+            _rgbd.AddForce(-transform.forward * _kickImpact, ForceMode.Impulse);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -100,6 +119,8 @@ public class EnemyBehaviour : MonoBehaviour
     bool _isEnemyRayHittingPlayer;
     bool _isAttacked;
     int _nbEnemies;
+    Vector3 _impact;
+    Rigidbody _rgbd;
     NavMeshAgent _agent;
     ConeDetection _coneDetectionScript;
     Animator _animator;

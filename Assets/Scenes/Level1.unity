@@ -315,8 +315,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2074327547}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &184109928
 Mesh:
@@ -514,12 +514,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &235310321 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7650545922102959674, guid: 9690d78f84eb67b41b1cf90343259ab7,
-    type: 3}
-  m_PrefabInstance: {fileID: 918214868}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &294930968
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +780,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7650545920806526381, guid: 9690d78f84eb67b41b1cf90343259ab7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7650545922259423683, guid: 9690d78f84eb67b41b1cf90343259ab7,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -824,7 +823,7 @@ PrefabInstance:
     - target: {fileID: 7650545922308107517, guid: 9690d78f84eb67b41b1cf90343259ab7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7650545922308107517, guid: 9690d78f84eb67b41b1cf90343259ab7,
         type: 3}
@@ -1151,7 +1150,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _bulletPanel
       value: 
-      objectReference: {fileID: 235310321}
+      objectReference: {fileID: 1883566658}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1689dafca1b24f459362178fc0d00d1, type: 3}
 --- !u!43 &1028866844
@@ -3662,6 +3661,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1883566658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7650545922259423680, guid: 9690d78f84eb67b41b1cf90343259ab7,
+    type: 3}
+  m_PrefabInstance: {fileID: 918214868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1928763705
 GameObject:
   m_ObjectHideFlags: 0
@@ -3852,7 +3857,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 168315853}
   - {fileID: 918214869}
   m_Father: {fileID: 0}
   m_RootOrder: 6

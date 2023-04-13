@@ -41,6 +41,8 @@ public class PistolLaser : MonoBehaviour
                     {
                         // Créer un trou sur l'objet touché
                         GameObject decal = Instantiate(_bulletHole, hit.point, Quaternion.FromToRotation(-Vector3.forward, hit.normal));
+                        decal.transform.position = hit.point;
+                        decal.transform.parent = hitObject.transform;
                         Destroy(decal, 5);
                     }
                 }

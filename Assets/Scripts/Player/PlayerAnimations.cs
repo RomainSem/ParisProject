@@ -17,6 +17,7 @@ public class PlayerAnimations : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _playerMovScript = GetComponent<PlayerMovement>();
         _playerAimScript = GetComponent<PlayerAim>();
+        _playerInputScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerInput>();
         _rgbd = GetComponent<Rigidbody>();
         if (_goToBedScript != null)
         {
@@ -51,6 +52,7 @@ public class PlayerAnimations : MonoBehaviour
             _animator.SetFloat("headingX", relative.x);
             _animator.SetFloat("headingZ", relative.z);
         }
+        _animator.SetBool("IsKicking", _playerInputScript.IsKicking);
     }
 
     #endregion
@@ -64,6 +66,7 @@ public class PlayerAnimations : MonoBehaviour
     Animator _animator;
     PlayerMovement _playerMovScript;
     PlayerAim _playerAimScript;
+    PlayerInput _playerInputScript;
     GoToBedScript _goToBedScript;
     Rigidbody _rgbd;
 
