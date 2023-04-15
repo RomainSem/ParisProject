@@ -16,6 +16,8 @@ public class PistolLaser : MonoBehaviour
         _pistolLaser = GetComponent<LineRenderer>();
         _pistolLaser.widthMultiplier = 0.1f;
         _simpleShootScript = _pistol.GetComponentInChildren<SimpleShoot>();
+        _playerInputScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerInput>();
+        _kickCooldownScript = _pistol.GetComponentInParent<Animator>().GetBehaviour<KickCooldown>();
     }
 
     void Update()
@@ -24,7 +26,7 @@ public class PistolLaser : MonoBehaviour
         {
 
             // Lancer un Raycast dans la direction du pistolet
-            if (!_simpleShootScript.IsReloading)
+            if (!_simpleShootScript.IsReloading && !_kickCooldownScript.IsKickingAnim /* && _playerInputScript.CanKick*/)
             {
                 _pistolLaser.enabled = true;
                 RaycastHit hit;
@@ -63,6 +65,8 @@ public class PistolLaser : MonoBehaviour
     #region Private & Protected
 
     LineRenderer _pistolLaser;
+    PlayerInput _playerInputScript;
     SimpleShoot _simpleShootScript;
+    KickCooldown _kickCooldownScript;
     #endregion
 }

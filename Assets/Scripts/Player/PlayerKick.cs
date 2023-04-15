@@ -20,32 +20,32 @@ public class PlayerKick : MonoBehaviour
     void Start()
     {
         _playerInputScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerInput>();
+        _rgb = GetComponentInParent<Rigidbody>();
     }
 
     void Update()
     {
-        //Kick();
     }
 
     #endregion
 
     #region Methods
 
-    //public void Kick()
-    //{
-    //    if (_playerInputScript.IsKicking)
-    //    {
-    //        _rightLegCollider.enabled = true;
-    //    }
-    //    else
-    //    {
-    //        _rightLegCollider.enabled = false;
-    //    }
-    //}
+    public void EnableConstraints()
+    {
+        _rgb.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    public void DisableConstraints()
+    {
+        _rgb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+    }
+
 
     public void EnableKick()
     {
         _rightLegCollider.enabled = true;
+
     }
 
     public void DisableKick()
@@ -58,6 +58,7 @@ public class PlayerKick : MonoBehaviour
     #region Private & Protected
 
     PlayerInput _playerInputScript;
+    Rigidbody _rgb;
 
     #endregion
 }

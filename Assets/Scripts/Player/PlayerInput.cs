@@ -7,10 +7,12 @@ public class PlayerInput : MonoBehaviour
     #region Exposed
 
     public static Vector3 _leftStickDirection;
+    [SerializeField] float _kickCooldownTime = 10;
 
     #endregion
 
     #region Unity Lifecycle
+
 
     void Update()
     {
@@ -19,7 +21,11 @@ public class PlayerInput : MonoBehaviour
         _leftStickDirection = new Vector3(horizontal, 0, vertical).normalized;
         if (Input.GetButtonDown("Kick"))
         {
-            _isKicking = true;
+            if (_canKick)
+            {
+                _isKicking = true;
+                StartCoroutine(TimerKick());
+            }
         }
         else
         {
@@ -32,14 +38,22 @@ public class PlayerInput : MonoBehaviour
     #region Methods
 
 
+    IEnumerator TimerKick()
+    {
+        _canKick = false;
+        yield return new WaitForSeconds(_kickCooldownTime);
+        _canKick = true;
+    }
 
     #endregion
 
     #region Private & Protected
 
     bool _isKicking;
-
+    bool _canKick = true;
     public bool IsKicking { get => _isKicking; set => _isKicking = value; }
+    public bool CanKick { get => _canKick; set => _canKick = value; }
+    public float KickCooldownTime { get => _kickCooldownTime; set => _kickCooldownTime = value; }
 
     #endregion
 }

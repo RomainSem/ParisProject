@@ -21,20 +21,18 @@ public class PlayerAim : MonoBehaviour
 
     void Start()
     {
-
+        _playerInput = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerInput>();
+        _animator = GetComponentInChildren<Animator>();
+        _kickCooldownScript = _animator.GetBehaviour<KickCooldown>();
     }
 
     void Update()
     {
-        //if (!_playerMovScript.IsRunning)
-        //{
-        //    Aim();
-        //}
     }
 
     private void FixedUpdate()
     {
-        if (!_playerMovScript.IsRunning)
+        if (!_playerMovScript.IsRunning && !_kickCooldownScript.IsKickingAnim)
         {
             Aim();
         }
@@ -86,6 +84,9 @@ public class PlayerAim : MonoBehaviour
     #region Private & Protected
 
     PlayerMovement _playerMovScript;
+    PlayerInput _playerInput;
+    Animator _animator;
+    KickCooldown _kickCooldownScript;
     bool _isAiming;
     Rigidbody _rigidbody;
     float _turnSmoothVelocity;

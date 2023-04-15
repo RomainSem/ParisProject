@@ -55041,6 +55041,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.5
+    functionName: EnableConstraints
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.75
     functionName: EnableKick
     data: 
@@ -55050,6 +55057,13 @@ AnimationClip:
     messageOptions: 0
   - time: 1
     functionName: DisableKick
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.25
+    functionName: DisableConstraints
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
