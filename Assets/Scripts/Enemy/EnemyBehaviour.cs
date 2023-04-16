@@ -11,7 +11,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] GameObject _player;
     [SerializeField] byte _health = 5;
     [SerializeField] byte _damage = 1;
-    [SerializeField] byte _kickImpact = 5;
+    [SerializeField] byte _kickImpact = 8;
+    [SerializeField] byte _bulletImpact = 6;
     [SerializeField] PlayerDetected _playerDetectedScript;
 
 
@@ -85,6 +86,7 @@ public class EnemyBehaviour : MonoBehaviour
             _isAttacked = true;
             _health--;
             _animator.SetTrigger("IsHit");
+            _rgbd.AddForce(-transform.forward * _bulletImpact, ForceMode.Impulse);
             Debug.Log("Enemy Health: " + _health);
             if (_health <= 0)
             {

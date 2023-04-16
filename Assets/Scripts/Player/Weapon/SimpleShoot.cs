@@ -23,7 +23,7 @@ public class SimpleShoot : MonoBehaviour
 
     [Tooltip("Max Number of Bullets")][SerializeField] float maxNbBullets = 7f;
     [Tooltip("Current Number of Bullets")][SerializeField] float currentNbBullets;
-    [Tooltip("Time To Reload")][SerializeField] float timeToReload = 1.5f;
+    //[Tooltip("Time To Reload")][SerializeField] float timeToReload = 1.5f;
 
     [Tooltip("Reload Text Blink")][SerializeField] TextMeshProUGUI reloadTxt;
     [Tooltip("UI Bullets Panel")][SerializeField] GameObject _nbBulletPanel;

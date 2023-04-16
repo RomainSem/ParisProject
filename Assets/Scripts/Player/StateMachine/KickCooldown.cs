@@ -9,7 +9,11 @@ public class KickCooldown : StateMachineBehaviour
     {
         _playerAimScript = animator.gameObject.GetComponentInParent<PlayerAim>();
         _pistolLaser = animator.gameObject.GetComponentInChildren<LineRenderer>();
+        _playerInputScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerInput>();
+        _playerMovementScript = animator.gameObject.GetComponentInParent<PlayerMovement>();
         _isKickingAnim = true;
+        _playerInputScript.enabled = false;
+        _playerMovementScript.enabled = false;
         _playerAimScript.enabled = false;
         _pistolLaser.enabled = false;
     }
@@ -25,6 +29,8 @@ public class KickCooldown : StateMachineBehaviour
     {
         Debug.LogWarning("EXIT ANIMATOR");
         _playerAimScript.enabled = true;
+        _playerInputScript.enabled = true;
+        _playerMovementScript.enabled = true;
         _pistolLaser.enabled = true;
         _isKickingAnim = false;
     }
@@ -33,6 +39,8 @@ public class KickCooldown : StateMachineBehaviour
     bool _isKickingAnim;
     PlayerAim _playerAimScript;
     LineRenderer _pistolLaser;
+    PlayerInput _playerInputScript;
+    PlayerMovement _playerMovementScript;
 
     public bool IsKickingAnim { get => _isKickingAnim; set => _isKickingAnim = value; }
 }
