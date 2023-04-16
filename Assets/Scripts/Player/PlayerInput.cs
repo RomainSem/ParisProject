@@ -13,6 +13,10 @@ public class PlayerInput : MonoBehaviour
 
     #region Unity Lifecycle
 
+    private void Start()
+    {
+        _rgbd = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
@@ -23,6 +27,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (_canKick)
             {
+                _rgbd.velocity = Vector3.zero;
                 _isKicking = true;
                 StartCoroutine(TimerKick());
             }
@@ -51,6 +56,7 @@ public class PlayerInput : MonoBehaviour
 
     bool _isKicking;
     bool _canKick = true;
+    Rigidbody _rgbd;
     public bool IsKicking { get => _isKicking; set => _isKicking = value; }
     public bool CanKick { get => _canKick; set => _canKick = value; }
     public float KickCooldownTime { get => _kickCooldownTime; set => _kickCooldownTime = value; }

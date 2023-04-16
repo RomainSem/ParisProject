@@ -44,6 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _coneDetectionScript.IsDetectedByEnemy = true;
         }
+        _lastDamageTime += Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -84,16 +85,28 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             _isAttacked = true;
-            _health--;
+            Destroy(collision.gameObject);
+            if (_lastDamageTime >= 0.5f)
+            {
+                _lastDamageTime = 0f;
+                StartCoroutine(LoseHPSlow(1));
+            }
             _animator.SetTrigger("IsHit");
             _rgbd.AddForce(-transform.forward * _bulletImpact, ForceMode.Impulse);
             Debug.Log("Enemy Health: " + _health);
             if (_health <= 0)
             {
                 NbEnemies--;
+                _isEnemyDead = true;
                 Destroy(gameObject);
             }
         }
+    }
+
+    IEnumerator LoseHPSlow(float enemyDamage)
+    {
+        _health--;
+        yield return null;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,12 +133,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool _isEnemyRayHittingPlayer;
     bool _isAttacked;
+    bool _isEnemyDead;
     int _nbEnemies;
-    Vector3 _impact;
     Rigidbody _rgbd;
     NavMeshAgent _agent;
     ConeDetection _coneDetectionScript;
     Animator _animator;
+    float _lastDamageTime;
 
     public bool IsEnemyRayHittingPlayer { get => _isEnemyRayHittingPlayer; set => _isEnemyRayHittingPlayer = value; }
     public byte Health { get => _health; set => _health = value; }
