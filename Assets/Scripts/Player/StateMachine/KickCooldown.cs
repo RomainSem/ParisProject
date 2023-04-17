@@ -16,6 +16,7 @@ public class KickCooldown : StateMachineBehaviour
         _playerMovementScript.enabled = false;
         _playerAimScript.enabled = false;
         _pistolLaser.enabled = false;
+        Debug.Log("ENTER ANIMATOR");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -33,6 +34,7 @@ public class KickCooldown : StateMachineBehaviour
         _playerMovementScript.enabled = true;
         _pistolLaser.enabled = true;
         _isKickingAnim = false;
+        _playerInputScript.IsKicking = false;
     }
 
 

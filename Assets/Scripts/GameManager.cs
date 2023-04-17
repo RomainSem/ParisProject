@@ -26,9 +26,9 @@ public class GameManager : MonoBehaviour
         _simpleShootScript = _player.GetComponentInChildren<SimpleShoot>();
         _playerInputScript = GetComponent<PlayerInput>();
 
-        //Debug.LogError("Force the build console open...");
 #if DEVELOPMENT_BUILD
 
+        Debug.LogError("Force the build console open...");
         if (_playerHealthScript == null)
 	    {
             Debug.Log("PLAYER HEALTH IS NULL");

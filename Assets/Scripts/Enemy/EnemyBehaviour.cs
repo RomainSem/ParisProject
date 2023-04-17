@@ -11,20 +11,14 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] GameObject _player;
     [SerializeField] byte _health = 5;
     [SerializeField] byte _damage = 1;
-    [SerializeField] byte _kickImpact = 8;
+    [SerializeField] byte _kickImpact = 10;
     [SerializeField] byte _bulletImpact = 6;
     [SerializeField] PlayerDetected _playerDetectedScript;
-
 
 
     #endregion
 
     #region Unity Lifecycle
-
-    private void Awake()
-    {
-    }
-
     void Start()
     {
         NbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
@@ -32,13 +26,10 @@ public class EnemyBehaviour : MonoBehaviour
         _coneDetectionScript = GetComponentInChildren<ConeDetection>();
         _animator = GetComponent<Animator>();
         _rgbd = GetComponent<Rigidbody>();
-        //_agent.updatePosition = false;
-        //_agent.updateRotation = false;
     }
 
     void Update()
     {
-        //Debug.Log(NbEnemies);
         RaycastToPlayer();
         if (_isAttacked)
         {
@@ -103,9 +94,9 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    IEnumerator LoseHPSlow(float enemyDamage)
+    IEnumerator LoseHPSlow(byte enemyDamage)
     {
-        _health--;
+        _health -= enemyDamage;
         yield return null;
     }
 
@@ -115,7 +106,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _agent.enabled = false;
             _animator.SetTrigger("IsHit");
-            Debug.Log("bgjezrngzjoenhoz");
             _rgbd.AddForce(-transform.forward * _kickImpact, ForceMode.Impulse);
         }
     }

@@ -34,8 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Move();
-        //_rigidbdy.velocity = Vector3.zero;
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
             _isMoving = true;
@@ -44,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _isMoving = false;
         }
-        Debug.Log(IsRunning);
     }
 
     private void FixedUpdate()
@@ -82,20 +79,16 @@ public class PlayerMovement : MonoBehaviour
             IsRunning = false;
             MoveSpeed = _walkSpeed;
         }
-        //_rigidbdy.AddForce((upMovement + rightMovement) * MoveSpeed, ForceMode.Force);
         if (_heading.magnitude >= 0.1f)
         {
-            //_rigidbdy.MovePosition(transform.position += _heading * MoveSpeed * Time.fixedDeltaTime);
-            // TEST ADDFORCE MODE VELOCITY
             _heading.Normalize();
             _rigidbdy.AddForce(_heading * MoveSpeed, ForceMode.VelocityChange);
-            //_rigidbdy.velocity = _heading * MoveSpeed /** Time.fixedDeltaTime*/;
         }
         else
         {
             _rigidbdy.velocity = Vector3.zero;
         }
-        //}
+        Debug.Log(_heading.magnitude);
     }
 
     void ComputeHeading()
