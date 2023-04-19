@@ -36,6 +36,7 @@ public class EnemyBehaviour : MonoBehaviour
             _coneDetectionScript.IsDetectedByEnemy = true;
         }
         _lastDamageTime += Time.deltaTime;
+        _animator.SetInteger("Health", _health);
     }
 
     private void FixedUpdate()
@@ -105,8 +106,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerKickLeg"))
         {
             _agent.enabled = false;
-            _animator.SetTrigger("IsHit");
             _rgbd.AddForce(-transform.forward * _kickImpact, ForceMode.Impulse);
+            _animator.SetTrigger("IsKicked");
         }
     }
 
