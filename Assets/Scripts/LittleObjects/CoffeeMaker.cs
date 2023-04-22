@@ -58,10 +58,7 @@ public class CoffeeMaker : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (_isCoffeeMade)
-        {
-        }
-        else
+        if (!_isCoffeeMade)
         {
             ActivateOutline(0f);
             Instantiate(_cupOfCoffee, _instantiatePos);

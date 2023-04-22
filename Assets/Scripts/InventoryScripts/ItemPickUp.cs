@@ -13,26 +13,6 @@ public class ItemPickUp : MonoBehaviour
 
     #region Unity Lifecycle
 
-    private void Awake()
-    {
-        
-    }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
     #endregion
 
     #region Methods

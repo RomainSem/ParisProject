@@ -89,8 +89,9 @@ public class EnemyBehaviour : MonoBehaviour
             if (_health <= 0)
             {
                 NbEnemies--;
+                GetComponent<CapsuleCollider>().isTrigger = true;
                 _isEnemyDead = true;
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
     }
@@ -137,6 +138,7 @@ public class EnemyBehaviour : MonoBehaviour
     public int NbEnemies { get => _nbEnemies; set => _nbEnemies = value; }
     public byte Damage { get => _damage; set => _damage = value; }
     public PlayerDetected PlayerDetectedScript { get => _playerDetectedScript; set => _playerDetectedScript = value; }
+    public bool IsEnemyDead { get => _isEnemyDead; set => _isEnemyDead = value; }
 
     #endregion
 }

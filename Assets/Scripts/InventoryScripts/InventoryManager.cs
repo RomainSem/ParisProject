@@ -25,21 +25,6 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-
-    }
-
     #endregion
 
     #region Methods
