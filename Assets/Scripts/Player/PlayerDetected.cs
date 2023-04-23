@@ -13,6 +13,7 @@ public class PlayerDetected : MonoBehaviour
 
     private void Awake()
     {
+        if (_enemyBehaviourScript == null) return;
         _enemyBehaviourScript = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyBehaviour>();
     }
 

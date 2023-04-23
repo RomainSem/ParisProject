@@ -16,15 +16,17 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (_enemy == null) return;
         _enemy = GameObject.FindGameObjectWithTag("Enemy");
     }
 
     void Start()
     {
-        _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
         _playerHealthScript = _player.GetComponent<PlayerHealth>();
         _simpleShootScript = _player.GetComponentInChildren<SimpleShoot>();
         _playerInputScript = GetComponent<PlayerInput>();
+        if (_enemy == null) return;
+        _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
 
 #if DEVELOPMENT_BUILD
 
@@ -50,14 +52,16 @@ public class GameManager : MonoBehaviour
             _losePanel.SetActive(true);
         }
 
-        if (_enemyBehaviourScript.NbEnemies <= 0)
-        {
-            _winPanel.SetActive(true);
-        }
         if (!_playerInputScript.CanKick)
         {
             _isUpdatingKickCooldown = true;
         }
+        if (_enemy == null) return;
+        if (_enemyBehaviourScript.NbEnemies <= 0)
+        {
+            _winPanel.SetActive(true);
+        }
+
     }
 
     private void FixedUpdate()

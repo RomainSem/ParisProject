@@ -21,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     {
         t = 0;
         _currentHealth = _maxHealth;
+        if (_enemyBehaviour == null) return;
         _enemyBehaviour = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyBehaviour>();
     }
 
