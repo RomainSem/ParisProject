@@ -4823,7 +4823,6 @@ GameObject:
   - component: {fileID: 1929508743809371807}
   - component: {fileID: 2111137675153631610}
   - component: {fileID: -6255841566956174166}
-  - component: {fileID: 6631826203952349182}
   m_Layer: 0
   m_Name: Cup coffee
   m_TagString: Untagged
@@ -4840,8 +4839,8 @@ Transform:
   m_GameObject: {fileID: 1264716919285797925}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.601, y: 1.001, z: -0.901}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.85, y: 2.85, z: 2.85}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2652788552601484096}
   - {fileID: 359080605266508126}
@@ -4872,23 +4871,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1264716919285797925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e862e2db02c08d428f091e8ddc652ed, type: 3}
+  m_Script: {fileID: 11500000, guid: c3ed00bcbe91b2b499720c6248c5d637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 28bd4f44ddd222e4a9902adf77be872b, type: 2}
---- !u!114 &6631826203952349182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264716919285797925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b734a0442f32f434395e29a2ba877b8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _item: {fileID: 11400000, guid: 28bd4f44ddd222e4a9902adf77be872b, type: 2}
+  _itemToPickup: {fileID: 11400000, guid: 28bd4f44ddd222e4a9902adf77be872b, type: 2}
+  _inventoryManager: {fileID: 0}
 --- !u!1 &1498399775946625396
 GameObject:
   m_ObjectHideFlags: 0

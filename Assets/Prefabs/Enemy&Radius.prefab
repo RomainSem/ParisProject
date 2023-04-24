@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 6457705704294100081}
   - component: {fileID: 6457705704294100080}
   - component: {fileID: 1807550133}
+  - component: {fileID: 6457705704748492845}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -396,6 +397,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _punchCollider: {fileID: 482644739}
+--- !u!114 &6457705704748492845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457705704294100094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd0edf54dba51b4aafa92bbf46126d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lootMenu: {fileID: 0}
 --- !u!1 &6457705704346564157
 GameObject:
   m_ObjectHideFlags: 0
@@ -3969,7 +3983,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3181
+  m_VersionIndex: 3184
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

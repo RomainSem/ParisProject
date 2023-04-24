@@ -1,81 +1,123 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] InventorySlot[] _inventorySlots;
+    [SerializeField] GameObject _itemPrefab;
 
-    public static InventoryManager Instance;
-    #region Exposed
-
-    [SerializeField] List<Item> Items = new List<Item>();
-    [SerializeField] Transform ItemContent;
-    [SerializeField] GameObject InventoryItem;
-    [SerializeField] InventoryItemController[] InventoryItems;
-
-
-    #endregion
-
-    #region Unity Lifecycle
-
-    private void Awake()
+    private void Start()
     {
-        Instance = this;
+        ChangeSelectedSlot(0);
     }
 
-    #endregion
-
-    #region Methods
-
-    public void AddItem(Item item)
+    private void Update()
     {
-        Items.Add(item);
+        InputToNavigateThroughSlots();
     }
 
-    public void RemoveItem(Item item)
+    public bool AddItem(Item itemToAdd)
     {
-        Items.Remove(item);
-    }
-
-    public void ListItems()
-    {
-        foreach (Transform item in ItemContent)
+        // Check if item is already in inventory
+        // If it is, increase the quantity
+        // If it isn't, add it to the inventory
+        // If the inventory is full, drop the item on the ground
+        for (int i = 0; i < _inventorySlots.Length; i++)
         {
-            Destroy(item.gameObject);
+            InventorySlot slot = _inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponent<InventoryItem>();
+            if (itemInSlot != null)
+            {
+                if (itemToAdd.IsStackable)
+                {
+                    // slot._quantity++;
+
+                }
+                else
+                {
+                    SpawnNewItem(itemToAdd, slot);
+                    return true;
+                }
+            }
+            //else if (itemInSlot == itemToAdd)
+            //{
+            //    break;
+            //}
         }
-
-
-        foreach (var item in Items)
-        {
-            GameObject obj = Instantiate(InventoryItem, ItemContent);
-            var itemName = obj.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
-            var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-            var removeButton = obj.transform.Find("RemoveItemButton").GetComponent<Button>();
-
-            itemName.text = item.ItemName;
-            itemIcon.sprite = item.Icon;
-        }
-
-        SetInventoryItems();
+        return false;
     }
 
-    public void SetInventoryItems()
+    public void RemoveItem(Item itemToRemove)
     {
-        InventoryItems = ItemContent.GetComponentsInChildren<InventoryItemController>();
+        // Check if item is in inventory
+        // If it is, decrease the quantity
+        // If it isn't, do nothing
+    }
 
-        for (int i = 0; i < Items.Count; i++)
+    public void UseItem(Item itemToUse)
+    {
+        // Check if item is in inventory
+        // If it is, use the item
+        // If it isn't, do nothing
+    }
+
+    void SpawnNewItem(Item itemToSpawn, InventorySlot slot)
+    {
+        GameObject newItemGo = Instantiate(_itemPrefab, slot.transform.parent);
+        newItemGo.transform.Find("ItemIcon").GetComponent<Image>().enabled = true;
+        InventoryItem newItem = newItemGo.GetComponent<InventoryItem>();
+        Debug.Log("SPAWN ITEM " + itemToSpawn);
+        newItem.InitialiseItem(itemToSpawn);
+    }
+
+    void ChangeSelectedSlot(int newValue)
+    {
+        if (_selectedSlot >= 0)
         {
-            InventoryItems[i].AddItem(Items[i]);
+            _inventorySlots[_selectedSlot].Deselect();
+        }
+        _inventorySlots[newValue].Select();
+        _selectedSlot = newValue;
+
+        //_selectedSlot = (int)Input.GetAxisRaw("Mouse ScrollWheel");
+        //_inventorySlots[_selectedSlot].Select();
+    }
+
+    void InputToNavigateThroughSlots()
+    {
+        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
+        {
+            if (_selectedSlot < _inventorySlots.Length - 1)
+            {
+                ChangeSelectedSlot(_selectedSlot + 1);
+            }
+            else
+            {
+                ChangeSelectedSlot(0);
+            }
+        }
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
+        {
+            if (_selectedSlot > 0)
+            {
+                ChangeSelectedSlot(_selectedSlot - 1);
+            }
+            else
+            {
+                ChangeSelectedSlot(_inventorySlots.Length - 1);
+            }
+        }
+        if (Input.inputString != null)
+        {
+            bool isNumber = int.TryParse(Input.inputString, out int number);
+            if (isNumber && number > 0 && number < 7)
+            {
+                ChangeSelectedSlot(number - 1);
+            }
         }
     }
 
-    #endregion
-
-    #region Private & Protected
-
-
-
-    #endregion
+    int _selectedSlot = -1;
 }

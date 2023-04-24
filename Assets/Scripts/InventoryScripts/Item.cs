@@ -17,4 +17,5 @@ public class Item : ScriptableObject
     public string ItemName { get => itemName; set => itemName = value; }
     public string Description { get => description; set => description = value; }
     public bool IsActive { get => isActive; set => isActive = value; }
+    public bool IsStackable { get => isStackable; set => isStackable = value; }
 }
