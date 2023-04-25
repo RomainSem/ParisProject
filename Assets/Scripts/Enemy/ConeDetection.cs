@@ -35,7 +35,6 @@ public class ConeDetection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log(other.name);
             //Debug.LogError("COLLIDE PLAYER");
             //_isPlayerInCone = true;
             if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)

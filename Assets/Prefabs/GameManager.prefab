@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _losePanel: {fileID: 0}
   _winPanel: {fileID: 0}
+  _kickCircleCooldownOBJ: {fileID: 0}
+  _kickCircleCooldownIMG: {fileID: 0}
   _nbBullets:
   - {fileID: 0}
   - {fileID: 0}
@@ -68,3 +70,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d06135dba558b4182822e071b4eab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _kickCooldownTime: 2
+  _playerRgbd: {fileID: 0}

@@ -10,28 +10,18 @@ public class InventoryItem : MonoBehaviour
     [HideInInspector]
     [SerializeField] int _quantity = 1;
 
-    private void Start()
-    {
-        _itemIcon = transform.Find("ItemIcon").GetComponent<Image>();
-        InitialiseItem(_item);
-    }
-
-    //private void Update()
-    //{
-    //    InitialiseItem(_item);
-    //}
-
     public void InitialiseItem(Item newItem)
     {
-        //if (_item != null)
-        //{
-        _item = newItem;
-        Debug.Log("_ITEM " + _item);
-        Debug.Log("NEW ITEM " + newItem);
-
-        _itemIcon.sprite = newItem.Icon;
-        //}
+        _itemIcon = transform.Find("ItemIcon").GetComponent<Image>();
+        if (_item == null)
+        {
+            _item = newItem;
+            _itemIcon.sprite = newItem.Icon;
+        }
     }
 
     Image _itemIcon;
+
+    public Item Item { get => _item; set => _item = value; }
+    public int Quantity { get => _quantity; set => _quantity = value; }
 }

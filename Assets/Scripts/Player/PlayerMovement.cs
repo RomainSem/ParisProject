@@ -88,7 +88,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _rigidbdy.velocity = Vector3.zero;
         }
-        Debug.Log(_heading.magnitude);
     }
 
     void ComputeHeading()

@@ -27,8 +27,8 @@ public class InventoryManager : MonoBehaviour
         for (int i = 0; i < _inventorySlots.Length; i++)
         {
             InventorySlot slot = _inventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponent<InventoryItem>();
-            if (itemInSlot != null)
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot == null)
             {
                 if (itemToAdd.IsStackable)
                 {
@@ -65,8 +65,8 @@ public class InventoryManager : MonoBehaviour
 
     void SpawnNewItem(Item itemToSpawn, InventorySlot slot)
     {
-        GameObject newItemGo = Instantiate(_itemPrefab, slot.transform.parent);
-        newItemGo.transform.Find("ItemIcon").GetComponent<Image>().enabled = true;
+        GameObject newItemGo = Instantiate(_itemPrefab, slot.transform);
+        //newItemGo.transform.Find("ItemIcon").GetComponent<Image>().enabled = true;
         InventoryItem newItem = newItemGo.GetComponent<InventoryItem>();
         Debug.Log("SPAWN ITEM " + itemToSpawn);
         newItem.InitialiseItem(itemToSpawn);
@@ -80,14 +80,35 @@ public class InventoryManager : MonoBehaviour
         }
         _inventorySlots[newValue].Select();
         _selectedSlot = newValue;
+    }
 
-        //_selectedSlot = (int)Input.GetAxisRaw("Mouse ScrollWheel");
-        //_inventorySlots[_selectedSlot].Select();
+    public Item GetSelectedItem(bool use) 
+    { 
+        InventorySlot slot = _inventorySlots[_selectedSlot];
+        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+        if (itemInSlot != null)
+        {
+            Item item = itemInSlot.Item;
+            if (use)
+            {
+                itemInSlot.Quantity--;
+                if (itemInSlot.Quantity <= 0)
+                {
+                    Destroy(itemInSlot.gameObject);
+                }
+                //else
+                //{
+                    //itemInSlot.RefreshCount();
+                //}
+            }
+            return item;
+        }
+        return null;
     }
 
     void InputToNavigateThroughSlots()
     {
-        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
+        if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
         {
             if (_selectedSlot < _inventorySlots.Length - 1)
             {
@@ -98,7 +119,7 @@ public class InventoryManager : MonoBehaviour
                 ChangeSelectedSlot(0);
             }
         }
-        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
         {
             if (_selectedSlot > 0)
             {

@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 40}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1099085087120456932
 CanvasRenderer:
@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 1099085087134688172}
   - component: {fileID: 1099085087134688171}
   - component: {fileID: 1217872669}
-  - component: {fileID: 2575768430271129337}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -116,7 +115,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1099085087134688173
 CanvasRenderer:
@@ -214,18 +213,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _item: {fileID: 0}
   _quantity: 1
---- !u!114 &2575768430271129337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1099085087134688169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e2e9b1ad296854aa173f8e9d1c797b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 1099085087134688172}
-  _selectedColor: {r: 1, g: 1, b: 1, a: 0.19607843}
-  _notSelectedColor: {r: 1, g: 1, b: 1, a: 0}
