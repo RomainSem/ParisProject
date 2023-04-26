@@ -1,11 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PickUpItem : MonoBehaviour
 {
     [SerializeField] Item _itemToPickup;
-    [SerializeField] InventoryManager _inventoryManager;
+
+    private void Start()
+    {
+        _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+        _itemDescUI = GameObject.Find("ItemDescPanel");
+        _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
+        _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
+        _itemName = _itemDescUI.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+        _itemDescUI.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (_isMouseClicked)
+        {
+            _itemDescUI.SetActive(false);
+        }
+    }
 
     private void PickupItem()
     {
@@ -40,16 +58,36 @@ public class PickUpItem : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        Debug.Log("PICK UP ITEM");
+        _isMouseClicked = true;
         PickupItem();
         Destroy(gameObject);
-        //Destroy(gameObject);
-        Debug.Log("ITEM DESTROY");
     }
+
+    
 
     private void OnMouseOver()
     {
         // CHANGER CURSEUR
+        // AFFICHER DESCRIPTION ITEM
+        _itemDescUI.SetActive(true);
+        _itemDescUI.transform.position = new Vector2(Input.mousePosition.x - 95, Input.mousePosition.y + 45);
+        _itemDescText.text = _itemToPickup.Description;
+        _itemDescTextGreen.text = _itemToPickup.DescriptionGreen;
+        _itemName.text = _itemToPickup.ItemName;
     }
+
+    private void OnMouseExit()
+    {
+        // CHANGER CURSEUR
+        // CACHER DESCRIPTION ITEM
+        _itemDescUI.SetActive(false);
+    }
+
+    GameObject _itemDescUI;
+    bool _isMouseClicked;
+    TextMeshProUGUI _itemDescText;
+    TextMeshProUGUI _itemName;
+    TextMeshProUGUI _itemDescTextGreen;
+    InventoryManager _inventoryManager;
 
 }

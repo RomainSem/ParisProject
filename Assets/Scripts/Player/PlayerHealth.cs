@@ -70,6 +70,15 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void Heal(float healAmount)
+    {
+        _currentHealth += healAmount;
+        if (_currentHealth > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
+        }
+    }
+
     private void LoseHP(float enemyDamage)
     {
         {

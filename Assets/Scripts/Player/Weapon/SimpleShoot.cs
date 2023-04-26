@@ -52,6 +52,7 @@ if (_playerAimScript == null)
         isShooting = false;
         if (_playerAimScript.IsAiming)
         {
+            Cursor.visible = false;
             //If you want a different input, change it here
             if (Input.GetButtonDown("Fire1"))
             {
@@ -61,6 +62,10 @@ if (_playerAimScript == null)
                     gunAnimator.SetTrigger("Fire");
                 }
             }
+        }
+        else
+        {
+            Cursor.visible = true;
         }
         if (currentNbBullets <= 0 && IsReloading == false || currentNbBullets < maxNbBullets && Input.GetButtonDown("Reload") && IsReloading == false)
         {
