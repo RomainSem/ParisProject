@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +8,11 @@ public class PlayerHealth : MonoBehaviour
 {
     #region Exposed
 
-    [SerializeField] float _maxHealth = 10;
-    [SerializeField] float _currentHealth;
+    [SerializeField] int _maxHealth = 100;
+    [SerializeField] int _currentHealth;
     [SerializeField] Image _healthBarGreen;
     [SerializeField] Image _healthBarRed;
+    [SerializeField] TextMeshProUGUI _healthNbUI;
 
 
     #endregion
@@ -38,8 +40,14 @@ public class PlayerHealth : MonoBehaviour
 
         _healthBarGreen.fillAmount = _currentHealth / _maxHealth;
         _healthBarRed.fillAmount = _previousHealth / _maxHealth;
+        _healthNbUI.text = _currentHealth.ToString("0") + " / " + _maxHealth.ToString("0");
 
         _lastDamageTime += Time.deltaTime;
+
+        if (_currentHealth <= 0)
+        {
+            IsPlayerDead = true;
+        }
     }
 
     #endregion
@@ -50,10 +58,10 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("EnemyPunchArm"))
         {
-            LoseHP(_enemyBehaviour.Damage);
-            if (_currentHealth <= 0)
+            if (_lastDamageTime >= 1f)
             {
-                IsPlayerDead = true;
+                _lastDamageTime = 0f;
+                LoseHP(_enemyBehaviour.Damage);
             }
         }
     }
@@ -70,7 +78,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void Heal(float healAmount)
+    public void Heal(int healAmount)
     {
         _currentHealth += healAmount;
         if (_currentHealth > _maxHealth)
@@ -79,20 +87,16 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void LoseHP(float enemyDamage)
+    private void LoseHP(int enemyDamage)
     {
         {
             _currentHealth -= enemyDamage;
         }
     }
 
-    IEnumerator LoseHPSlow(float enemyDamage)
+    IEnumerator LoseHPSlow(int enemyDamage)
     {
         _currentHealth -= enemyDamage;
-        if (_currentHealth <= 0)
-        {
-            IsPlayerDead = true;
-        }
         yield return null;
     }
 

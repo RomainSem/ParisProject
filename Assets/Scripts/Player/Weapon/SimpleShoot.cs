@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 
 [AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")]
 public class SimpleShoot : MonoBehaviour
@@ -27,6 +30,9 @@ public class SimpleShoot : MonoBehaviour
 
     [Tooltip("Reload Text Blink")][SerializeField] TextMeshProUGUI reloadTxt;
     [Tooltip("UI Bullets Panel")][SerializeField] GameObject _nbBulletPanel;
+
+    [SerializeField] int _bulletDamage;
+    [SerializeField] float _critMultiplier = 1.5f;
 
     [SerializeField] PlayerAim _playerAimScript;
 
@@ -94,6 +100,13 @@ if (_playerAimScript == null)
 
         // Create a bullet and add force on it in direction of the barrel
         tempBullet = Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation);
+        int critChance = Random.Range(0, 100);
+        _bulletDamage = Random.Range(10, 20);
+        if (critChance < 10)
+        {
+            _bulletDamage = Mathf.CeilToInt(_bulletDamage * _critMultiplier);
+        }
+        Debug.Log("Bullet damage : " + _bulletDamage);
         currentNbBullets--;
         isShooting = true;
         tempBullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
@@ -136,7 +149,6 @@ if (_playerAimScript == null)
             // Clignoter le texte
             if (blinkTime >= blinkSpeed)
             {
-                Debug.Log("BOUCLE FOR IF");
                 blink = !blink;
                 reloadTxt.color = blink ? Color.white : Color.clear;
                 blinkTime = 0;
@@ -159,4 +171,5 @@ if (_playerAimScript == null)
     public float CurrentNbBullets { get => currentNbBullets; set => currentNbBullets = value; }
     public bool IsReloading { get => isReloading; set => isReloading = value; }
     public bool IsShooting { get => isShooting; set => isShooting = value; }
+    public int BulletDamage { get => _bulletDamage; set => _bulletDamage = value; }
 }

@@ -9,7 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
     #region Exposed
 
     [SerializeField] GameObject _player;
-    [SerializeField] byte _health = 5;
+    [SerializeField] int _health = 100;
     [SerializeField] byte _damage = 1;
     [SerializeField] byte _kickImpact = 10;
     [SerializeField] byte _bulletImpact = 6;
@@ -22,6 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         NbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        _simpleShootScript = _player.GetComponentInChildren<SimpleShoot>();
         _agent = GetComponent<NavMeshAgent>();
         _coneDetectionScript = GetComponentInChildren<ConeDetection>();
         _animator = GetComponent<Animator>();
@@ -30,6 +31,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
+        if (_isEnemyDead)
+        {
+            Destroy(gameObject, 60f);
+            _isEnemyDead = false;
+        }
         if (!_isEnemyDead)
         {
             RaycastToPlayer();
@@ -95,14 +101,13 @@ public class EnemyBehaviour : MonoBehaviour
                 GetComponent<CapsuleCollider>().isTrigger = true;
                 _coneDetectionScript.gameObject.SetActive(false);
                 _isEnemyDead = true;
-                //Destroy(gameObject);
             }
         }
     }
 
-    IEnumerator LoseHPSlow(byte enemyDamage)
+    IEnumerator LoseHPSlow(int enemyDamage)
     {
-        _health -= enemyDamage;
+        _health -= _simpleShootScript.BulletDamage;
         yield return null;
     }
 
@@ -133,12 +138,13 @@ public class EnemyBehaviour : MonoBehaviour
     int _nbEnemies;
     Rigidbody _rgbd;
     NavMeshAgent _agent;
+    SimpleShoot _simpleShootScript;
     ConeDetection _coneDetectionScript;
     Animator _animator;
     float _lastDamageTime;
 
     public bool IsEnemyRayHittingPlayer { get => _isEnemyRayHittingPlayer; set => _isEnemyRayHittingPlayer = value; }
-    public byte Health { get => _health; set => _health = value; }
+    public int Health { get => _health; set => _health = value; }
     public int NbEnemies { get => _nbEnemies; set => _nbEnemies = value; }
     public byte Damage { get => _damage; set => _damage = value; }
     public PlayerDetected PlayerDetectedScript { get => _playerDetectedScript; set => _playerDetectedScript = value; }
