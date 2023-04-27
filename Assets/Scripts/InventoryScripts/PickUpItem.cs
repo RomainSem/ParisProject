@@ -9,20 +9,20 @@ public class PickUpItem : MonoBehaviour
 
     private void Start()
     {
+        _layerMask = LayerMask.GetMask("EnemyCone");
+        _layerMask = ~_layerMask;
         _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
         _itemDescUI = GameObject.Find("ItemDescPanel");
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
         _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
         _itemName = _itemDescUI.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+        _nbItemsInScene = GameObject.FindGameObjectsWithTag("Item").Length;
         _itemDescUI.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (_isMouseClicked)
-        {
-            _itemDescUI.SetActive(false);
-        }
+        RaycastToMouse();
     }
 
     private void PickupItem()
@@ -30,7 +30,7 @@ public class PickUpItem : MonoBehaviour
         _inventoryManager.AddItem(_itemToPickup);
     }
 
-    private void GetSelectedItem() 
+    private void GetSelectedItem()
     {
         Item receivedItem = _inventoryManager.GetSelectedItem(false);
         if (receivedItem != null)
@@ -42,8 +42,8 @@ public class PickUpItem : MonoBehaviour
             Debug.Log("NO ITEM RECEIVED");
         }
     }
-    
-    private void UseSelectedItem() 
+
+    private void UseSelectedItem()
     {
         Item usedItem = _inventoryManager.GetSelectedItem(true);
         if (usedItem != null)
@@ -56,35 +56,41 @@ public class PickUpItem : MonoBehaviour
         }
     }
 
-    private void OnMouseUpAsButton()
+    void RaycastToMouse()
     {
-        _isMouseClicked = true;
-        PickupItem();
-        Destroy(gameObject);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 1000, _layerMask))
+        {
+            Debug.DrawLine(ray.origin, hit.point);
+            Debug.Log("HIT " + hit.collider.gameObject.name);
+            if (hit.collider.CompareTag("Item"))
+            {
+                _itemDescUI.SetActive(true);
+                _itemDescUI.transform.position = new Vector2(Input.mousePosition.x - 97, Input.mousePosition.y + 44);
+                _itemDescText.text = _itemToPickup.Description;
+                _itemDescTextGreen.text = _itemToPickup.DescriptionGreen;
+                _itemName.text = _itemToPickup.ItemName;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    PickupItem();
+                    gameObject.transform.position = new Vector3(0, 999999999, 0);
+                    if (_nbItemsInScene > 1)
+                    {
+                        Destroy(gameObject, 1);
+                    }
+                }
+            }
+            else
+            {
+                _itemDescUI.SetActive(false);
+            }
+        }
     }
 
-    
-
-    private void OnMouseOver()
-    {
-        // CHANGER CURSEUR
-        // AFFICHER DESCRIPTION ITEM
-        _itemDescUI.SetActive(true);
-        _itemDescUI.transform.position = new Vector2(Input.mousePosition.x - 95, Input.mousePosition.y + 45);
-        _itemDescText.text = _itemToPickup.Description;
-        _itemDescTextGreen.text = _itemToPickup.DescriptionGreen;
-        _itemName.text = _itemToPickup.ItemName;
-    }
-
-    private void OnMouseExit()
-    {
-        // CHANGER CURSEUR
-        // CACHER DESCRIPTION ITEM
-        _itemDescUI.SetActive(false);
-    }
-
+    LayerMask _layerMask;
+    int _nbItemsInScene;
     GameObject _itemDescUI;
-    bool _isMouseClicked;
     TextMeshProUGUI _itemDescText;
     TextMeshProUGUI _itemName;
     TextMeshProUGUI _itemDescTextGreen;

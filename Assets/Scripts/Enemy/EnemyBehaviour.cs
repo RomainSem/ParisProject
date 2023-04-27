@@ -30,7 +30,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        RaycastToPlayer();
+        if (!_isEnemyDead)
+        {
+            RaycastToPlayer();
+        }
         if (_isAttacked)
         {
             _coneDetectionScript.IsDetectedByEnemy = true;
@@ -90,6 +93,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 NbEnemies--;
                 GetComponent<CapsuleCollider>().isTrigger = true;
+                _coneDetectionScript.gameObject.SetActive(false);
                 _isEnemyDead = true;
                 //Destroy(gameObject);
             }

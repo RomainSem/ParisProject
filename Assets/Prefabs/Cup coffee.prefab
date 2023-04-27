@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: -6255841566956174166}
   m_Layer: 0
   m_Name: Cup coffee
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4857,7 +4857,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264716919285797925}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.12198201, y: 0.08265099, z: 0.11678755}
@@ -4875,7 +4875,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemToPickup: {fileID: 11400000, guid: 28bd4f44ddd222e4a9902adf77be872b, type: 2}
-  _inventoryManager: {fileID: 0}
 --- !u!1 &1498399775946625396
 GameObject:
   m_ObjectHideFlags: 0

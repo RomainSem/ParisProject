@@ -15,6 +15,7 @@ TagManager:
   - GameManager
   - PlayerKickLeg
   - EnemyPunchArm
+  - Item
   layers:
   - Default
   - TransparentFX
