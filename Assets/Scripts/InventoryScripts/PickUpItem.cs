@@ -20,6 +20,22 @@ public class PickUpItem : MonoBehaviour
         _itemDescUI.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (_isMouseOver)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                PickupItem();
+                gameObject.transform.position = new Vector3(0, 999999999, 0);
+                if (_nbItemsInScene > 1)
+                {
+                    Destroy(gameObject, 1);
+                }
+            }
+        }
+    }
+
     private void FixedUpdate()
     {
         RaycastToMouse();
@@ -71,24 +87,18 @@ public class PickUpItem : MonoBehaviour
                 _itemDescText.text = _itemToPickup.Description;
                 _itemDescTextGreen.text = _itemToPickup.DescriptionGreen;
                 _itemName.text = _itemToPickup.ItemName;
-                if (Input.GetMouseButtonDown(0))
-                {
-                    PickupItem();
-                    gameObject.transform.position = new Vector3(0, 999999999, 0);
-                    if (_nbItemsInScene > 1)
-                    {
-                        Destroy(gameObject, 1);
-                    }
-                }
+                _isMouseOver = true;
             }
             else
             {
+                _isMouseOver = false;
                 _itemDescUI.SetActive(false);
             }
         }
     }
 
     LayerMask _layerMask;
+    bool _isMouseOver;
     int _nbItemsInScene;
     GameObject _itemDescUI;
     TextMeshProUGUI _itemDescText;
