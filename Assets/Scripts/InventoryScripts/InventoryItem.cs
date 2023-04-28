@@ -16,7 +16,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         _canvas = GameObject.Find("Canvas");
         _itemDescUI = _canvas.transform.Find("ItemDescPanel").gameObject;
-        _enemyInventory = GameObject.FindGameObjectWithTag("EnemyInventory");
+        _enemyInventory = _canvas.transform.Find("EnemyInventory").gameObject;
         _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
     }
 
@@ -37,8 +37,9 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             _itemDescText.text = _item.Description;
             _itemDescTextGreen.text = _item.DescriptionGreen;
             _itemName.text = _item.ItemName;
-            if (gameObject.transform.parent == _enemyInventory && Input.GetMouseButtonDown(0))
+            if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetMouseButtonDown(0))
             {
+                //Debug.LogError("ALLO ??"); JE PASSE DEDANS
                 _inventoryManager.AddItem(_item);
             }
         }
