@@ -17,6 +17,7 @@ TagManager:
   - EnemyPunchArm
   - Item
   - ItemUI
+  - EnemyInventory
   layers:
   - Default
   - TransparentFX

@@ -31,11 +31,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (_isEnemyDead)
-        {
-            Destroy(gameObject, 60f);
-            _isEnemyDead = false;
-        }
+        //if (_isEnemyDead)
+        //{
+        //    Destroy(gameObject, 60f);
+        //    _isEnemyDead = false;
+        //}
         if (!_isEnemyDead)
         {
             RaycastToPlayer();

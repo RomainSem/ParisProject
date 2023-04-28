@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] InventorySlot[] _inventorySlots;
+    [SerializeField] InventorySlot[] _enemyInventorySlots;
     [SerializeField] GameObject _itemPrefab;
 
     private void Start()
@@ -41,6 +42,29 @@ public class InventoryManager : MonoBehaviour
                     SpawnNewItem(itemToAdd, slot);
                     return true;
                 }
+            }
+            //else if (itemInSlot == itemToAdd)
+            //{
+            //    break;
+            //}
+        }
+        return false;
+    }
+
+    public bool AddItemToEnemyInventory(Item itemToAdd)
+    {
+        for (int i = 0; i < _enemyInventorySlots.Length; i++)
+        {
+            InventorySlot slot = _enemyInventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot == null)
+            {
+                //if (itemToAdd.IsStackable)
+                //{
+                //    // slot._quantity++;
+                //}
+                    SpawnNewItem(itemToAdd, slot);
+                    return true;
             }
             //else if (itemInSlot == itemToAdd)
             //{

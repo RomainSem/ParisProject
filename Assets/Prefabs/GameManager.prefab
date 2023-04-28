@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4316658948539286085}
   - component: {fileID: 4316658948539286084}
   - component: {fileID: 1710375960}
+  - component: {fileID: 561970856}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -72,3 +73,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _kickCooldownTime: 2
   _playerRgbd: {fileID: 0}
+--- !u!114 &561970856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316658948539286107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c6ae9d09220af458e210ddf828959e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

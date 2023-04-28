@@ -7,15 +7,22 @@ using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [HideInInspector]
+    //[HideInInspector]
     [SerializeField] Item _item;
     [HideInInspector]
     [SerializeField] int _quantity = 1;
 
+    private void Awake()
+    {
+        _canvas = GameObject.Find("Canvas");
+        _itemDescUI = _canvas.transform.Find("ItemDescPanel").gameObject;
+        _enemyInventory = GameObject.FindGameObjectWithTag("EnemyInventory");
+        _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+    }
 
     private void Start()
     {
-        _itemDescUI = GameObject.Find("ItemDescPanel");
+        _playerAimScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
         _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
         _itemName = _itemDescUI.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
@@ -23,13 +30,17 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Update()
     {
-        if (_isMouseOver)
+        if (_isMouseOver && !_playerAimScript.IsAiming)
         {
             _itemDescUI.SetActive(true);
             _itemDescUI.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 44);
             _itemDescText.text = _item.Description;
             _itemDescTextGreen.text = _item.DescriptionGreen;
             _itemName.text = _item.ItemName;
+            if (gameObject.transform.parent == _enemyInventory && Input.GetMouseButtonDown(0))
+            {
+                _inventoryManager.AddItem(_item);
+            }
         }
     }
 
@@ -71,11 +82,15 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     Image _itemIcon;
     bool _isMouseOver;
+    PlayerAim _playerAimScript;
     ObjectsEffects _objectEffects;
     GameObject _itemDescUI;
+    GameObject _enemyInventory;
+    GameObject _canvas;
     TextMeshProUGUI _itemDescText;
     TextMeshProUGUI _itemDescTextGreen;
     TextMeshProUGUI _itemName;
+    InventoryManager _inventoryManager;
 
     public Item Item { get => _item; set => _item = value; }
     public int Quantity { get => _quantity; set => _quantity = value; }

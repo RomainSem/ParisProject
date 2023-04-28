@@ -6,8 +6,8 @@ public class PlayerAim : MonoBehaviour
 {
     #region Exposed
 
-    //[SerializeField] float _rotationSpeed = 500f;
-    //[SerializeField] float _turnSmoothTime = 0.1f;
+    [SerializeField]
+    Light _flashlight;
 
     #endregion
 
@@ -16,24 +16,31 @@ public class PlayerAim : MonoBehaviour
     private void Awake()
     {
         _playerMovScript = GetComponent<PlayerMovement>();
-        _rigidbody = GetComponent<Rigidbody>();
     }
 
     void Start()
     {
-        _playerInput = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerInput>();
         _animator = GetComponentInChildren<Animator>();
         _kickCooldownScript = _animator.GetBehaviour<KickCooldown>();
     }
 
     void Update()
     {
+        if (_isAiming)
+        {
+            _flashlight.enabled = true;
+        }
+        else
+        {
+            _flashlight.enabled = false;
+        }
     }
 
     private void FixedUpdate()
     {
         if (!_playerMovScript.IsRunning && !_kickCooldownScript.IsKickingAnim)
         {
+            _cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             Aim();
         }
     }
@@ -45,8 +52,7 @@ public class PlayerAim : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Gizmos.DrawRay(cameraRay.origin, cameraRay.direction * 50);
+        Gizmos.DrawRay(_cameraRay.origin, _cameraRay.direction * 50);
 
     }
 
@@ -55,11 +61,11 @@ public class PlayerAim : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             IsAiming = true;
-            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(cameraRay, out hit, Mathf.Infinity, 1 << 8))
+            if (Physics.Raycast(_cameraRay, out hit, Mathf.Infinity, 1 << 8))
             {
                 PointToLookAt = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                #region Other ways to do it, not working
                 //float targetAngle = Mathf.Atan2(hit.point.z, hit.point.x) * Mathf.Rad2Deg;
                 //float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, 1);
 
@@ -70,6 +76,7 @@ public class PlayerAim : MonoBehaviour
                 //transform.rotation = Quaternion.Euler(0f, angle, 0f);
                 //transform.eulerAngles = new Vector3 (0f, targetAngle, 0f);
                 //transform.Rotate( transform.position ,targetAngle);
+                #endregion
                 transform.LookAt(PointToLookAt);
             }
         }
@@ -84,12 +91,10 @@ public class PlayerAim : MonoBehaviour
     #region Private & Protected
 
     PlayerMovement _playerMovScript;
-    PlayerInput _playerInput;
+    Ray _cameraRay;
     Animator _animator;
     KickCooldown _kickCooldownScript;
     bool _isAiming;
-    Rigidbody _rigidbody;
-    float _turnSmoothVelocity;
     Vector3 PointToLookAt;
 
     public bool IsAiming { get => _isAiming; set => _isAiming = value; }

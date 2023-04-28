@@ -7,7 +7,7 @@ public class PickUpItem : MonoBehaviour
 {
     [SerializeField] Item _itemToPickup;
 
-    private void Start()
+    private void Awake()
     {
         _layerMask = LayerMask.GetMask("EnemyCone");
         _layerMask = ~_layerMask;
@@ -17,7 +17,11 @@ public class PickUpItem : MonoBehaviour
         _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
         _itemName = _itemDescUI.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
         _nbItemsInScene = GameObject.FindGameObjectsWithTag("Item").Length;
-        _itemDescUI.SetActive(false);
+        _playerAimScript = GameObject.Find("Player").GetComponent<PlayerAim>();
+    }
+    private void Start()
+    {
+       
     }
 
     private void Update()
@@ -80,7 +84,7 @@ public class PickUpItem : MonoBehaviour
         {
             Debug.DrawLine(ray.origin, hit.point);
             Debug.Log("HIT " + hit.collider.gameObject.name);
-            if (hit.collider.CompareTag("Item"))
+            if (hit.collider.CompareTag("Item") && !_playerAimScript.IsAiming)
             {
                 _itemDescUI.SetActive(true);
                 _itemDescUI.transform.position = new Vector2(Input.mousePosition.x - 97, Input.mousePosition.y + 44);
@@ -105,5 +109,6 @@ public class PickUpItem : MonoBehaviour
     TextMeshProUGUI _itemName;
     TextMeshProUGUI _itemDescTextGreen;
     InventoryManager _inventoryManager;
+    PlayerAim _playerAimScript;
 
 }
