@@ -10,8 +10,8 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] int _maxHealth = 100;
     [SerializeField] int _currentHealth;
-    [SerializeField] Image _healthBarGreen;
     [SerializeField] Image _healthBarRed;
+    [SerializeField] Image _healthBarBlack;
     [SerializeField] TextMeshProUGUI _healthNbUI;
 
 
@@ -38,8 +38,8 @@ public class PlayerHealth : MonoBehaviour
             t = 0;
         }
 
-        _healthBarGreen.fillAmount = _currentHealth / _maxHealth;
-        _healthBarRed.fillAmount = _previousHealth / _maxHealth;
+        _healthBarRed.fillAmount = _currentHealth / _maxHealth;
+        _healthBarBlack.fillAmount = _previousHealth / _maxHealth;
         _healthNbUI.text = _currentHealth.ToString("0") + " / " + _maxHealth.ToString("0");
 
         _lastDamageTime += Time.deltaTime;

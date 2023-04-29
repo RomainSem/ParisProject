@@ -4,52 +4,72 @@ using UnityEngine;
 
 public class EnemyInventory : MonoBehaviour
 {
-    [SerializeField] EnemyInventorySO _enemyInventorySO;
-    [SerializeField] List<Item> _itemsPossessed = new List<Item>();
-    [SerializeField] InventoryManager _inventoryManager;
+
+    [SerializeField] GameObject _lootMenu;
 
     private void Start()
     {
-        //_enemyLoot = GetComponent<EnemyLoot>();
-
-        //for (int i = 0; i < 6; i++)
-        //{
-        //    int rand = Random.Range(0, _possibleItems.Count);
-        //    _itemsPossessed.Add(_possibleItems[rand]);
-        //    _inventoryManager.AddItem(_itemsPossessed[i], "Enemy");
-        //}
+        _inventoryManager = GetComponent<InventoryManager>();
+        _playerAim = GameObject.Find("Player").GetComponent<PlayerAim>();
+        _lootMenu.SetActive(false);
     }
 
     private void Update()
     {
-       //RefreshEnemyInventory();
+        if ( _isEnemyDead && !_playerAim.IsAiming && Input.GetMouseButtonDown(0) && _isMouseOverEnemy && !_isEnemyInventoryGenerated)
+        {
+            {
+                _inventoryManager.RemoveAllEnemyItems();
+                for (int i = 0; i < _enemyLoot.PossessedItems.Count; i++)
+                {
+                    _inventoryManager.AddItem(_enemyLoot.PossessedItems[i], "Enemy");
+                }
+                _isEnemyInventoryGenerated = true;
+            }
+            _lootMenu.SetActive(true);
+            _lootMenu.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 44);
+        }
     }
 
-    //void RefreshEnemyInventory()
-    //{
-    //    if (_enemyLoot.IsLootMenuOpen)
-    //    {
-    //        if (_enemyLoot != null)
-    //        {
-    //            _inventoryManager.RemoveAllEnemyItems();
+    private void FixedUpdate()
+    {
+        RaycastFromMouseToEnemy();
+    }
 
-    //        }
-    //        Debug.Log(_enemyLoot.IsLootMenuOpen);
-    //        //if (!_isEnemyItemsCleared)
-    //        //{
-    //        //    _isEnemyItemsCleared = true;
-    //        //}
-    //        for (int i = 0; i < _itemsPossessed.Count; i++)
-    //        {
-    //            _inventoryManager.AddItem(_itemsPossessed[i], "Enemy");
-    //            //_inventoryManager.RefreshContent(_inventoryManager.EnemyInventorySlots, _itemsPossessed);
-    //        }
-    //    }
-    //}
+    void RaycastFromMouseToEnemy()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 1000))
+        {
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                _isMouseOverEnemy = true;
+                EnemyLoot currentEnemyLoot = hit.collider.gameObject.GetComponent<EnemyLoot>();
+                _isEnemyDead = hit.collider.gameObject.GetComponent<EnemyBehaviour>().IsEnemyDead;
+                if (currentEnemyLoot != _enemyLoot)
+                {
+                    _enemyLoot = currentEnemyLoot;
+                    _isEnemyInventoryGenerated = false;
+                }
+            }
+            else
+            {
+                _isMouseOverEnemy = false;
+            }
+        }
+    }
+
+    public void CloseLootMenu()
+    {
+        _lootMenu.SetActive(false);
+    }
+
 
     EnemyLoot _enemyLoot;
-    [SerializeField]
-    bool _isEnemyItemsCleared;
-
-    public List<Item> ItemsPossessed { get => _itemsPossessed; }
+    PlayerAim _playerAim;
+    bool _isMouseOverEnemy;
+    bool _isEnemyDead;
+    bool _isEnemyInventoryGenerated;
+    InventoryManager _inventoryManager;
 }
