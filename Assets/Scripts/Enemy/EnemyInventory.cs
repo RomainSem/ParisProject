@@ -16,7 +16,7 @@ public class EnemyInventory : MonoBehaviour
 
     private void Update()
     {
-        if ( _isEnemyDead && !_playerAim.IsAiming && Input.GetMouseButtonDown(0) && _isMouseOverEnemy && !_isEnemyInventoryGenerated)
+        if ( _isEnemyDead && !_playerAim.IsAiming && Input.GetMouseButtonDown(0) && _isMouseOverEnemy)
         {
             {
                 _inventoryManager.RemoveAllEnemyItems();
@@ -24,11 +24,11 @@ public class EnemyInventory : MonoBehaviour
                 {
                     _inventoryManager.AddItem(_enemyLoot.PossessedItems[i], "Enemy");
                 }
-                _isEnemyInventoryGenerated = true;
             }
             _lootMenu.SetActive(true);
             _lootMenu.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 44);
         }
+
     }
 
     private void FixedUpdate()
@@ -50,7 +50,6 @@ public class EnemyInventory : MonoBehaviour
                 if (currentEnemyLoot != _enemyLoot)
                 {
                     _enemyLoot = currentEnemyLoot;
-                    _isEnemyInventoryGenerated = false;
                 }
             }
             else
@@ -70,6 +69,5 @@ public class EnemyInventory : MonoBehaviour
     PlayerAim _playerAim;
     bool _isMouseOverEnemy;
     bool _isEnemyDead;
-    bool _isEnemyInventoryGenerated;
     InventoryManager _inventoryManager;
 }
