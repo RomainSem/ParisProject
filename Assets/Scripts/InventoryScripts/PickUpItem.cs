@@ -83,7 +83,7 @@ public class PickUpItem : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 1000, _layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point);
-            Debug.Log("HIT " + hit.collider.gameObject.name);
+            //Debug.Log("HIT " + hit.collider.gameObject.name);
             if (hit.collider.CompareTag("Item") && !_playerAimScript.IsAiming)
             {
                 _itemDescUI.SetActive(true);

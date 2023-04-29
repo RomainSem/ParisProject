@@ -14,7 +14,7 @@ public class ObjectsEffects : MonoBehaviour
     public void UseCupOfCoffee()
     {
         StartCoroutine(CupOfCoffeeHeal());
-        Debug.Log("You drank a cup of coffee");
+        //Debug.Log("You drank a cup of coffee");
     }
 
     IEnumerator CupOfCoffeeHeal()
@@ -23,7 +23,7 @@ public class ObjectsEffects : MonoBehaviour
         {
             yield return new WaitForSeconds(10);
             _playerHealth.Heal(1);
-            Debug.Log("You healed 1 HP");
+            //Debug.Log("You healed 1 HP");
         }
     }
 

@@ -70,12 +70,12 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Player")
             {
-                Debug.Log("RAYCAST TRUE");
+                //Debug.Log("RAYCAST TRUE");
                 IsEnemyRayHittingPlayer = true;
             }
             else
             {
-                Debug.Log("RAYCAST FALSE");
+                //Debug.Log("RAYCAST FALSE");
                 IsEnemyRayHittingPlayer = false;
             }
         }
@@ -94,7 +94,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
             _animator.SetTrigger("IsHit");
             _rgbd.AddForce(-transform.forward * _bulletImpact, ForceMode.Impulse);
-            Debug.Log("Enemy Health: " + _health);
+            //Debug.Log("Enemy Health: " + _health);
             if (_health <= 0)
             {
                 NbEnemies--;

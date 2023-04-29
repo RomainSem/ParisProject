@@ -30,7 +30,8 @@ public class PlayerDetected : MonoBehaviour
     //{
     //    if (other.CompareTag("EnemyCone"))
     //    {
-    //        Debug.Log("PLAYER IN CONE");
+    //
+    //        .Log("PLAYER IN CONE");
     //        //_isPlayerInCone = true;
     //        if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
     //        {

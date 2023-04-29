@@ -106,7 +106,7 @@ if (_playerAimScript == null)
         {
             _bulletDamage = Mathf.CeilToInt(_bulletDamage * _critMultiplier);
         }
-        Debug.Log("Bullet damage : " + _bulletDamage);
+        //Debug.Log("Bullet damage : " + _bulletDamage);
         currentNbBullets--;
         isShooting = true;
         tempBullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);

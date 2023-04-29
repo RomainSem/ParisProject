@@ -37,7 +37,7 @@ public class PistolLaser : MonoBehaviour
                     _pistolLaser.SetPosition(1, transform.InverseTransformPoint(hit.point));
                     // Vérifier si le Raycast a touché un objet
                     GameObject hitObject = hit.transform.gameObject;
-                    Debug.Log("Le Raycast a touché l'objet : " + hitObject.name);
+                    //Debug.Log("Le Raycast a touché l'objet : " + hitObject.name);
 
                     if (/*hit.collider.gameObject.CompareTag("Obstacle") && */_simpleShootScript.IsShooting)
                     {

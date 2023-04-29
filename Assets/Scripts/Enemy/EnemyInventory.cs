@@ -9,8 +9,11 @@ public class EnemyInventory : MonoBehaviour
 
     private void Start()
     {
-        int rand = Random.Range(0, _items.Count);
-        _inventoryManager.AddItemToEnemyInventory(_items[rand]);
+        for (int i = 0; i < 6; i++)
+        {
+            int rand = Random.Range(0, _items.Count);
+            _inventoryManager.AddItemToEnemyInventory(_items[rand]);
+        }
     }
 
 }

@@ -39,8 +39,9 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             _itemName.text = _item.ItemName;
             if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetMouseButtonDown(0))
             {
-                //Debug.LogError("ALLO ??"); JE PASSE DEDANS
+                //Debug.LogError(_item);
                 _inventoryManager.AddItem(_item);
+                Destroy(gameObject);
             }
         }
     }
@@ -65,7 +66,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 //    Debug.Log("You equipped a shield");
                 //    break;
                 default:
-                    Debug.Log("You used an item");
+                    //Debug.Log("You used an item");
                     break;
             }
         }

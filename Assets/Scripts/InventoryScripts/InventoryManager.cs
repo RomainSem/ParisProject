@@ -32,16 +32,12 @@ public class InventoryManager : MonoBehaviour
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot == null)
             {
-                if (itemToAdd.IsStackable)
-                {
-                    // slot._quantity++;
+                //if (itemToAdd.IsStackable)
+                //{
 
-                }
-                else
-                {
+                //}
                     SpawnNewItem(itemToAdd, slot);
                     return true;
-                }
             }
             //else if (itemInSlot == itemToAdd)
             //{
@@ -93,7 +89,7 @@ public class InventoryManager : MonoBehaviour
         GameObject newItemGo = Instantiate(_itemPrefab, slot.transform);
         //newItemGo.transform.Find("ItemIcon").GetComponent<Image>().enabled = true;
         InventoryItem newItem = newItemGo.GetComponent<InventoryItem>();
-        Debug.Log("SPAWN ITEM " + itemToSpawn);
+        //Debug.Log("SPAWN ITEM " + itemToSpawn);
         newItem.InitialiseItem(itemToSpawn);
     }
 
