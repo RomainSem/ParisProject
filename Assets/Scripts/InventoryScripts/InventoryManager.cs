@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
+        //_enemyInventoryItems = GameObject.Find("Enemy").GetComponent<EnemyInventory>().ItemsPossessed;
         ChangeSelectedSlot(0);
     }
 
@@ -20,54 +22,61 @@ public class InventoryManager : MonoBehaviour
         InputToNavigateThroughSlots();
     }
 
-    public bool AddItem(Item itemToAdd)
+    public bool AddItem(Item itemToAdd, string whichInventory)
     {
         // Check if item is already in inventory
         // If it is, increase the quantity
         // If it isn't, add it to the inventory
         // If the inventory is full, drop the item on the ground
-        for (int i = 0; i < _inventorySlots.Length; i++)
+        if (whichInventory == "Player")
         {
-            InventorySlot slot = _inventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot == null)
+            for (int i = 0; i < _inventorySlots.Length; i++)
             {
-                //if (itemToAdd.IsStackable)
-                //{
+                InventorySlot slot = _inventorySlots[i];
+                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                if (itemInSlot == null)
+                {
+                    //if (itemToAdd.IsStackable)
+                    //{
 
-                //}
+                    //}
                     SpawnNewItem(itemToAdd, slot);
                     return true;
-            }
-            //else if (itemInSlot == itemToAdd)
-            //{
-            //    break;
-            //}
-        }
-        return false;
-    }
-
-    public bool AddItemToEnemyInventory(Item itemToAdd)
-    {
-        for (int i = 0; i < _enemyInventorySlots.Length; i++)
-        {
-            InventorySlot slot = _enemyInventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if (itemInSlot == null)
-            {
-                //if (itemToAdd.IsStackable)
+                }
+                //else if (itemInSlot == itemToAdd)
                 //{
-                //    // slot._quantity++;
+                //    break;
                 //}
+            }
+            return false;
+
+        }
+        else if (whichInventory == "Enemy")
+        {
+            for (int i = 0; i < _enemyInventorySlots.Length; i++)
+            {
+                InventorySlot slot = _enemyInventorySlots[i];
+                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                if (itemInSlot == null)
+                {
+                    //if (itemToAdd.IsStackable)
+                    //{
+                    //}
                     SpawnNewItem(itemToAdd, slot);
                     return true;
+                }
+
+                //else if (itemInSlot == itemToAdd)
+                //{
+                //    break;
+                //}
             }
-            //else if (itemInSlot == itemToAdd)
-            //{
-            //    break;
-            //}
+            return false;
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
     public void RemoveItem(Item itemToRemove)
@@ -75,6 +84,19 @@ public class InventoryManager : MonoBehaviour
         // Check if item is in inventory
         // If it is, decrease the quantity
         // If it isn't, do nothing
+    }
+
+    public void RemoveAllEnemyItems()
+    {
+        for (int i = 0; i < _enemyInventorySlots.Length; i++)
+        {
+            InventorySlot slot = _enemyInventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot != null)
+            {
+                Destroy(itemInSlot.gameObject);
+            }
+        }
     }
 
     public void UseItem(Item itemToUse)
@@ -103,8 +125,26 @@ public class InventoryManager : MonoBehaviour
         _selectedSlot = newValue;
     }
 
-    public Item GetSelectedItem(bool use) 
-    { 
+    public void RefreshContent(InventorySlot[] inventorySlots, List<Item> itemsToRefreshWith)
+    {
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            InventorySlot currentSlot = inventorySlots[i].GetComponent<InventorySlot>();
+            InventoryItem itemSlot = currentSlot.GetComponentInChildren<InventoryItem>();
+            itemSlot.Item = null;
+            itemSlot.GetComponentInChildren<Image>().sprite = null;
+        }
+        for (int i = 0; i < itemsToRefreshWith.Count; i++)
+        {
+            InventorySlot currentSlot = inventorySlots[i].GetComponent<InventorySlot>();
+            InventoryItem itemSlot = currentSlot.GetComponentInChildren<InventoryItem>();
+            itemSlot.Item = _enemyInventoryItems[i];
+            itemSlot.GetComponentInChildren<Image>().sprite = _enemyInventoryItems[i].Icon;
+        }
+    }
+
+    public Item GetSelectedItem(bool use)
+    {
         InventorySlot slot = _inventorySlots[_selectedSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
         if (itemInSlot != null)
@@ -119,7 +159,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 //else
                 //{
-                    //itemInSlot.RefreshCount();
+                //itemInSlot.RefreshCount();
                 //}
             }
             return item;
@@ -161,7 +201,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    
+
 
     int _selectedSlot = -1;
+    List<Item> _enemyInventoryItems;
+
+    public InventorySlot[] EnemyInventorySlots { get => _enemyInventorySlots; set => _enemyInventorySlots = value; }
 }

@@ -5,18 +5,28 @@ using UnityEngine;
 public class EnemyLoot : MonoBehaviour
 {
     [SerializeField] GameObject _lootMenu;
+    [SerializeField] InventoryManager _inventoryManager;
+    [SerializeField] EnemyInventorySO _enemyInventorySO;
+    [SerializeField] List<Item> possessedItems = new List<Item>();
+
 
     private void Start()
     {
         _enemyBehaviour = GetComponent<EnemyBehaviour>();
+        _playerAim = GameObject.Find("Player").GetComponent<PlayerAim>();
         _lootMenu.SetActive(false);
     }
 
     private void Update()
     {
-        if (_enemyBehaviour.IsEnemyDead && _isMouseOver && Input.GetMouseButtonDown(0) && !_isLootMenuOpen)
+        if (_enemyBehaviour.IsEnemyDead && _isMouseOverEnemy && !_playerAim.IsAiming && Input.GetMouseButtonDown(0) && !_isLootMenuOpen)
         {
             _lootMenu.SetActive(true);
+            _inventoryManager.RemoveAllEnemyItems();
+            foreach (var item in possessedItems)
+            {
+                _inventoryManager.AddItem(item, "Enemy");
+            }
             _lootMenu.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 44);
             _isLootMenuOpen = true;
         }
@@ -36,12 +46,22 @@ public class EnemyLoot : MonoBehaviour
         {
             if (hit.collider.CompareTag("Enemy"))
             {
-                _isMouseOver = true;
+                _isMouseOverEnemy = true;
             }
             else
             {
-                _isMouseOver = false;
+                _isMouseOverEnemy = false;
             }
+        }
+    }
+
+    public void ReturnEnemyPossessedItems()
+    {
+        for (int i = 0; i < _enemyInventorySO.PossibleItems.Count; i++)
+        {
+            int rand = Random.Range(0, _enemyInventorySO.PossibleItems.Count);
+            possessedItems.Add(_enemyInventorySO.PossibleItems[rand]);
+            //_inventoryManager.AddItem(_enemyInventorySO.PossibleItems[rand], "Enemy");
         }
     }
 
@@ -52,6 +72,10 @@ public class EnemyLoot : MonoBehaviour
     }
 
     EnemyBehaviour _enemyBehaviour;
-    bool _isMouseOver;
+    bool _isMouseOverEnemy;
     bool _isLootMenuOpen;
+    PlayerAim _playerAim;
+
+    public bool IsLootMenuOpen { get => _isLootMenuOpen; set => _isLootMenuOpen = value; }
+    public List<Item> PossessedItems { get => possessedItems; }
 }

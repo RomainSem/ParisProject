@@ -47,7 +47,7 @@ public class PickUpItem : MonoBehaviour
 
     private void PickupItem()
     {
-        _inventoryManager.AddItem(_itemToPickup);
+        _inventoryManager.AddItem(_itemToPickup, "Player");
     }
 
     private void GetSelectedItem()

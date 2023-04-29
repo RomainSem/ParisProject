@@ -27,6 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
         _coneDetectionScript = GetComponentInChildren<ConeDetection>();
         _animator = GetComponent<Animator>();
         _rgbd = GetComponent<Rigidbody>();
+        _enemyLootScript = GetComponent<EnemyLoot>();
     }
 
     void Update()
@@ -100,6 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
                 NbEnemies--;
                 GetComponent<CapsuleCollider>().isTrigger = true;
                 _coneDetectionScript.gameObject.SetActive(false);
+                _enemyLootScript.ReturnEnemyPossessedItems();
                 _isEnemyDead = true;
             }
         }
@@ -140,6 +142,7 @@ public class EnemyBehaviour : MonoBehaviour
     NavMeshAgent _agent;
     SimpleShoot _simpleShootScript;
     ConeDetection _coneDetectionScript;
+    EnemyLoot _enemyLootScript;
     Animator _animator;
     float _lastDamageTime;
 

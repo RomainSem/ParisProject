@@ -40,7 +40,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetMouseButtonDown(0))
             {
                 //Debug.LogError(_item);
-                _inventoryManager.AddItem(_item);
+                _inventoryManager.AddItem(_item, "Player");
                 Destroy(gameObject);
             }
         }
