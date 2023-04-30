@@ -282,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _health: 1
-  _damage: 1
+  _damage: 10
   _kickImpact: 10
   _bulletImpact: 6
   _playerDetectedScript: {fileID: 0}
@@ -311,7 +311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd0edf54dba51b4aafa92bbf46126d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lootMenu: {fileID: 0}
+  _inventoryManager: {fileID: 0}
+  _enemyInventorySO: {fileID: 11400000, guid: 1555769d34f5f664c8b96bd068f64b21, type: 2}
+  possessedItems: []
 --- !u!1 &6457705704346564157
 GameObject:
   m_ObjectHideFlags: 0
@@ -3885,7 +3887,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3226
+  m_VersionIndex: 3247
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4095,6 +4097,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.085362576, y: 0.3245522, z: 0.07617346}
   m_Center: {x: 0.002393667, y: 0.21028319, z: 0.00000441371}
+--- !u!114 &1725908517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2479633041318323036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73749d6a9d9579540a1ccb07737940fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alreadyCollidedWith: []
 --- !u!4 &6779281258096016200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 910445ee76be88846b0c1b3642c2944d,

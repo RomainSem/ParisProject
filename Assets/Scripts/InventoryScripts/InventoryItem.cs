@@ -15,6 +15,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void Awake()
     {
         _canvas = GameObject.Find("Canvas");
+        _player = GameObject.FindGameObjectWithTag("Player");
         _itemDescUI = _canvas.transform.Find("ItemDescPanel").gameObject;
         _enemyInventory = _canvas.transform.Find("EnemyInventory").gameObject;
         _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
@@ -22,7 +23,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Start()
     {
-        _playerAimScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
+        _playerAimScript = _player.GetComponent<PlayerAim>();
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
         _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
         _itemName = _itemDescUI.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
@@ -30,6 +31,8 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Update()
     {
+        Debug.Log(_player);
+        Debug.Log("PLAYER AIM SCRIPT AIMING " + _playerAimScript.IsAiming) ;
         if (_isMouseOver && !_playerAimScript.IsAiming)
         {
             _itemDescUI.SetActive(true);
@@ -39,7 +42,6 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             _itemName.text = _item.ItemName;
             if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetMouseButtonDown(0))
             {
-                //Debug.LogError(_item);
                 _inventoryManager.AddItem(_item, "Player");
                 Destroy(gameObject);
             }
@@ -88,6 +90,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     ObjectsEffects _objectEffects;
     GameObject _itemDescUI;
     GameObject _enemyInventory;
+    GameObject _player;
     GameObject _canvas;
     TextMeshProUGUI _itemDescText;
     TextMeshProUGUI _itemDescTextGreen;
