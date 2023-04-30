@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,15 +13,14 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void Awake()
     {
         _canvas = GameObject.Find("Canvas");
-        _player = GameObject.FindGameObjectWithTag("Player");
         _itemDescUI = _canvas.transform.Find("ItemDescPanel").gameObject;
-        _enemyInventory = _canvas.transform.Find("EnemyInventory").gameObject;
         _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
     }
 
     private void Start()
     {
-        _playerAimScript = _player.GetComponent<PlayerAim>();
+        _playerAimScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
+        _enemyInventory = _inventoryManager.GetComponent<EnemyInventory>();
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
         _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
         _itemName = _itemDescUI.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
@@ -31,17 +28,16 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Update()
     {
-        Debug.Log(_player);
-        Debug.Log("PLAYER AIM SCRIPT AIMING " + _playerAimScript.IsAiming) ;
         if (_isMouseOver && !_playerAimScript.IsAiming)
         {
             _itemDescUI.SetActive(true);
-            _itemDescUI.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 44);
+            _itemDescUI.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 75);
             _itemDescText.text = _item.Description;
-            _itemDescTextGreen.text = _item.DescriptionGreen;
+            _itemDescTextGreen.text = _item.ItemEffect;
             _itemName.text = _item.ItemName;
             if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetMouseButtonDown(0))
             {
+                _enemyInventory.EnemyClickedOn.GetComponent<EnemyLoot>().PossessedItems.Remove(_item);
                 _inventoryManager.AddItem(_item, "Player");
                 Destroy(gameObject);
             }
@@ -89,13 +85,12 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     PlayerAim _playerAimScript;
     ObjectsEffects _objectEffects;
     GameObject _itemDescUI;
-    GameObject _enemyInventory;
-    GameObject _player;
     GameObject _canvas;
     TextMeshProUGUI _itemDescText;
     TextMeshProUGUI _itemDescTextGreen;
     TextMeshProUGUI _itemName;
     InventoryManager _inventoryManager;
+    EnemyInventory _enemyInventory;
 
     public Item Item { get => _item; set => _item = value; }
     public int Quantity { get => _quantity; set => _quantity = value; }

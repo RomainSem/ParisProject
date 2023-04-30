@@ -79,11 +79,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void RemoveItem(Item itemToRemove)
+    public void RemoveItemFromEnemy(Item itemToRemove)
     {
         // Check if item is in inventory
         // If it is, decrease the quantity
         // If it isn't, do nothing
+        //for (int i = 0; i < _enemyInventorySlots.Length; i++)
+        //{
+        //    InventorySlot slot = _enemyInventorySlots[i];
+        //    InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+        //    if (itemInSlot != null)
+        //    {
+        //        if (itemInSlot.Item == itemToRemove)
+        //        {
+        //            Destroy(itemInSlot.gameObject);
+        //            break;
+        //        }
+        //    }
+        //}
     }
 
     public void RemoveAllEnemyItems()

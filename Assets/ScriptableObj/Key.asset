@@ -17,6 +17,6 @@ MonoBehaviour:
   value: 0
   icon: {fileID: 21300000, guid: 94e1db93b95152446854b803ad2cb6c8, type: 3}
   description: A simple key.
-  descriptionGreen: Automatically used when opening any normal door.
+  itemEffect: Open any normal door.
   isActivable: 0
   isStackable: 1

@@ -15,12 +15,14 @@ public class PlayerAim : MonoBehaviour
 
     private void Awake()
     {
-        _playerMovScript = GetComponent<PlayerMovement>();
+        _inventoryManager = GameObject.Find("InventoryManager");
     }
 
     void Start()
     {
+        _playerMovScript = GetComponent<PlayerMovement>();
         _animator = GetComponentInChildren<Animator>();
+        _enemyInventory = _inventoryManager.GetComponent<EnemyInventory>();
         _kickCooldownScript = _animator.GetBehaviour<KickCooldown>();
     }
 
@@ -58,7 +60,7 @@ public class PlayerAim : MonoBehaviour
 
     void Aim()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && !_enemyInventory.IsMouseOverEnemy)
         {
             IsAiming = true;
             RaycastHit hit;
@@ -94,6 +96,8 @@ public class PlayerAim : MonoBehaviour
     Ray _cameraRay;
     Animator _animator;
     KickCooldown _kickCooldownScript;
+    EnemyInventory _enemyInventory;
+    GameObject _inventoryManager;
     bool _isAiming;
     Vector3 PointToLookAt;
 

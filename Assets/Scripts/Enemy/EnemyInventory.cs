@@ -16,17 +16,18 @@ public class EnemyInventory : MonoBehaviour
 
     private void Update()
     {
-        if ( _isEnemyDead && !_playerAim.IsAiming && Input.GetMouseButtonDown(0) && _isMouseOverEnemy)
+        if (_isEnemyDead && !_playerAim.IsAiming && Input.GetMouseButtonDown(1) && _isMouseOverEnemy)
         {
+            if (hit.collider.gameObject != null)
             {
-                _inventoryManager.RemoveAllEnemyItems();
-                for (int i = 0; i < _enemyLoot.PossessedItems.Count; i++)
-                {
-                    _inventoryManager.AddItem(_enemyLoot.PossessedItems[i], "Enemy");
-                }
+                _enemyClickedOn = hit.collider.gameObject;
             }
-            _lootMenu.SetActive(true);
-            _lootMenu.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 44);
+            _inventoryManager.RemoveAllEnemyItems();
+            for (int i = 0; i < _enemyLoot.PossessedItems.Count; i++)
+            {
+                _inventoryManager.AddItem(_enemyLoot.PossessedItems[i], "Enemy");
+            }
+            OpenLootMenu();
         }
 
     }
@@ -38,7 +39,6 @@ public class EnemyInventory : MonoBehaviour
 
     void RaycastFromMouseToEnemy()
     {
-        RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 1000))
         {
@@ -59,15 +59,30 @@ public class EnemyInventory : MonoBehaviour
         }
     }
 
+    public void OpenLootMenu()
+    {
+        _lootMenu.SetActive(true);
+        _lootMenu.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 44);
+        _isLootMenuOpen = true;
+    }
+
     public void CloseLootMenu()
     {
         _lootMenu.SetActive(false);
+        _isLootMenuOpen = false;
     }
 
 
     EnemyLoot _enemyLoot;
     PlayerAim _playerAim;
+    RaycastHit hit;
     bool _isMouseOverEnemy;
     bool _isEnemyDead;
+    bool _isLootMenuOpen;
     InventoryManager _inventoryManager;
+    GameObject _enemyClickedOn;
+
+    public GameObject EnemyClickedOn { get => _enemyClickedOn; set => _enemyClickedOn = value; }
+    public bool IsLootMenuOpen { get => _isLootMenuOpen; set => _isLootMenuOpen = value; }
+    public bool IsMouseOverEnemy { get => _isMouseOverEnemy; set => _isMouseOverEnemy = value; }
 }

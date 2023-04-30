@@ -24,7 +24,6 @@ public class PistolLaser : MonoBehaviour
     {
         if (_playerAimScript.IsAiming)
         {
-
             // Lancer un Raycast dans la direction du pistolet
             if (!_simpleShootScript.IsReloading && !_kickCooldownScript.IsKickingAnim /* && _playerInputScript.CanKick*/)
             {
@@ -33,7 +32,7 @@ public class PistolLaser : MonoBehaviour
                 if (Physics.Raycast(transform.position, transform.forward * 100, out hit))
                 {
                     //Vector3 pistolDirection = new Vector3(0, 0, 100);
-                    Debug.DrawLine(transform.position, hit.point);
+                    //Debug.DrawLine(transform.position, hit.point);
                     _pistolLaser.SetPosition(1, transform.InverseTransformPoint(hit.point));
                     // Vérifier si le Raycast a touché un objet
                     GameObject hitObject = hit.transform.gameObject;

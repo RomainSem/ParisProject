@@ -26,9 +26,9 @@ public class PickUpItem : MonoBehaviour
 
     private void Update()
     {
-        if (_isMouseOver)
+        if (_isMouseOverItem)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 PickupItem();
                 gameObject.transform.position = new Vector3(0, 999999999, 0);
@@ -83,26 +83,25 @@ public class PickUpItem : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 1000, _layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point);
-            //Debug.Log("HIT " + hit.collider.gameObject.name);
             if (hit.collider.CompareTag("Item") && !_playerAimScript.IsAiming)
             {
                 _itemDescUI.SetActive(true);
-                _itemDescUI.transform.position = new Vector2(Input.mousePosition.x - 97, Input.mousePosition.y + 44);
+                _itemDescUI.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 43);
                 _itemDescText.text = _itemToPickup.Description;
-                _itemDescTextGreen.text = _itemToPickup.DescriptionGreen;
+                _itemDescTextGreen.text = _itemToPickup.ItemEffect;
                 _itemName.text = _itemToPickup.ItemName;
-                _isMouseOver = true;
+                _isMouseOverItem = true;
             }
             else
             {
-                _isMouseOver = false;
+                _isMouseOverItem = false;
                 _itemDescUI.SetActive(false);
             }
         }
     }
 
     LayerMask _layerMask;
-    bool _isMouseOver;
+    bool _isMouseOverItem;
     int _nbItemsInScene;
     GameObject _itemDescUI;
     TextMeshProUGUI _itemDescText;
