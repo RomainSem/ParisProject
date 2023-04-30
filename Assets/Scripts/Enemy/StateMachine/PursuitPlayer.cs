@@ -16,7 +16,7 @@ public class PursuitPlayer : StateMachineBehaviour
         _agent = _enemy.GetComponent<NavMeshAgent>();
         _agent.isStopped = false;
         _enemyBehaviour = _enemy.GetComponent<EnemyBehaviour>();
-       // _playerDetectedScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDetected>();
+        // _playerDetectedScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerDetected>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,18 +24,25 @@ public class PursuitPlayer : StateMachineBehaviour
     {
         _agent.speed = 5f;
         _agent.SetDestination(_player.transform.position);
-        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1)
+        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1.25f)
         {
-            
-            if (_enemyBehaviour.PlayerDetectedScript != null)
-            {
-                _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true; 
-            }
-        }
-        if (_enemyBehaviour.PlayerDetectedScript != null)
-        {
+            //animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+            //if (_enemyBehaviour.PlayerDetectedScript != null)
+            //{
+            _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true;
             animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+            Debug.Log(_enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+            //}
         }
+        else
+        {
+            _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = false;
+            animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+            Debug.Log(_enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+        }
+        //if (_enemyBehaviour.PlayerDetectedScript != null)
+        //{
+        //}
     }
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

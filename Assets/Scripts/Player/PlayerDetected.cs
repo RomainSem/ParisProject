@@ -45,13 +45,13 @@ public class PlayerDetected : MonoBehaviour
     //    }
     //}
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy" ))
-        {
-            IsPlayerCloseToEnemy = true;
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Enemy" ))
+    //    {
+    //        IsPlayerCloseToEnemy = true;
+    //    }
+    //}
 
     #endregion
 

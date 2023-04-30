@@ -8,8 +8,8 @@ public class PlayerHealth : MonoBehaviour
 {
     #region Exposed
 
-    [SerializeField] int _maxHealth = 100;
-    [SerializeField] int _currentHealth;
+    [SerializeField] float _maxHealth = 100;
+    [SerializeField] float _currentHealth;
     [SerializeField] Image _healthBarRed;
     [SerializeField] Image _healthBarBlack;
     [SerializeField] TextMeshProUGUI _healthNbUI;
@@ -21,8 +21,9 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        t = 0;
+        t = 0.008f;
         _currentHealth = _maxHealth;
+        _previousHealth = _currentHealth;
         _enemyBehaviour = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyBehaviour>();
     }
 
@@ -31,14 +32,15 @@ public class PlayerHealth : MonoBehaviour
         if (_previousHealth != _currentHealth)
         {
             _previousHealth = Mathf.Lerp(_previousHealth, _currentHealth, t);
-            t += 0.01f * Time.deltaTime;
+            //t = 0.01f /** Time.deltaTime*/;
         }
-        else
-        {
-            t = 0;
-        }
+        //else
+        //{
+        //    t = 0;
+        //}
 
         _healthBarRed.fillAmount = _currentHealth / _maxHealth;
+        Debug.Log(_currentHealth / _maxHealth + " " + _currentHealth + " " + _maxHealth);
         _healthBarBlack.fillAmount = _previousHealth / _maxHealth;
         _healthNbUI.text = _currentHealth.ToString("0") + " / " + _maxHealth.ToString("0");
 
@@ -73,7 +75,8 @@ public class PlayerHealth : MonoBehaviour
             if (_lastDamageTime >= 1f)
             {
                 _lastDamageTime = 0f;
-                StartCoroutine(LoseHPSlow(_enemyBehaviour.Damage));
+                LoseHP(_enemyBehaviour.Damage);
+                //StartCoroutine(LoseHPSlow(_enemyBehaviour.Damage));
             }
         }
     }
@@ -91,6 +94,9 @@ public class PlayerHealth : MonoBehaviour
     {
         {
             _currentHealth -= enemyDamage;
+            //Debug.Log(enemyDamage);
+            //Debug.Log(_currentHealth -= enemyDamage);
+
         }
     }
 

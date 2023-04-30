@@ -10,7 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] GameObject _player;
     [SerializeField] int _health = 100;
-    [SerializeField] byte _damage = 1;
+    [SerializeField] byte _damage = 10;
     [SerializeField] byte _kickImpact = 10;
     [SerializeField] byte _bulletImpact = 6;
     [SerializeField] PlayerDetected _playerDetectedScript;
