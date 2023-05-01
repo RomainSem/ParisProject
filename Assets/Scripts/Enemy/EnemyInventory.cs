@@ -6,28 +6,43 @@ public class EnemyInventory : MonoBehaviour
 {
 
     [SerializeField] GameObject _lootMenu;
+    [SerializeField] LayerMask _layerMask;
+    [SerializeField] Texture2D _lootCursor;
 
     private void Start()
     {
         _inventoryManager = GetComponent<InventoryManager>();
         _playerAim = GameObject.Find("Player").GetComponent<PlayerAim>();
+        _layerMask = ~_layerMask;
         _lootMenu.SetActive(false);
     }
 
     private void Update()
     {
-        if (_isEnemyDead && !_playerAim.IsAiming && Input.GetMouseButtonDown(1) && _isMouseOverEnemy)
+        if (_isMouseOverEnemy && _isEnemyDead && !_playerAim.IsAiming)
         {
-            if (hit.collider.gameObject != null)
+            Cursor.SetCursor(_lootCursor, Vector2.zero, CursorMode.ForceSoftware);
+            if ( Input.GetButtonDown("Use"))
             {
-                _enemyClickedOn = hit.collider.gameObject;
+                if (hit.collider.gameObject != null)
+                {
+                    _enemyClickedOn = hit.collider.gameObject;
+                }
+                _inventoryManager.RemoveAllEnemyItems();
+                for (int i = 0; i < _enemyLoot.PossessedItems.Count; i++)
+                {
+                    _inventoryManager.AddItem(_enemyLoot.PossessedItems[i], "Enemy");
+                }
+                OpenLootMenu();
             }
-            _inventoryManager.RemoveAllEnemyItems();
-            for (int i = 0; i < _enemyLoot.PossessedItems.Count; i++)
+        }
+        else
+        {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            if (Input.GetButtonDown("Use"))
             {
-                _inventoryManager.AddItem(_enemyLoot.PossessedItems[i], "Enemy");
+                CloseLootMenu();
             }
-            OpenLootMenu();
         }
 
     }
@@ -40,7 +55,7 @@ public class EnemyInventory : MonoBehaviour
     void RaycastFromMouseToEnemy()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 1000))
+        if (Physics.Raycast(ray, out hit, 1000, _layerMask))
         {
             if (hit.collider.CompareTag("Enemy"))
             {
@@ -85,4 +100,6 @@ public class EnemyInventory : MonoBehaviour
     public GameObject EnemyClickedOn { get => _enemyClickedOn; set => _enemyClickedOn = value; }
     public bool IsLootMenuOpen { get => _isLootMenuOpen; set => _isLootMenuOpen = value; }
     public bool IsMouseOverEnemy { get => _isMouseOverEnemy; set => _isMouseOverEnemy = value; }
+    public bool IsEnemyDead { get => _isEnemyDead; set => _isEnemyDead = value; }
+    public RaycastHit Hit { get => hit; }
 }

@@ -29,7 +29,6 @@ public class PursuitPlayer : StateMachineBehaviour
             {
                 _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true;
                 animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
-                Debug.Log(_enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
             }
         }
         else
@@ -38,7 +37,6 @@ public class PursuitPlayer : StateMachineBehaviour
             {
                 _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = false;
                 animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
-                Debug.Log(_enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
             }
         }
     }
