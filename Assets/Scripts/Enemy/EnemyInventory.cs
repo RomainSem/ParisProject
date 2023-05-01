@@ -8,6 +8,7 @@ public class EnemyInventory : MonoBehaviour
     [SerializeField] GameObject _lootMenu;
     [SerializeField] LayerMask _layerMask;
     [SerializeField] Texture2D _lootCursor;
+    [SerializeField] GameObject _interactPanel;
 
     private void Start()
     {
@@ -19,10 +20,19 @@ public class EnemyInventory : MonoBehaviour
 
     private void Update()
     {
+        if (_enemyLoot != null)
+        {
+            if (_enemyLoot.PossessedItems.Count == 0)
+            {
+                CloseLootMenu();
+                return;
+            }
+        }
         if (_isMouseOverEnemy && _isEnemyDead && !_playerAim.IsAiming)
         {
-            Cursor.SetCursor(_lootCursor, Vector2.zero, CursorMode.ForceSoftware);
-            if ( Input.GetButtonDown("Use"))
+            Cursor.SetCursor(_lootCursor, new Vector2(8, 0), CursorMode.ForceSoftware);
+            _interactPanel.SetActive(true);
+            if (Input.GetButtonDown("Use"))
             {
                 if (hit.collider.gameObject != null)
                 {
@@ -39,6 +49,7 @@ public class EnemyInventory : MonoBehaviour
         else
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            _interactPanel.SetActive(false);
             if (Input.GetButtonDown("Use"))
             {
                 CloseLootMenu();

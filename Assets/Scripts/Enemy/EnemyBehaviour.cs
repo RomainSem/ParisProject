@@ -14,6 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] byte _kickImpact = 10;
     [SerializeField] byte _bulletImpact = 6;
     [SerializeField] PlayerDetected _playerDetectedScript;
+    [SerializeField] GameObject _canBeLootedFX;
 
 
     #endregion
@@ -32,11 +33,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        //if (_isEnemyDead)
-        //{
-        //    Destroy(gameObject, 60f);
-        //    _isEnemyDead = false;
-        //}
+        if (_isEnemyDead)
+        {
+            _canBeLootedFX.SetActive(true);
+            //Destroy(gameObject, 60f);
+            //_isEnemyDead = false;
+        }
         if (!_isEnemyDead)
         {
             RaycastToPlayer();

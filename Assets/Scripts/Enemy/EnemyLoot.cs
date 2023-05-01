@@ -18,6 +18,14 @@ public class EnemyLoot : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (possessedItems.Count == 0)
+        {
+            gameObject.transform.Find("CanBeLootParticles").gameObject.SetActive(false);
+        }
+    }
+
 
 
     bool _isMouseOverEnemy;
