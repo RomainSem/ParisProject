@@ -68,11 +68,11 @@ public class EnemyInventory : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 1000, _layerMask))
         {
-            if (hit.collider.CompareTag("Enemy"))
+            if (hit.collider.CompareTag("EnemyLoot"))
             {
                 _isMouseOverEnemy = true;
-                EnemyLoot currentEnemyLoot = hit.collider.gameObject.GetComponent<EnemyLoot>();
-                _isEnemyDead = hit.collider.gameObject.GetComponent<EnemyBehaviour>().IsEnemyDead;
+                EnemyLoot currentEnemyLoot = hit.collider.transform.parent.parent.gameObject.GetComponent<EnemyLoot>();
+                _isEnemyDead = hit.collider.transform.parent.parent.gameObject.GetComponent<EnemyBehaviour>().IsEnemyDead;
                 if (currentEnemyLoot != _enemyLoot)
                 {
                     _enemyLoot = currentEnemyLoot;

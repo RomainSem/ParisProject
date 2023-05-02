@@ -89,7 +89,6 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             _isAttacked = true;
-            Destroy(collision.gameObject);
             if (_lastDamageTime >= 0.5f)
             {
                 _lastDamageTime = 0f;
@@ -101,7 +100,9 @@ public class EnemyBehaviour : MonoBehaviour
             if (_health <= 0)
             {
                 NbEnemies--;
-                GetComponent<CapsuleCollider>().isTrigger = true;
+                GetComponent<CapsuleCollider>().enabled = false;
+                transform.Find("Graphics").transform.Find("Scientist").GetComponent<BoxCollider>().enabled = true;
+                gameObject.layer = 11;
                 _coneDetectionScript.gameObject.SetActive(false);
                 _enemyLootScript.ReturnEnemyPossessedItems();
                 _isEnemyDead = true;

@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 6457705704294100080}
   - component: {fileID: 1807550133}
   - component: {fileID: 6457705704748492845}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -3889,7 +3889,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3265
+  m_VersionIndex: 3289
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4074,8 +4074,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 910445ee76be88846b0c1b3642c2944d,
         type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 910445ee76be88846b0c1b3642c2944d,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 910445ee76be88846b0c1b3642c2944d,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyLoot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 910445ee76be88846b0c1b3642c2944d, type: 3}
@@ -4112,6 +4122,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alreadyCollidedWith: []
+--- !u!1 &6151645298209251826 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 910445ee76be88846b0c1b3642c2944d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6457705704353160355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2529418993972271435
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151645298209251826}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.4, z: 1}
+  m_Center: {x: 0.34, y: 0.25, z: -0.36}
 --- !u!4 &6779281258096016200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 910445ee76be88846b0c1b3642c2944d,

@@ -18,6 +18,7 @@ TagManager:
   - Item
   - ItemUI
   - EnemyInventory
+  - EnemyLoot
   layers:
   - Default
   - TransparentFX
@@ -30,9 +31,9 @@ TagManager:
   - Ground
   - IgnoreEnemyCone
   - EnemyCone
-  - 
-  - 
-  - 
+  - EnemyLoot
+  - Enemy
+  - Laser
   - 
   - 
   - 
