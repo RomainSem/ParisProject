@@ -6,7 +6,7 @@ public class PlayerAnimations : MonoBehaviour
 {
     #region Exposed
 
-
+    [SerializeField] EnemyInventory _enemyInventory;
 
     #endregion
 
@@ -52,7 +52,17 @@ public class PlayerAnimations : MonoBehaviour
             _animator.SetFloat("headingX", relative.x);
             _animator.SetFloat("headingZ", relative.z);
         }
+
         _animator.SetBool("IsKicking", _playerInputScript.IsKicking);
+
+        if (_playerMovScript.IsMoving)
+        {
+            _animator.SetBool("IsLootingEnemy", false);
+        }
+        else
+        {
+            _animator.SetBool("IsLootingEnemy", _enemyInventory.IsLootMenuOpen);
+        }
     }
 
     #endregion
@@ -69,6 +79,7 @@ public class PlayerAnimations : MonoBehaviour
     PlayerInput _playerInputScript;
     GoToBedScript _goToBedScript;
     Rigidbody _rgbd;
+
 
     #endregion
 }

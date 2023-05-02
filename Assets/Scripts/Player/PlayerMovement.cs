@@ -119,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
     public float MoveSpeed { get => _speed; set => _speed = value; }
     public bool IsRunning { get => _isRunning; set => _isRunning = value; }
     public Vector3 Heading { get => _heading; set => _heading = value; }
+    public bool IsMoving { get => _isMoving; set => _isMoving = value; }
 
     #endregion
 }

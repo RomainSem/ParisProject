@@ -8,8 +8,9 @@ public class EnemyInventory : MonoBehaviour
     [SerializeField] GameObject _lootMenu;
     [SerializeField] LayerMask _layerMask;
     [SerializeField] Texture2D _lootCursor;
-    [SerializeField] Vector3 _lootMenuOffset;
+    [SerializeField] Vector3 _lootCursorOffset;
     [SerializeField] GameObject _interactPanel;
+    [SerializeField] PlayerMovement _playerMovement;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class EnemyInventory : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_isMouseOverEnemy + " " +  _isEnemyDead);
+        Debug.Log(_isLootMenuOpen);
         if (_enemyLoot != null)
         {
             if (_enemyLoot.PossessedItems.Count == 0)
@@ -32,9 +33,9 @@ public class EnemyInventory : MonoBehaviour
         }
         if (_isMouseOverEnemy && _isEnemyDead && !_playerAim.IsAiming)
         {
-            Cursor.SetCursor(_lootCursor, _lootMenuOffset, CursorMode.ForceSoftware);
+            Cursor.SetCursor(_lootCursor, _lootCursorOffset, CursorMode.ForceSoftware);
             _interactPanel.SetActive(true);
-            if (Input.GetButtonDown("Use"))
+            if (Input.GetButtonDown("Use") /*Input.GetMouseButtonDown(1)*/)
             {
                 if (hit.collider.gameObject != null)
                 {
@@ -57,6 +58,10 @@ public class EnemyInventory : MonoBehaviour
                 CloseLootMenu();
             }
         }
+        if (_playerMovement.IsMoving)
+        {
+            CloseLootMenu();
+        }
 
     }
 
@@ -73,7 +78,6 @@ public class EnemyInventory : MonoBehaviour
             if (hit.collider.CompareTag("EnemyLoot"))
             {
                 _isMouseOverEnemy = true;
-                Debug.Log(hit.collider.gameObject.transform.parent.transform.Find("Enemy").gameObject);
                 EnemyLoot currentEnemyLoot = hit.collider.gameObject.transform.parent.Find("Enemy").GetComponent<EnemyLoot>();
                 _isEnemyDead = hit.collider.gameObject.transform.parent.Find("Enemy").GetComponent<EnemyBehaviour>().IsEnemyDead;
                 if (currentEnemyLoot != _enemyLoot)
