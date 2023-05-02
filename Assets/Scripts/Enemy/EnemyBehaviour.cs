@@ -49,6 +49,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         _lastDamageTime += Time.deltaTime;
         _animator.SetInteger("Health", _health);
+        transform.parent.Find("EnemyLoot").transform.position = new Vector3( gameObject.transform.position.x, 0,gameObject.transform.position.z);
     }
 
     private void FixedUpdate()
@@ -101,7 +102,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 NbEnemies--;
                 GetComponent<CapsuleCollider>().enabled = false;
-                transform.Find("Graphics").transform.Find("Scientist").GetComponent<BoxCollider>().enabled = true;
+                transform.parent.Find("EnemyLoot").GetComponent<BoxCollider>().enabled = true;
                 gameObject.layer = 11;
                 _coneDetectionScript.gameObject.SetActive(false);
                 _enemyLootScript.ReturnEnemyPossessedItems();

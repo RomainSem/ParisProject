@@ -8,6 +8,7 @@ public class EnemyInventory : MonoBehaviour
     [SerializeField] GameObject _lootMenu;
     [SerializeField] LayerMask _layerMask;
     [SerializeField] Texture2D _lootCursor;
+    [SerializeField] Vector3 _lootMenuOffset;
     [SerializeField] GameObject _interactPanel;
 
     private void Start()
@@ -20,6 +21,7 @@ public class EnemyInventory : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(_isMouseOverEnemy + " " +  _isEnemyDead);
         if (_enemyLoot != null)
         {
             if (_enemyLoot.PossessedItems.Count == 0)
@@ -30,7 +32,7 @@ public class EnemyInventory : MonoBehaviour
         }
         if (_isMouseOverEnemy && _isEnemyDead && !_playerAim.IsAiming)
         {
-            Cursor.SetCursor(_lootCursor, new Vector2(8, 0), CursorMode.ForceSoftware);
+            Cursor.SetCursor(_lootCursor, _lootMenuOffset, CursorMode.ForceSoftware);
             _interactPanel.SetActive(true);
             if (Input.GetButtonDown("Use"))
             {
@@ -71,8 +73,9 @@ public class EnemyInventory : MonoBehaviour
             if (hit.collider.CompareTag("EnemyLoot"))
             {
                 _isMouseOverEnemy = true;
-                EnemyLoot currentEnemyLoot = hit.collider.transform.parent.parent.gameObject.GetComponent<EnemyLoot>();
-                _isEnemyDead = hit.collider.transform.parent.parent.gameObject.GetComponent<EnemyBehaviour>().IsEnemyDead;
+                Debug.Log(hit.collider.gameObject.transform.parent.transform.Find("Enemy").gameObject);
+                EnemyLoot currentEnemyLoot = hit.collider.gameObject.transform.parent.Find("Enemy").GetComponent<EnemyLoot>();
+                _isEnemyDead = hit.collider.gameObject.transform.parent.Find("Enemy").GetComponent<EnemyBehaviour>().IsEnemyDead;
                 if (currentEnemyLoot != _enemyLoot)
                 {
                     _enemyLoot = currentEnemyLoot;
