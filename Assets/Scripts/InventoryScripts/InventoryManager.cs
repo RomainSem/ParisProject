@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] InventorySlot[] _inventorySlots;
     [SerializeField] InventorySlot[] _enemyInventorySlots;
+    [SerializeField] int _maxNbStackedItems = 6;
     [SerializeField] GameObject _itemPrefab;
 
     private void Start()
@@ -40,19 +41,16 @@ public class InventoryManager : MonoBehaviour
             {
                 InventorySlot slot = _inventorySlots[i];
                 InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-                if (itemInSlot == null)
+                if (itemInSlot != null && itemInSlot.Item == itemToAdd && itemInSlot.Item.IsStackable && itemInSlot.Quantity < _maxNbStackedItems)
                 {
-                    //if (itemToAdd.IsStackable)
-                    //{
-
-                    //}
+                    itemInSlot.Quantity++;
+                    return true;
+                }
+                else if (itemInSlot == null)
+                {
                     SpawnNewItem(itemToAdd, slot);
                     return true;
                 }
-                //else if (itemInSlot == itemToAdd)
-                //{
-                //    break;
-                //}
             }
             return false;
 

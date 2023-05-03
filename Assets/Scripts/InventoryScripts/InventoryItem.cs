@@ -25,6 +25,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
         _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
         _itemName = _itemDescUI.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
+        _quantityUI = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -43,6 +44,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 Destroy(gameObject);
             }
         }
+        RefreshQuantity();
     }
 
     public void InitialiseItem(Item newItem)
@@ -71,6 +73,21 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
+    public void RefreshQuantity() // Called when an item is added to the inventory
+    {
+        if (_quantityUI != null)
+        {
+            if (_quantity > 1)
+            {
+                _quantityUI.text = _quantity.ToString();
+            }
+            else
+            {
+                _quantityUI.text = "";
+            }
+        }
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         _isMouseOver = true;
@@ -93,6 +110,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     TextMeshProUGUI _itemName;
     InventoryManager _inventoryManager;
     EnemyInventory _enemyInventory;
+    TextMeshProUGUI _quantityUI;
 
     public Item Item { get => _item; set => _item = value; }
     public int Quantity { get => _quantity; set => _quantity = value; }
