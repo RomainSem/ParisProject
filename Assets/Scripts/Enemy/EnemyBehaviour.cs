@@ -103,7 +103,7 @@ public class EnemyBehaviour : MonoBehaviour
                 NbEnemies--;
                 GetComponent<CapsuleCollider>().enabled = false;
                 transform.parent.Find("EnemyLoot").GetComponent<BoxCollider>().enabled = true;
-                gameObject.layer = 11;
+                //gameObject.layer = 11;
                 _coneDetectionScript.gameObject.SetActive(false);
                 _enemyLootScript.ReturnEnemyPossessedItems();
                 _isEnemyDead = true;

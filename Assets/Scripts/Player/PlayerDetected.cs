@@ -53,17 +53,38 @@ public class PlayerDetected : MonoBehaviour
     //    }
     //}
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("EnemyLoot"))
+        {
+            _actualEnemyLoot = other.gameObject;
+            _isPlayerInLootZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("EnemyLoot"))
+        {
+            _actualEnemyLoot = null;
+            _isPlayerInLootZone = false;
+        }
+    }
+
     #endregion
 
     #region Private & Protected
 
-    bool _isPlayerInCone;
+    GameObject _actualEnemyLoot;
+    bool _isPlayerInLootZone;
     bool _isDetectedByEnemy;
     bool _isPlayerCloseToEnemy;
     EnemyBehaviour _enemyBehaviourScript;
 
     public bool IsDetectedByEnemy { get => _isDetectedByEnemy; set => _isDetectedByEnemy = value; }
     public bool IsPlayerCloseToEnemy { get => _isPlayerCloseToEnemy; set => _isPlayerCloseToEnemy = value; }
+    public bool IsPlayerInLootZone { get => _isPlayerInLootZone; set => _isPlayerInLootZone = value; }
+    public GameObject ActualEnemyLoot { get => _actualEnemyLoot; set => _actualEnemyLoot = value; }
 
     #endregion
 }

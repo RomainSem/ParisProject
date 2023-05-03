@@ -20,6 +20,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void Start()
     {
         _playerAimScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
+        _playerDetected = GameObject.Find("Player").GetComponent<PlayerDetected>();
         _enemyInventory = _inventoryManager.GetComponent<EnemyInventory>();
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
         _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
@@ -28,6 +29,10 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Update()
     {
+        if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetButtonDown("TakeAll"))
+        {
+            _inventoryManager.AddAllItems();
+        }
         if (_isMouseOver && !_playerAimScript.IsAiming)
         {
             _itemDescUI.SetActive(true);
@@ -37,7 +42,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             _itemName.text = _item.ItemName;
             if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetMouseButtonDown(0))
             {
-                _enemyInventory.EnemyClickedOn.GetComponent<EnemyLoot>().PossessedItems.Remove(_item);
+                _playerDetected.ActualEnemyLoot.transform.parent.Find("Enemy").GetComponent<EnemyLoot>().PossessedItems.Remove(_item);
                 _inventoryManager.AddItem(_item, "Player");
                 Destroy(gameObject);
             }
@@ -83,6 +88,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     Image _itemIcon;
     bool _isMouseOver;
     PlayerAim _playerAimScript;
+    PlayerDetected _playerDetected;
     ObjectsEffects _objectEffects;
     GameObject _itemDescUI;
     GameObject _canvas;

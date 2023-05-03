@@ -15,10 +15,16 @@ public class InventoryManager : MonoBehaviour
     {
         //_enemyInventoryItems = GameObject.Find("Enemy").GetComponent<EnemyInventory>().ItemsPossessed;
         ChangeSelectedSlot(0);
+        _playerDetected = GameObject.Find("Player").GetComponent<PlayerDetected>();
     }
 
     private void Update()
     {
+        if (Input.GetButtonDown("TakeAll") && gameObject.GetComponent<EnemyInventory>().IsLootMenuOpen)
+        {
+            AddAllItems();
+
+        }
         InputToNavigateThroughSlots();
     }
 
@@ -77,6 +83,22 @@ public class InventoryManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void AddAllItems()
+    {
+        GameObject enemy = _playerDetected.ActualEnemyLoot.transform.parent.Find("Enemy").gameObject;
+        foreach (InventorySlot slot in _enemyInventorySlots)
+        {
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot != null)
+            {
+                AddItem(itemInSlot.Item, "Player");
+                //RemoveItemFromEnemy(itemInSlot.Item);
+            }
+        }
+                RemoveAllEnemyItems();
+                enemy.GetComponent<EnemyLoot>().PossessedItems.Clear();
     }
 
     public void RemoveItemFromEnemy(Item itemToRemove)
@@ -218,6 +240,7 @@ public class InventoryManager : MonoBehaviour
 
     int _selectedSlot = -1;
     List<Item> _enemyInventoryItems;
+    PlayerDetected _playerDetected;
 
     public InventorySlot[] EnemyInventorySlots { get => _enemyInventorySlots; set => _enemyInventorySlots = value; }
 }
