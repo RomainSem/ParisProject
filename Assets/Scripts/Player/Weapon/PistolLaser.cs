@@ -23,12 +23,12 @@ public class PistolLaser : MonoBehaviour
     }
     void Update()
     {
-        if (_simpleShootScript.IsShooting)
+        if (_simpleShootScript.IsShooting && _hit.collider != null)
         {
             // Créer un trou sur l'objet touché
             GameObject decal = Instantiate(_bulletHole, _hit.point, Quaternion.FromToRotation(-Vector3.forward, _hit.normal));
             decal.transform.position = _hit.point;
-            decal.transform.parent = _hit.transform;
+            decal.transform.parent = _hit.transform.parent;
             Destroy(decal, 5);
         }
     }

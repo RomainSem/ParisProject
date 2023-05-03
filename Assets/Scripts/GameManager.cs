@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _winPanel;
     [SerializeField] GameObject _kickCircleCooldownOBJ;
     [SerializeField] Image _kickCircleCooldownIMG;
-    [SerializeField] Image[] _nbBullets;
+    //[SerializeField] Image[] _nbBullets;
+    [SerializeField] TextMeshProUGUI _nbActualBullets;
+    [SerializeField] TextMeshProUGUI _nbTotalBullets;
     [SerializeField] GameObject _player;
 
     private void Awake()
@@ -74,17 +77,20 @@ public class GameManager : MonoBehaviour
 
     private void UpdateNbBullets()
     {
-        for (int i = 0; i < _nbBullets.Length; i++)
-        {
-            if (i < _simpleShootScript.CurrentNbBullets)
-            {
-                _nbBullets[i].enabled = true;
-            }
-            else
-            {
-                _nbBullets[i].enabled = false;
-            }
-        }
+        //for (int i = 0; i < _nbBullets.Length; i++)
+        //{
+        //    if (i < _simpleShootScript.CurrentNbBullets)
+        //    {
+        //        _nbBullets[i].enabled = true;
+        //    }
+        //    else
+        //    {
+        //        _nbBullets[i].enabled = false;
+        //    }
+        //}
+
+        _nbActualBullets.text = _simpleShootScript.CurrentNbBullets.ToString();
+        _nbTotalBullets.text = " / " + _simpleShootScript.CurrentNbBulletsInMagazine.ToString();
     }
 
     private void UpdateKickCooldown()

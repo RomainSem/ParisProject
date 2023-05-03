@@ -26,6 +26,8 @@ public class SimpleShoot : MonoBehaviour
 
     [Tooltip("Max Number of Bullets")][SerializeField] float maxNbBullets = 7f;
     [Tooltip("Current Number of Bullets")][SerializeField] float currentNbBullets;
+    [Tooltip("Number of Bullets in magazine")][SerializeField] float currentNbBulletsInMagazine = 32;
+    [Tooltip("Max number of Bullets in magazine")][SerializeField] float maxNbBulletsInMagazine = 32;
     //[Tooltip("Time To Reload")][SerializeField] float timeToReload = 1.5f;
 
     [Tooltip("Reload Text Blink")][SerializeField] TextMeshProUGUI reloadTxt;
@@ -46,6 +48,7 @@ if (_playerAimScript == null)
 #endif
         reloadTxt.color = Color.clear;
         currentNbBullets = maxNbBullets;
+        currentNbBulletsInMagazine = maxNbBulletsInMagazine;
         if (barrelLocation == null)
             barrelLocation = transform;
 
@@ -75,8 +78,13 @@ if (_playerAimScript == null)
         }
         if (currentNbBullets <= 0 && IsReloading == false || currentNbBullets < maxNbBullets && Input.GetButtonDown("Reload") && IsReloading == false)
         {
-            currentNbBullets = 0;
+            //currentNbBullets = 0;
+            if (currentNbBulletsInMagazine <= 0) { return; }
             StartCoroutine("Reload");
+        }
+        if (currentNbBulletsInMagazine < 0)
+        {
+            currentNbBulletsInMagazine = 0;
         }
     }
 
@@ -138,10 +146,13 @@ if (_playerAimScript == null)
         float blinkSpeed = 0.2f; // La vitesse à laquelle le texte clignote
         float blinkTime = 0; // Le temps écoulé depuis le dernier clignotement
         bool blink = false; // Indique si le texte doit être visible ou non
+        float nbToAddToBullets = currentNbBulletsInMagazine;
         isReloading = true;
         _nbBulletPanel.SetActive(false);
-
-
+        if (currentNbBulletsInMagazine > 0)
+        {
+            currentNbBulletsInMagazine -= maxNbBullets - currentNbBullets;
+        }
         for (int i = 0; i < 400; i++)
         {
             blinkTime += Time.deltaTime;
@@ -150,16 +161,24 @@ if (_playerAimScript == null)
             if (blinkTime >= blinkSpeed)
             {
                 blink = !blink;
-                reloadTxt.color = blink ? Color.white : Color.clear;
+                reloadTxt.color = blink ? new Color(255, 203, 96) : Color.clear;
                 blinkTime = 0;
             }
 
             yield return null;
         }
-        currentNbBullets = maxNbBullets;
+        //currentNbBullets = maxNbBullets;
+        if (currentNbBullets + nbToAddToBullets >= maxNbBullets)
+        {
+            currentNbBullets = maxNbBullets;
+        }
+        else if (currentNbBullets + nbToAddToBullets < maxNbBullets)
+        {
+            currentNbBullets += nbToAddToBullets;
+        }
         isReloading = false;
 
-        // Remettre la couleur normale du texte
+        // Remettre le texte en transparent
         _nbBulletPanel.SetActive(true);
         reloadTxt.color = Color.clear;
     }
@@ -172,4 +191,5 @@ if (_playerAimScript == null)
     public bool IsReloading { get => isReloading; set => isReloading = value; }
     public bool IsShooting { get => isShooting; set => isShooting = value; }
     public int BulletDamage { get => _bulletDamage; set => _bulletDamage = value; }
+    public float CurrentNbBulletsInMagazine { get => currentNbBulletsInMagazine; set => currentNbBulletsInMagazine = value; }
 }

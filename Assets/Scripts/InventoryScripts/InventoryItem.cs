@@ -29,10 +29,6 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void Update()
     {
-        if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetButtonDown("TakeAll"))
-        {
-            _inventoryManager.AddAllItems();
-        }
         if (_isMouseOver && !_playerAimScript.IsAiming)
         {
             _itemDescUI.SetActive(true);
