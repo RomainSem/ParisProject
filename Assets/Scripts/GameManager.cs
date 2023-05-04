@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_enemy == null) return;
+        //if (_enemy == null) return;
         _enemy = GameObject.FindGameObjectWithTag("Enemy");
     }
 
@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         _playerHealthScript = _player.GetComponent<PlayerHealth>();
         _simpleShootScript = _player.GetComponentInChildren<SimpleShoot>();
         _playerInputScript = GetComponent<PlayerInput>();
+        _enemyInventoryScript = GameObject.Find("InventoryManager").GetComponent<EnemyInventory>();
         if (_enemy == null) return;
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
 
@@ -43,28 +44,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        ReloadScene();
         UpdateNbBullets();
-
-        if (_playerHealthScript.IsPlayerDead)
-        {
-            _losePanel.SetActive(true);
-        }
-
+        ShowLosePanel();
         if (!_playerInputScript.CanKick)
         {
             _isUpdatingKickCooldown = true;
         }
-        if (_enemy == null) return;
-        if (_enemyBehaviourScript.NbEnemies <= 0)
-        {
-            _winPanel.SetActive(true);
-        }
+        CursorUpdate();
+        ShowWinPanel();
+        //if (_enemy == null) return;
         Cursor.lockState = CursorLockMode.Confined;
-
     }
 
     private void FixedUpdate()
@@ -96,10 +86,47 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void CursorUpdate()
+    {
+        if (_enemyInventoryScript.IsLootMenuOpen || Input.GetButton("TAB"))
+        {
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.visible = false;
+        }
+    }
+
+    private void ShowWinPanel()
+    {
+        if (_enemyBehaviourScript.NbEnemies <= 0)
+        {
+            _winPanel.SetActive(true);
+        }
+    }
+
+    private void ShowLosePanel()
+    {
+        if (_playerHealthScript.IsPlayerDead)
+        {
+            _losePanel.SetActive(true);
+        }
+    }
+
+    private void ReloadScene()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
     PlayerHealth _playerHealthScript;
     PlayerInput _playerInputScript;
     bool _isUpdatingKickCooldown;
     EnemyBehaviour _enemyBehaviourScript;
+    EnemyInventory _enemyInventoryScript;
     GameObject _enemy;
     SimpleShoot _simpleShootScript;
 }

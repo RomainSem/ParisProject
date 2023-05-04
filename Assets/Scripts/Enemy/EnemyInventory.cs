@@ -19,14 +19,6 @@ public class EnemyInventory : MonoBehaviour
 
     private void Update()
     {
-        if (_isLootMenuOpen)
-        {
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.visible = false;
-        }
         if (_isLootMenuOpen && _playerAim.IsAiming)
         {
             CloseLootMenu();

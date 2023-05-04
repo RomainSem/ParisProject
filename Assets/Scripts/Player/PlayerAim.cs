@@ -62,17 +62,6 @@ public class PlayerAim : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
-            // ESSAYER DE PLACER DANS L'UPDATE AVEC GETMOUSEDOWN
-            //if (_enemyInventory.Hit.collider != null && _enemyInventory.Hit.collider.gameObject.CompareTag("Enemy"))
-            //{
-            //    Debug.Log(_enemyInventory.Hit.collider.gameObject.name);
-            //    if (_enemyInventory.Hit.collider.gameObject.GetComponent<EnemyBehaviour>().IsEnemyDead)
-            //    {
-            //        IsAiming = false;
-            //        return;
-            //    }
-            //}
-            
             IsAiming = true;
             RaycastHit hit;
             if (Physics.Raycast(_cameraRay, out hit, Mathf.Infinity, 1 << 8))
