@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
 #if DEVELOPMENT_BUILD
 
-        Debug.LogError("Force the build console open...");
+        Debug.LogError("Force the build console open..."); 
         if (_playerHealthScript == null)
 	    {
             Debug.Log("PLAYER HEALTH IS NULL");

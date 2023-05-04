@@ -49,7 +49,6 @@ public class PickUpItem : MonoBehaviour
         }
         else
         {
-            _interactPanel.SetActive(false);
             _itemDescUI.SetActive(false);
         }
     }
