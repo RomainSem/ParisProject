@@ -161,7 +161,7 @@ if (_playerAimScript == null)
             if (blinkTime >= blinkSpeed)
             {
                 blink = !blink;
-                reloadTxt.color = blink ? new Color(255, 203, 96) : Color.clear;
+                reloadTxt.color = blink ? new Color(1, 0.7960784f, 0.3764706f) : Color.clear;
                 blinkTime = 0;
             }
 

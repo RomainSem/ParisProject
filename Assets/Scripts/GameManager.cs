@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _winPanel;
     [SerializeField] GameObject _kickCircleCooldownOBJ;
     [SerializeField] Image _kickCircleCooldownIMG;
-    //[SerializeField] Image[] _nbBullets;
     [SerializeField] TextMeshProUGUI _nbActualBullets;
     [SerializeField] TextMeshProUGUI _nbTotalBullets;
     [SerializeField] GameObject _player;
@@ -64,6 +63,7 @@ public class GameManager : MonoBehaviour
         {
             _winPanel.SetActive(true);
         }
+        Cursor.lockState = CursorLockMode.Confined;
 
     }
 
@@ -77,18 +77,6 @@ public class GameManager : MonoBehaviour
 
     private void UpdateNbBullets()
     {
-        //for (int i = 0; i < _nbBullets.Length; i++)
-        //{
-        //    if (i < _simpleShootScript.CurrentNbBullets)
-        //    {
-        //        _nbBullets[i].enabled = true;
-        //    }
-        //    else
-        //    {
-        //        _nbBullets[i].enabled = false;
-        //    }
-        //}
-
         _nbActualBullets.text = _simpleShootScript.CurrentNbBullets.ToString();
         _nbTotalBullets.text = " / " + _simpleShootScript.CurrentNbBulletsInMagazine.ToString();
     }

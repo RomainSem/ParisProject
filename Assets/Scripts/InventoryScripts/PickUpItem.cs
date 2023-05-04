@@ -14,35 +14,62 @@ public class PickUpItem : MonoBehaviour
         _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
         _itemDescUI = GameObject.Find("ItemDescPanel");
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
-        _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
+        _itemEffectText = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
         _itemName = _itemDescUI.transform.Find("ItemName").GetComponent<TextMeshProUGUI>();
         _nbItemsInScene = GameObject.FindGameObjectsWithTag("Item").Length;
-        _playerAimScript = GameObject.Find("Player").GetComponent<PlayerAim>();
+        _interactPanel = GameObject.Find("InteractPanel");
+        _playerDetected = GameObject.Find("Player").GetComponent<PlayerDetected>();
     }
+
     private void Start()
     {
-       
+        _interactPanel.SetActive(false);
     }
 
     private void Update()
     {
-        if (_isMouseOverItem)
+        if (_playerDetected.IsPlayerInLootZone && _playerDetected.ActualEnemyLoot == null)
         {
-            if (Input.GetMouseButtonDown(1))
+            _interactPanel.SetActive(true);
+            _itemDescUI.SetActive(true);
+            _itemDescUI.transform.position = new Vector2(Screen.width/2.5f, Screen.height/1.5f);
+            _itemName.text = _itemToPickup.ItemName;
+            _itemDescText.text = _itemToPickup.Description;
+            _itemEffectText.text = _itemToPickup.ItemEffect;
+
+            if (Input.GetButtonDown("Use"))
             {
                 PickupItem();
-                gameObject.transform.position = new Vector3(0, 999999999, 0);
+                gameObject.transform.position = new Vector3(0, 9999, 0);
                 if (_nbItemsInScene > 1)
                 {
                     Destroy(gameObject, 1);
                 }
             }
         }
+        else
+        {
+            _interactPanel.SetActive(false);
+            _itemDescUI.SetActive(false);
+        }
     }
 
-    private void FixedUpdate()
+    private void OnTriggerEnter(Collider other)
     {
-        RaycastToMouse();
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("TRIGGER WITH PLAYER");
+            _playerDetected.IsPlayerInLootZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("TRIGGER EXIT WITH PLAYER");
+            _playerDetected.IsPlayerInLootZone = false;
+        }
     }
 
     private void PickupItem()
@@ -76,38 +103,15 @@ public class PickUpItem : MonoBehaviour
         }
     }
 
-    void RaycastToMouse()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 1000, _layerMask))
-        {
-            Debug.DrawLine(ray.origin, hit.point);
-            if (hit.collider.CompareTag("Item") && !_playerAimScript.IsAiming)
-            {
-                _itemDescUI.SetActive(true);
-                _itemDescUI.transform.position = new Vector2(Input.mousePosition.x + 97, Input.mousePosition.y + 43);
-                _itemDescText.text = _itemToPickup.Description;
-                _itemDescTextGreen.text = _itemToPickup.ItemEffect;
-                _itemName.text = _itemToPickup.ItemName;
-                _isMouseOverItem = true;
-            }
-            else
-            {
-                _isMouseOverItem = false;
-                _itemDescUI.SetActive(false);
-            }
-        }
-    }
 
     LayerMask _layerMask;
-    bool _isMouseOverItem;
     int _nbItemsInScene;
+    InventoryManager _inventoryManager;
     GameObject _itemDescUI;
+    GameObject _interactPanel;
     TextMeshProUGUI _itemDescText;
     TextMeshProUGUI _itemName;
-    TextMeshProUGUI _itemDescTextGreen;
-    InventoryManager _inventoryManager;
-    PlayerAim _playerAimScript;
+    TextMeshProUGUI _itemEffectText;
+    PlayerDetected _playerDetected;
 
 }
