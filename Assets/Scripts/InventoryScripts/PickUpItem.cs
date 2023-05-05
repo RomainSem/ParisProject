@@ -31,11 +31,7 @@ public class PickUpItem : MonoBehaviour
         if (_playerDetected.IsPlayerInLootZone && _playerDetected.ActualEnemyLoot == null)
         {
             _interactPanel.SetActive(true);
-            _itemDescUI.SetActive(true);
-            _itemDescUI.transform.position = new Vector2(Screen.width/2.5f, Screen.height/1.5f);
-            _itemName.text = _itemToPickup.ItemName;
-            _itemDescText.text = _itemToPickup.Description;
-            _itemEffectText.text = _itemToPickup.ItemEffect;
+            ShowItemTooltip();
 
             if (Input.GetButtonDown("Use"))
             {
@@ -57,7 +53,6 @@ public class PickUpItem : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("TRIGGER WITH PLAYER");
             _playerDetected.IsPlayerInLootZone = true;
         }
     }
@@ -66,7 +61,6 @@ public class PickUpItem : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("TRIGGER EXIT WITH PLAYER");
             _playerDetected.IsPlayerInLootZone = false;
         }
     }
@@ -100,6 +94,15 @@ public class PickUpItem : MonoBehaviour
         {
             Debug.Log("NO ITEM USED");
         }
+    }
+
+    private void ShowItemTooltip()
+    {
+        _itemDescUI.SetActive(true);
+        _itemDescUI.transform.position = new Vector2(Screen.width / 2.5f, Screen.height / 1.5f);
+        _itemName.text = _itemToPickup.ItemName;
+        _itemDescText.text = _itemToPickup.Description;
+        _itemEffectText.text = _itemToPickup.ItemEffect;
     }
 
 

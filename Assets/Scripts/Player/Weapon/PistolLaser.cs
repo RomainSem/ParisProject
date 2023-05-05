@@ -7,7 +7,7 @@ public class PistolLaser : MonoBehaviour
     [SerializeField] GameObject _pistol;
     [SerializeField] PlayerAim _playerAimScript;
     [SerializeField] GameObject _bulletHole;
-    [SerializeField] LayerMask _layerMask;
+    [SerializeField] LayerMask layerMask;
 
     #endregion
 
@@ -41,10 +41,11 @@ public class PistolLaser : MonoBehaviour
             if (!_simpleShootScript.IsReloading && !_kickCooldownScript.IsKickingAnim /* && _playerInputScript.CanKick*/)
             {
                 _pistolLaser.enabled = true;
-                if (Physics.Raycast(transform.position, transform.forward * 100, out _hit, _layerMask))
+                if (Physics.Raycast(transform.position, transform.forward , out _hit, Mathf.Infinity, layerMask))
                 {
                     //Debug.DrawLine(transform.position, hit.point);
                     _pistolLaser.SetPosition(1, transform.InverseTransformPoint(_hit.point));
+
 
                     // Vérifier si le Raycast a touché un objet
                     //GameObject hitObject = _hit.transform.gameObject;

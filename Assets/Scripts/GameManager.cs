@@ -51,10 +51,10 @@ public class GameManager : MonoBehaviour
         {
             _isUpdatingKickCooldown = true;
         }
-        CursorUpdate();
+        //CursorUpdate();
         ShowWinPanel();
         //if (_enemy == null) return;
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void FixedUpdate()
