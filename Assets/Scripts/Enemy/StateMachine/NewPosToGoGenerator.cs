@@ -7,12 +7,9 @@ public class NewPosToGoGenerator : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _player = GameObject.FindGameObjectWithTag("Player");
-        _animator = animator;
         _enemy = animator.gameObject;
         _coneDetection = _enemy.GetComponentInChildren<ConeDetection>();
-        _circleDetection = _enemy.GetComponentInChildren<CircleDetection>();
-        _randomPosScript = _enemy.transform.parent.GetComponentInChildren<RandomPosInCircle>();
+        _randomPosScript = _enemy.transform.parent.Find("RandomPosInCircle").GetComponent<RandomPosInCircle>();
         _agent = _enemy.GetComponent<NavMeshAgent>();
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
     }
@@ -28,7 +25,6 @@ public class NewPosToGoGenerator : StateMachineBehaviour
                 animator.SetBool("IsPlayerDetected", _coneDetection.IsDetectedByEnemy);
             }
         }
-        //animator.SetBool("IsGoneToRandomPos", true);
     }
 
     private void GoToRandomPosInCircle()
@@ -36,24 +32,20 @@ public class NewPosToGoGenerator : StateMachineBehaviour
         if (_randomPosScript.IsPosGenerated)
         {
             _agent.speed = 3f;
+            Debug.Log(_randomPosScript.RandomPos);
             _agent.SetDestination(_randomPosScript.RandomPos);
             if (Vector3.Distance(_enemy.transform.position, _randomPosScript.RandomPos) <= 2f)
             {
                 _randomPosScript.IsPosGenerated = false;
-                _animator.SetBool("IsGoneToRandomPos", true);
             }
         }
     }
 
 
     NavMeshAgent _agent;
-
     GameObject _enemy;
-    GameObject _player;
-    Animator _animator;
 
     ConeDetection _coneDetection;
-    CircleDetection _circleDetection;
     EnemyBehaviour _enemyBehaviourScript;
     RandomPosInCircle _randomPosScript;
 

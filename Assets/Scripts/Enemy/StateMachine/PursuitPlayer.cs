@@ -21,23 +21,48 @@ public class PursuitPlayer : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _agent.speed = 5f;
-        _agent.SetDestination(_player.transform.position);
-        if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1.25f)
+        switch (_enemy.transform.parent.tag)
         {
-            if (_enemyBehaviour.PlayerDetectedScript != null)
-            {
-                _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true;
-                animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
-            }
-        }
-        else
-        {
-            if (_enemyBehaviour.PlayerDetectedScript != null)
-            {
-                _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = false;
-                animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
-            }
+            case "EnemyWithGun":
+                _agent.speed = 5f;
+                _agent.SetDestination(_player.transform.position);
+                if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 7f)
+                {
+                    if (_enemyBehaviour.PlayerDetectedScript != null)
+                    {
+                        _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true;
+                        animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+                    }
+                }
+                else
+                {
+                    if (_enemyBehaviour.PlayerDetectedScript != null)
+                    {
+                        _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = false;
+                        animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+                    }
+                }
+                break;
+            default:
+                _agent.speed = 5f;
+                _agent.SetDestination(_player.transform.position);
+                if (Vector3.Distance(_enemy.transform.position, _player.transform.position) <= 1.25f)
+                {
+                    if (_enemyBehaviour.PlayerDetectedScript != null)
+                    {
+                        _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = true;
+                        animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+                    }
+                }
+                else
+                {
+                    if (_enemyBehaviour.PlayerDetectedScript != null)
+                    {
+                        _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy = false;
+                        animator.SetBool("IsPlayerCloseToEnemy", _enemyBehaviour.PlayerDetectedScript.IsPlayerCloseToEnemy);
+                    }
+                }
+                break;
         }
     }
 
