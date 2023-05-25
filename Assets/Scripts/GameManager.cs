@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowTutorial()
     {
+        _tutorialPanel.SetActive(true);
         yield return new WaitForSeconds(20f);
         _tutorialPanel.SetActive(false);
     }
