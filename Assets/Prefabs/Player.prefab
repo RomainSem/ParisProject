@@ -133,8 +133,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4484787, y: 1.7051908, z: 0.37023118}
-  m_Center: {x: -0.0040843487, y: 0.86589056, z: -0.00941357}
+  m_Size: {x: 0.4484787, y: 1.7117219, z: 0.37023118}
+  m_Center: {x: -0.0040843487, y: 0.862625, z: -0.00941357}
 --- !u!114 &209202311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc501344b39cb246a7ae25f46d93958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyInventory: {fileID: 0}
 --- !u!114 &209202312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flashlight: {fileID: 8698110452122559697}
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!114 &209202313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,8 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _currentHealth: 0
-  _healthBarGreen: {fileID: 0}
   _healthBarRed: {fileID: 0}
+  _healthBarBlack: {fileID: 0}
   _healthNbUI: {fileID: 0}
 --- !u!1001 &178246154
 PrefabInstance:
@@ -211,6 +215,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3650837416353935433}
     m_Modifications:
+    - target: {fileID: 946091641106427072, guid: 37e98970f8baf7647b735d9036006f0d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 2229708070336108900, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
       propertyPath: m_UseWorldSpace
@@ -219,7 +228,7 @@ PrefabInstance:
     - target: {fileID: 2229708070336108900, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
       propertyPath: m_Parameters.alignment
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2229708070336108900, guid: 37e98970f8baf7647b735d9036006f0d,
         type: 3}
@@ -345,6 +354,9 @@ MonoBehaviour:
   _playerAimScript: {fileID: 209202312}
   _bulletHole: {fileID: 2799542576237128460, guid: c7f4e6c58a819ec4f8a5d019ccf73e01,
     type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 31731
 --- !u!1 &2867417286231276132 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2867417286392604782, guid: 37e98970f8baf7647b735d9036006f0d,
@@ -656,7 +668,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fff41a7e4d05d6d4492013bddf3d0f2a,
         type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1082271958561512970, guid: fff41a7e4d05d6d4492013bddf3d0f2a,
         type: 3}

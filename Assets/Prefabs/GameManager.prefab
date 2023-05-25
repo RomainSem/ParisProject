@@ -48,16 +48,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _losePanel: {fileID: 0}
   _winPanel: {fileID: 0}
+  _escPanel: {fileID: 0}
+  _tutorialPanel: {fileID: 0}
   _kickCircleCooldownOBJ: {fileID: 0}
   _kickCircleCooldownIMG: {fileID: 0}
-  _nbBullets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _nbActualBullets: {fileID: 0}
+  _nbTotalBullets: {fileID: 0}
   _player: {fileID: 0}
 --- !u!114 &1710375960
 MonoBehaviour:

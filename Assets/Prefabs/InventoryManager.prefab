@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1604663131901372371}
   - component: {fileID: 891784308}
+  - component: {fileID: 1977719490}
   m_Layer: 0
   m_Name: InventoryManager
   m_TagString: Untagged
@@ -51,5 +52,28 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _enemyInventorySlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _maxNbStackedItems: 6
   _itemPrefab: {fileID: 1099085087134688169, guid: d4d4bc881c431d2429488e78f5715718,
     type: 3}
+--- !u!114 &1977719490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604663131901372373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0301d223f697c1a46a7faa11c9524064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lootMenu: {fileID: 0}
+  _interactPanel: {fileID: 0}
+  _playerMovement: {fileID: 0}

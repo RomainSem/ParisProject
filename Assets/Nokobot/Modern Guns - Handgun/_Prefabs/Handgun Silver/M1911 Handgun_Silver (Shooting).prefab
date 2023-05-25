@@ -266,8 +266,15 @@ MonoBehaviour:
   casingExitLocation: {fileID: 6770146545802020271}
   destroyTimer: 2
   shotPower: 700
-  nbBullets: 7
   ejectPower: 250
+  maxNbBullets: 7
+  currentNbBullets: 0
+  currentNbBulletsInMagazine: 32
+  maxNbBulletsInMagazine: 32
+  reloadTxt: {fileID: 0}
+  _nbBulletPanel: {fileID: 0}
+  _bulletDamage: 0
+  _critMultiplier: 1.5
   _playerAimScript: {fileID: 0}
 --- !u!4 &6770146545802020267 stripped
 Transform:

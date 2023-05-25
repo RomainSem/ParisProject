@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject _losePanel;
     [SerializeField] GameObject _winPanel;
+    [SerializeField] GameObject _escPanel;
+    [SerializeField] GameObject _tutorialPanel;
     [SerializeField] GameObject _kickCircleCooldownOBJ;
     [SerializeField] Image _kickCircleCooldownIMG;
     [SerializeField] TextMeshProUGUI _nbActualBullets;
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
         _enemyInventoryScript = GameObject.Find("InventoryManager").GetComponent<EnemyInventory>();
         if (_enemy == null) return;
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
+        StartCoroutine(ShowTutorial());
 
 #if DEVELOPMENT_BUILD
 
@@ -44,6 +47,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!_isEscMenuOpen)
+            {
+                _escPanel.SetActive(true);
+                _isEscMenuOpen = true;
+            }
+            else
+            {
+                _escPanel.SetActive(false);
+                _isEscMenuOpen = false;
+            }
+        }
         ReloadScene();
         UpdateNbBullets();
         ShowLosePanel();
@@ -122,9 +138,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    IEnumerator ShowTutorial()
+    {
+        yield return new WaitForSeconds(20f);
+        _tutorialPanel.SetActive(false);
+    }
+
     PlayerHealth _playerHealthScript;
     PlayerInput _playerInputScript;
     bool _isUpdatingKickCooldown;
+    bool _isEscMenuOpen;
     EnemyBehaviour _enemyBehaviourScript;
     EnemyInventory _enemyInventoryScript;
     GameObject _enemy;

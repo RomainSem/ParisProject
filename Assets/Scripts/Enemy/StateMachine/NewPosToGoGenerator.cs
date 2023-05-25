@@ -32,7 +32,6 @@ public class NewPosToGoGenerator : StateMachineBehaviour
         if (_randomPosScript.IsPosGenerated)
         {
             _agent.speed = 3f;
-            Debug.Log(_randomPosScript.RandomPos);
             _agent.SetDestination(_randomPosScript.RandomPos);
             if (Vector3.Distance(_enemy.transform.position, _randomPosScript.RandomPos) <= 2f)
             {
