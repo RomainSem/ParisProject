@@ -13,6 +13,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] byte _damage = 10;
     [SerializeField] byte _kickImpact = 10;
     [SerializeField] byte _bulletImpact = 6;
+    [SerializeField] bool _isBusy;
     [SerializeField] PlayerDetected _playerDetectedScript;
     [SerializeField] GameObject _canBeLootedFX;
 
@@ -29,6 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rgbd = GetComponent<Rigidbody>();
         _enemyLootScript = GetComponent<EnemyLoot>();
+        _animator.SetBool("IsBusy", _isBusy);
     }
 
     void Update()

@@ -14,8 +14,7 @@ public class CircleDetection : MonoBehaviour
 
     private void Awake()
     {
-
-        _coneDetection = transform.parent.GetComponentInChildren<ConeDetection>();
+        _animator = transform.parent.Find("Enemy").GetComponent<Animator>();
     }
 
     #endregion
@@ -26,7 +25,7 @@ public class CircleDetection : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            _coneDetection.IsDetectedByEnemy = true;
+            _animator.SetBool("IsPlayerDetected", true);
         }
     }
 
@@ -34,6 +33,6 @@ public class CircleDetection : MonoBehaviour
 
     #region Private & Protected
 
-    ConeDetection _coneDetection;
+    Animator _animator;
     #endregion
 }

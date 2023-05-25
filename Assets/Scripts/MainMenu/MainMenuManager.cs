@@ -14,16 +14,6 @@ public class MainMenuManager : MonoBehaviour
 
     #region Unity Lyfecycle
 
-    private void Awake()
-    {
-        
-    }
-
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         Vector3 _mousePosition = Camera.main.ScreenToWorldPoint((Input.mousePosition));
@@ -37,7 +27,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("PrototypeScene");
+        SceneManager.LoadScene("Level1");
     }
 
     public void QuitGame()
