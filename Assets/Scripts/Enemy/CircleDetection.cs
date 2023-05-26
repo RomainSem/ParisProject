@@ -23,7 +23,7 @@ public class CircleDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet"))
         {
             _animator.SetBool("IsPlayerDetected", true);
         }

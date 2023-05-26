@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -51,7 +49,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         _lastDamageTime += Time.deltaTime;
         _animator.SetInteger("Health", _health);
-        transform.parent.Find("EnemyLoot").transform.position = new Vector3( gameObject.transform.position.x + 1, gameObject.transform.position.y - 1 ,gameObject.transform.position.z);
+        transform.parent.Find("EnemyLoot").transform.position = new Vector3( gameObject.transform.position.x, gameObject.transform.position.y - 1 ,gameObject.transform.position.z);
     }
 
     private void FixedUpdate()
