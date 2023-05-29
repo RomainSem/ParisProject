@@ -29,7 +29,7 @@ public class PistolLaser : MonoBehaviour
             GameObject decal = Instantiate(_bulletHole, _hit.point, Quaternion.FromToRotation(-Vector3.forward, _hit.normal));
             decal.transform.position = _hit.point;
             decal.transform.parent = _hit.transform.parent;
-            Destroy(decal, 5);
+            //Destroy(decal, 5);
         }
     }
 
