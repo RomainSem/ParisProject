@@ -17,6 +17,7 @@ public class InventoryManager : MonoBehaviour
         //_enemyInventoryItems = GameObject.Find("Enemy").GetComponent<EnemyInventory>().ItemsPossessed;
         ChangeSelectedSlot(0);
         _playerDetected = GameObject.Find("Player").GetComponent<PlayerDetected>();
+        _objectEffects = GameObject.Find("GameManager").GetComponent<ObjectsEffects>();
     }
 
     private void Update()
@@ -26,7 +27,7 @@ public class InventoryManager : MonoBehaviour
             AddAllItems();
 
         }
-        InputToNavigateThroughSlots();
+        //InputToNavigateThroughSlots();
     }
 
     public bool AddItem(Item itemToAdd, string whichInventory)
@@ -37,6 +38,7 @@ public class InventoryManager : MonoBehaviour
         // If the inventory is full, drop the item on the ground
         if (whichInventory == "Player")
         {
+            _isItemToPlayer = true;
             for (int i = 0; i < _inventorySlots.Length; i++)
             {
                 InventorySlot slot = _inventorySlots[i];
@@ -57,6 +59,7 @@ public class InventoryManager : MonoBehaviour
         }
         else if (whichInventory == "Enemy")
         {
+            _isItemToPlayer = false;
             for (int i = 0; i < _enemyInventorySlots.Length; i++)
             {
                 InventorySlot slot = _enemyInventorySlots[i];
@@ -119,6 +122,23 @@ public class InventoryManager : MonoBehaviour
         //}
     }
 
+    public void RemoveItemFromPlayer(Item itemToRemove)
+    {
+        for (int i = 0; i < _inventorySlots.Length; i++)
+        {
+            InventorySlot slot = _inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot != null)
+            {
+                if (itemInSlot.Item == itemToRemove)
+                {
+                    Destroy(itemInSlot.gameObject);
+                    //break;
+                }
+            }
+        }
+    }
+
     public void RemoveAllEnemyItems()
     {
         for (int i = 0; i < _enemyInventorySlots.Length; i++)
@@ -130,13 +150,6 @@ public class InventoryManager : MonoBehaviour
                 Destroy(itemInSlot.gameObject);
             }
         }
-    }
-
-    public void UseItem(Item itemToUse)
-    {
-        // Check if item is in inventory
-        // If it is, use the item
-        // If it isn't, do nothing
     }
 
     void SpawnNewItem(Item itemToSpawn, InventorySlot slot)
@@ -237,8 +250,12 @@ public class InventoryManager : MonoBehaviour
 
 
     int _selectedSlot = -1;
+    bool _isItemToPlayer;
     List<Item> _enemyInventoryItems;
     PlayerDetected _playerDetected;
+    ObjectsEffects _objectEffects;
 
     public InventorySlot[] EnemyInventorySlots { get => _enemyInventorySlots; set => _enemyInventorySlots = value; }
+    public InventorySlot[] InventorySlots { get => _inventorySlots; set => _inventorySlots = value; }
+    public bool IsItemToPlayer { get => _isItemToPlayer; set => _isItemToPlayer = value; }
 }

@@ -20,6 +20,7 @@ TagManager:
   - EnemyInventory
   - EnemyLoot
   - EnemyWithGun
+  - InventoryManager
   layers:
   - Default
   - TransparentFX

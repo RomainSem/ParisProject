@@ -12,7 +12,7 @@ public class InventorySlot : MonoBehaviour
 
     private void Awake()
     {
-        Deselect();
+        //Deselect();
     }
 
     public void Select()

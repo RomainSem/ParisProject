@@ -19,6 +19,8 @@ public class PickUpItem : MonoBehaviour
         _nbItemsInScene = GameObject.FindGameObjectsWithTag("Item").Length;
         _interactPanel = GameObject.Find("InteractPanel");
         _playerDetected = GameObject.Find("Player").GetComponent<PlayerDetected>();
+        _playerAim = GameObject.Find("Player").GetComponent<PlayerAim>();
+
     }
 
     private void Start()
@@ -28,7 +30,7 @@ public class PickUpItem : MonoBehaviour
 
     private void Update()
     {
-        if (_playerDetected.IsPlayerInLootZone && _playerDetected.ActualEnemyLoot == null)
+        if (_playerDetected.IsPlayerInLootZone && _playerDetected.ActualEnemyLoot == null && !_playerAim.IsAiming)
         {
             _interactPanel.SetActive(true);
             ShowItemTooltip();
@@ -115,5 +117,6 @@ public class PickUpItem : MonoBehaviour
     TextMeshProUGUI _itemName;
     TextMeshProUGUI _itemEffectText;
     PlayerDetected _playerDetected;
+    PlayerAim _playerAim;
 
 }

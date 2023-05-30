@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -55,23 +56,40 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             _item = newItem;
             _itemIcon.sprite = newItem.Icon;
-            switch (newItem.ItemName)
+            if (GameObject.Find("InventoryManager").GetComponent<InventoryManager>().IsItemToPlayer)
             {
-                case "Cup of coffee":
-                    _objectEffects.UseCupOfCoffee();
-                    break;
-                //case "Sword":
-                //    Debug.Log("You equipped a sword");
-                //    break;
-                //case "Shield":
-                //    Debug.Log("You equipped a shield");
-                //    break;
-                default:
-                    //Debug.Log("You used an item");
-                    break;
+                switch (newItem.ItemName)
+                {
+                    case "Cup of coffee":
+                        _objectEffects.UseCupOfCoffee();
+                        break;
+                    case "Ammo Box":
+                        _objectEffects.UseAmmoBox();
+                        _inventoryManager.RemoveItemFromPlayer(newItem);
+                        break;
+                        //case "Shield":
+                        //    Debug.Log("You equipped a shield");
+                        //    break;
+                }
             }
         }
     }
+
+    //public void UseItem(Item itemToUse)
+    //{
+    //      switch (itemToUse.ItemName)
+    //    {
+    //        case "Cup of coffee":
+    //            _objectEffects.UseCupOfCoffee();
+    //            break;
+    //        case "Ammo Box":
+    //            _objectEffects.UseAmmoBox();
+    //            break;
+    //        //case "Shield":
+    //        //    Debug.Log("You equipped a shield");
+    //        //    break;
+    //    }
+    //}
 
     public void RefreshQuantity() // Called when an item is added to the inventory
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectsEffects : MonoBehaviour
 {
+
     private void Start()
     {
         _player = GameObject.Find("Player");
@@ -14,7 +15,7 @@ public class ObjectsEffects : MonoBehaviour
     public void UseCupOfCoffee()
     {
         StartCoroutine(CupOfCoffeeHeal());
-        //Debug.Log("You drank a cup of coffee");
+        Debug.Log("You drank a cup of coffee");
     }
 
     IEnumerator CupOfCoffeeHeal()
@@ -25,6 +26,13 @@ public class ObjectsEffects : MonoBehaviour
             _playerHealth.Heal(1);
             //Debug.Log("You healed 1 HP");
         }
+    }
+
+    public void UseAmmoBox()
+    {
+        int rand = Random.Range(4, 8);
+        _player.GetComponentInChildren<SimpleShoot>().CurrentNbBulletsInMagazine += rand;
+        Debug.Log("You added : " + rand);
     }
 
     GameObject _player;

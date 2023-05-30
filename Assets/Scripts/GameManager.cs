@@ -62,13 +62,13 @@ public class GameManager : MonoBehaviour
         }
         ReloadScene();
         UpdateNbBullets();
-        ShowLosePanel();
+        //ShowLosePanel();
         if (!_playerInputScript.CanKick)
         {
             _isUpdatingKickCooldown = true;
         }
         //CursorUpdate();
-        ShowWinPanel();
+        //ShowWinPanel();
         //if (_enemy == null) return;
         //Cursor.lockState = CursorLockMode.Confined;
     }

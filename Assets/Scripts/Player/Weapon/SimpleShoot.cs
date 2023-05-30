@@ -87,6 +87,10 @@ if (_playerAimScript == null)
         {
             currentNbBulletsInMagazine = 0;
         }
+        else if (currentNbBulletsInMagazine > maxNbBulletsInMagazine)
+        {
+            currentNbBulletsInMagazine = maxNbBulletsInMagazine;
+        }
     }
 
 
