@@ -11,10 +11,11 @@ public class EnemyLoot : MonoBehaviour
 
     public void ReturnEnemyPossessedItems()
     {
-        for (int i = 0; i < _enemyInventorySO.PossibleItems.Count; i++)
+        int randNbItems = Random.Range(0, _enemyInventorySO.PossibleItems.Count);
+        for (int i = 0; i < randNbItems; i++)
         {
-            int rand = Random.Range(0, _enemyInventorySO.PossibleItems.Count);
-            possessedItems.Add(_enemyInventorySO.PossibleItems[rand]);
+            int randItem = Random.Range(0, _enemyInventorySO.PossibleItems.Count);
+            possessedItems.Add(_enemyInventorySO.PossibleItems[randItem]);
         }
     }
 
