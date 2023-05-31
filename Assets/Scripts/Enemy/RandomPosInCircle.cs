@@ -32,7 +32,7 @@ public class RandomPosInCircle : MonoBehaviour
         if (!IsPosGenerated)
         {
             Vector3 pos = Random.insideUnitCircle * _radius + new Vector2(enemyPos.x, enemyPos.z);
-            RandomPos = new Vector3(pos.x, 0, pos.y);
+            RandomPos = new Vector3(pos.x, 3.77f, pos.y);
             IsPosGenerated = true;
         }
     }

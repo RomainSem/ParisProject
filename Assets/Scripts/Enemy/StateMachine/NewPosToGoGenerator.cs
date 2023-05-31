@@ -12,6 +12,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
         _randomPosScript = _enemy.transform.parent.Find("RandomPosInCircle").GetComponent<RandomPosInCircle>();
         _agent = _enemy.GetComponent<NavMeshAgent>();
         _enemyBehaviourScript = _enemy.GetComponent<EnemyBehaviour>();
+        _animator = _enemy.GetComponent<Animator>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -27,15 +28,22 @@ public class NewPosToGoGenerator : StateMachineBehaviour
         }
     }
 
+    //public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    _animator.SetBool("IsArrived", false);
+    //}
+
     private void GoToRandomPosInCircle()
     {
         if (_randomPosScript.IsPosGenerated)
         {
             _agent.speed = 3f;
             _agent.SetDestination(_randomPosScript.RandomPos);
-            if (Vector3.Distance(_enemy.transform.position, _randomPosScript.RandomPos) <= 2f)
+            if (Vector3.Distance(_agent.transform.position, _randomPosScript.RandomPos) <= 0.1f)
             {
+                Debug.Log("Random pos reached");
                 _randomPosScript.IsPosGenerated = false;
+                _animator.SetBool("IsArrived", true);
             }
         }
     }
@@ -43,6 +51,7 @@ public class NewPosToGoGenerator : StateMachineBehaviour
 
     NavMeshAgent _agent;
     GameObject _enemy;
+    Animator _animator;
 
     ConeDetection _coneDetection;
     EnemyBehaviour _enemyBehaviourScript;

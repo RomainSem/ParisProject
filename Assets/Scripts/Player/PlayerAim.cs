@@ -67,6 +67,7 @@ public class PlayerAim : MonoBehaviour
         {
             _cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             IsAiming = true;
+            #region Other ways to do it, not working
             //RaycastHit hit;
             //if (Physics.Raycast(_cameraRay, out hit, Mathf.Infinity, _groundMask))
             //{
@@ -93,6 +94,7 @@ public class PlayerAim : MonoBehaviour
             //    var rotation = Quaternion.FromToRotation(Vector3.right, Vector3.zero - transform.position);
             //    transform.rotation = rotation;
             //}
+            #endregion
             Plane projectilePlane = new Plane(Vector3.up, characterPosition + Vector3.up * projectileHeight); // Le plan du projectile est défini par une normale Vector3.up et une hauteur de projectileHeight
             float rayDistance;
             Vector3 pointOnProjectilePlane;
