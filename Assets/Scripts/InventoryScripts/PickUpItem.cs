@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class PickUpItem : MonoBehaviour
@@ -12,7 +9,7 @@ public class PickUpItem : MonoBehaviour
     {
         _layerMask = LayerMask.GetMask("EnemyCone");
         _layerMask = ~_layerMask;
-        _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+        _inventoryManager = GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>();
         _itemDescUI = GameObject.Find("ItemDescPanel");
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
         _itemEffectText = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();

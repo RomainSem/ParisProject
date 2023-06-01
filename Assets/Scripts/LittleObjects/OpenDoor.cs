@@ -14,7 +14,7 @@ public class OpenDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && _objectsEffects.NbOfKeys > 0)
         {
             _objectsEffects.NbOfKeys--;
-            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z), 1);
+            gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 10, gameObject.transform.position.z), 5);
         }
     }
 

@@ -16,7 +16,6 @@ public class KickCooldown : StateMachineBehaviour
         _playerMovementScript.enabled = false;
         _playerAimScript.enabled = false;
         _pistolLaser.enabled = false;
-        Debug.Log("ENTER ANIMATOR");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,7 +27,6 @@ public class KickCooldown : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.LogWarning("EXIT ANIMATOR");
         _playerAimScript.enabled = true;
         _playerInputScript.enabled = true;
         _playerMovementScript.enabled = true;

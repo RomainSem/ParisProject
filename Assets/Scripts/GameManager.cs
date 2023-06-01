@@ -62,22 +62,24 @@ public class GameManager : MonoBehaviour
         }
         ReloadScene();
         UpdateNbBullets();
-        //ShowLosePanel();
+        ShowLosePanel();
         if (!_playerInputScript.CanKick)
         {
             _isUpdatingKickCooldown = true;
+            UpdateKickCooldown();
         }
         //CursorUpdate();
-        //ShowWinPanel();
-        //if (_enemy == null) return;
-        //Cursor.lockState = CursorLockMode.Confined;
+        ShowWinPanel();
+        if (_enemy == null) return;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void FixedUpdate()
     {
         if (_isUpdatingKickCooldown)
         {
-            UpdateKickCooldown();
+            Vector3 pos = Camera.main.WorldToScreenPoint(new Vector3(_player.transform.position.x, _player.transform.position.y + 2.1f, _player.transform.position.z));
+            _kickCircleCooldownOBJ.transform.position = pos;
         }
     }
 
@@ -89,15 +91,15 @@ public class GameManager : MonoBehaviour
 
     private void UpdateKickCooldown()
     {
-        Vector3 pos = Camera.main.WorldToScreenPoint(new Vector3(_player.transform.position.x, _player.transform.position.y + 2.1f, _player.transform.position.z));
+        Debug.Log("Updating Kick Cooldown");
+        
         _kickCircleCooldownOBJ.SetActive(true);
         _kickCircleCooldownIMG.color = Color.white;
         _kickCircleCooldownIMG.fillAmount += 1 / _playerInputScript.KickCooldownTime * Time.deltaTime;
-        _kickCircleCooldownOBJ.transform.position = pos;
         if (_kickCircleCooldownIMG.fillAmount >= 0.99999999999f)
         {
-            _kickCircleCooldownIMG.fillAmount = 0;
             _isUpdatingKickCooldown = false;
+            _kickCircleCooldownIMG.fillAmount = 0;
             _kickCircleCooldownOBJ.SetActive(false);
         }
     }
@@ -119,6 +121,7 @@ public class GameManager : MonoBehaviour
         if (_enemyBehaviourScript.NbEnemies <= 0)
         {
             _winPanel.SetActive(true);
+
         }
     }
 
@@ -146,7 +149,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowTutorial()
     {
         _tutorialPanel.SetActive(true);
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(30f);
         _tutorialPanel.SetActive(false);
     }
 

@@ -41,13 +41,13 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             _itemName.text = _item.ItemName;
             if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetMouseButtonDown(0))
             {
-                if (_item.name == "AmmoBox" && _simpleShoot.CurrentNbBulletsInMagazine > 31) return;
-                else
-                {
+                //if (_item.name == "AmmoBox" && _simpleShoot.CurrentNbBulletsInMagazine > 31) return;
+                //else
+                //{
                     _playerDetected.ActualEnemyLoot.transform.parent.Find("Enemy").GetComponent<EnemyLoot>().PossessedItems.Remove(_item);
                     _inventoryManager.AddItem(_item, "Player");
                     Destroy(gameObject);
-                }
+                //}
             }
         }
         RefreshQuantity();

@@ -11,7 +11,7 @@ public class EnemyLoot : MonoBehaviour
 
     public void ReturnEnemyPossessedItems()
     {
-        int randNbItems = Random.Range(0, _enemyInventorySO.PossibleItems.Count);
+        int randNbItems = Random.Range(1, 3 + 1);
         for (int i = 0; i < randNbItems; i++)
         {
             int randItem = Random.Range(0, _enemyInventorySO.PossibleItems.Count);

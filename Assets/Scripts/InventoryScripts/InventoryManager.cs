@@ -1,8 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -110,7 +106,7 @@ public class InventoryManager : MonoBehaviour
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot != null)
             {
-                if (itemInSlot.Item.name == "AmmoBox" && _simpleShoot.CurrentNbBulletsInMagazine > 31) return;
+                //if (itemInSlot.Item.name == "AmmoBox" && _simpleShoot.CurrentNbBulletsInMagazine > 31) return;
                 AddItem(itemInSlot.Item, "Player");
                 //RemoveItemFromEnemy(itemInSlot.Item);
             }
