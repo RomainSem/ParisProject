@@ -711,7 +711,7 @@ PrefabInstance:
     - target: {fileID: 6457705705110945207, guid: a26d73dc2164e8d45a7b8ad731c3999a,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 3331
+      value: 3337
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a26d73dc2164e8d45a7b8ad731c3999a, type: 3}
@@ -4976,16 +4976,6 @@ PrefabInstance:
       objectReference: {fileID: 496266376}
     - target: {fileID: 6457705704294100080, guid: a26d73dc2164e8d45a7b8ad731c3999a,
         type: 3}
-      propertyPath: _health
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6457705704294100080, guid: a26d73dc2164e8d45a7b8ad731c3999a,
-        type: 3}
-      propertyPath: _isBusy
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6457705704294100080, guid: a26d73dc2164e8d45a7b8ad731c3999a,
-        type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 355363616}
@@ -5054,11 +5044,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy&Radius (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 6457705704389531426, guid: a26d73dc2164e8d45a7b8ad731c3999a,
-        type: 3}
-      propertyPath: _radius
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6457705704748492845, guid: a26d73dc2164e8d45a7b8ad731c3999a,
         type: 3}
       propertyPath: _inventoryManager
@@ -5077,7 +5062,7 @@ PrefabInstance:
     - target: {fileID: 6457705705110945207, guid: a26d73dc2164e8d45a7b8ad731c3999a,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 3334
+      value: 3340
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a26d73dc2164e8d45a7b8ad731c3999a, type: 3}
@@ -7941,6 +7926,11 @@ PrefabInstance:
       objectReference: {fileID: 1161028783}
     - target: {fileID: 6457705704294100080, guid: a26d73dc2164e8d45a7b8ad731c3999a,
         type: 3}
+      propertyPath: _health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457705704294100080, guid: a26d73dc2164e8d45a7b8ad731c3999a,
+        type: 3}
       propertyPath: _isBusy
       value: 1
       objectReference: {fileID: 0}
@@ -8042,7 +8032,7 @@ PrefabInstance:
     - target: {fileID: 6457705705110945207, guid: a26d73dc2164e8d45a7b8ad731c3999a,
         type: 3}
       propertyPath: m_VersionIndex
-      value: 3328
+      value: 3334
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a26d73dc2164e8d45a7b8ad731c3999a, type: 3}

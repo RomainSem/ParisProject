@@ -19,7 +19,6 @@ public class HideWallIfPlayerBehind : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Obstacle") && _isPlayerBehindWall == false)
             {
-                Debug.Log("Player is behind wall");
                 // Hide wall
                 _wall = hit.transform.gameObject;
                 _wallMat = _wall.GetComponent<MeshRenderer>().material;
@@ -30,7 +29,6 @@ public class HideWallIfPlayerBehind : MonoBehaviour
             }
             else if (hit.collider.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Player is not behind wall");
                 // Show wall
                 if (_wall != null)
                 {

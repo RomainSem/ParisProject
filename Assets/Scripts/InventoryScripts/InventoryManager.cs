@@ -19,6 +19,7 @@ public class InventoryManager : MonoBehaviour
         ChangeSelectedSlot(0);
         _playerDetected = GameObject.Find("Player").GetComponent<PlayerDetected>();
         _objectEffects = GameObject.Find("GameManager").GetComponent<ObjectsEffects>();
+        _simpleShoot = GameObject.Find("Player").GetComponentInChildren<SimpleShoot>();
     }
 
     private void Update()
@@ -68,7 +69,7 @@ public class InventoryManager : MonoBehaviour
                         }
                     }
                     return false;
-                    
+
             }
             return false;
         }
@@ -109,6 +110,7 @@ public class InventoryManager : MonoBehaviour
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot != null)
             {
+                if (itemInSlot.Item.name == "AmmoBox" && _simpleShoot.CurrentNbBulletsInMagazine > 31) return;
                 AddItem(itemInSlot.Item, "Player");
                 //RemoveItemFromEnemy(itemInSlot.Item);
             }
@@ -269,6 +271,7 @@ public class InventoryManager : MonoBehaviour
     List<Item> _enemyInventoryItems;
     PlayerDetected _playerDetected;
     ObjectsEffects _objectEffects;
+    SimpleShoot _simpleShoot;
 
     public InventorySlot[] EnemyInventorySlots { get => _enemyInventorySlots; set => _enemyInventorySlots = value; }
     public InventorySlot[] InventorySlots { get => _inventorySlots; set => _inventorySlots = value; }

@@ -22,6 +22,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         _playerAimScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
         _playerDetected = GameObject.Find("Player").GetComponent<PlayerDetected>();
+        _simpleShoot = GameObject.Find("Player").GetComponentInChildren<SimpleShoot>();
         _enemyInventory = _inventoryManager.GetComponent<EnemyInventory>();
         _itemDescText = _itemDescUI.transform.Find("ItemDescription").GetComponent<TextMeshProUGUI>();
         _itemDescTextGreen = _itemDescUI.transform.Find("ItemDescriptionGreen").GetComponent<TextMeshProUGUI>();
@@ -40,9 +41,13 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             _itemName.text = _item.ItemName;
             if (transform.parent.parent.parent.CompareTag("EnemyInventory") && Input.GetMouseButtonDown(0))
             {
-                _playerDetected.ActualEnemyLoot.transform.parent.Find("Enemy").GetComponent<EnemyLoot>().PossessedItems.Remove(_item);
-                _inventoryManager.AddItem(_item, "Player");
-                Destroy(gameObject);
+                if (_item.name == "AmmoBox" && _simpleShoot.CurrentNbBulletsInMagazine > 31) return;
+                else
+                {
+                    _playerDetected.ActualEnemyLoot.transform.parent.Find("Enemy").GetComponent<EnemyLoot>().PossessedItems.Remove(_item);
+                    _inventoryManager.AddItem(_item, "Player");
+                    Destroy(gameObject);
+                }
             }
         }
         RefreshQuantity();
@@ -63,7 +68,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                     case "Cup of coffee":
                         _objectEffects.UseCupOfCoffee();
                         break;
-                    
+
                         //case "Shield":
                         //    Debug.Log("You equipped a shield");
                         //    break;
@@ -126,6 +131,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     InventoryManager _inventoryManager;
     EnemyInventory _enemyInventory;
     TextMeshProUGUI _quantityUI;
+    SimpleShoot _simpleShoot;
 
     public Item Item { get => _item; set => _item = value; }
     public int Quantity { get => _quantity; set => _quantity = value; }

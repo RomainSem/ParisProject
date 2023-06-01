@@ -41,7 +41,6 @@ public class NewPosToGoGenerator : StateMachineBehaviour
             _agent.SetDestination(_randomPosScript.RandomPos);
             if (Vector3.Distance(_agent.transform.position, _randomPosScript.RandomPos) <= 0.1f)
             {
-                Debug.Log("Random pos reached");
                 _randomPosScript.IsPosGenerated = false;
                 _animator.SetBool("IsArrived", true);
             }

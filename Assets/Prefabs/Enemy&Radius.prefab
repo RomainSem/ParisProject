@@ -282,10 +282,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _health: 1
+  _health: 50
   _damage: 10
   _kickImpact: 10
   _bulletImpact: 6
+  _isBusy: 0
   _playerDetectedScript: {fileID: 0}
   _canBeLootedFX: {fileID: 536812046}
 --- !u!114 &1807550133
@@ -395,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d2d34eb7efb7149b497c4e7b2d70e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 3
+  _radius: 2
 --- !u!1 &6457705704823536622
 GameObject:
   m_ObjectHideFlags: 0
@@ -3890,7 +3891,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3322
+  m_VersionIndex: 3337
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
