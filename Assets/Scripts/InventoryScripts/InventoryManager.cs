@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,23 +40,37 @@ public class InventoryManager : MonoBehaviour
         if (whichInventory == "Player")
         {
             _isItemToPlayer = true;
-            for (int i = 0; i < _inventorySlots.Length; i++)
+            switch (itemToAdd.name)
             {
-                InventorySlot slot = _inventorySlots[i];
-                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-                if (itemInSlot != null && itemInSlot.Item == itemToAdd && itemInSlot.Item.IsStackable && itemInSlot.Quantity < _maxNbStackedItems)
-                {
-                    itemInSlot.Quantity++;
-                    return true;
-                }
-                else if (itemInSlot == null)
-                {
-                    SpawnNewItem(itemToAdd, slot);
-                    return true;
-                }
+                case "AmmoBox":
+                    _objectEffects.UseAmmoBox();
+                    break;
+                case "Key":
+                    _objectEffects.UseNormalKey();
+                    break;
+                case "Money":
+                    _objectEffects.UseCoin();
+                    break;
+                default:
+                    for (int i = 0; i < _inventorySlots.Length; i++)
+                    {
+                        InventorySlot slot = _inventorySlots[i];
+                        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                        if (itemInSlot != null && itemInSlot.Item == itemToAdd && itemInSlot.Item.IsStackable && itemInSlot.Quantity < _maxNbStackedItems)
+                        {
+                            itemInSlot.Quantity++;
+                            return true;
+                        }
+                        else if (itemInSlot == null)
+                        {
+                            SpawnNewItem(itemToAdd, slot);
+                            return true;
+                        }
+                    }
+                    return false;
+                    
             }
             return false;
-
         }
         else if (whichInventory == "Enemy")
         {
@@ -98,8 +113,8 @@ public class InventoryManager : MonoBehaviour
                 //RemoveItemFromEnemy(itemInSlot.Item);
             }
         }
-                RemoveAllEnemyItems();
-                enemy.GetComponent<EnemyLoot>().PossessedItems.Clear();
+        RemoveAllEnemyItems();
+        enemy.GetComponent<EnemyLoot>().PossessedItems.Clear();
     }
 
     public void RemoveItemFromEnemy(Item itemToRemove)

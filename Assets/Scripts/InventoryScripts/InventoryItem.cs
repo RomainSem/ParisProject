@@ -63,10 +63,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                     case "Cup of coffee":
                         _objectEffects.UseCupOfCoffee();
                         break;
-                    case "Ammo Box":
-                        _objectEffects.UseAmmoBox();
-                        _inventoryManager.RemoveItemFromPlayer(newItem);
-                        break;
+                    
                         //case "Shield":
                         //    Debug.Log("You equipped a shield");
                         //    break;

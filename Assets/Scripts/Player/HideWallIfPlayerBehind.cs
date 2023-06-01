@@ -23,7 +23,7 @@ public class HideWallIfPlayerBehind : MonoBehaviour
                 // Hide wall
                 _wall = hit.transform.gameObject;
                 _wallMat = _wall.GetComponent<MeshRenderer>().material;
-                _matColor = _wallMat.color;
+                Color _matColor = _wallMat.color;
                 _transparentMat.color = new Color(_matColor.r, _matColor.g, _matColor.b, 0.6f);
                 hit.transform.gameObject.GetComponent<MeshRenderer>().material = _transparentMat;
                 _isPlayerBehindWall = true;
@@ -42,7 +42,6 @@ public class HideWallIfPlayerBehind : MonoBehaviour
     }
 
     Material _wallMat;
-    Color _matColor;
     GameObject _wall;
     bool _isPlayerBehindWall;
 }

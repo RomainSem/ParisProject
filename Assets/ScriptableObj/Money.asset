@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   itemName: Money
   value: 1
-  icon: {fileID: 21300000, guid: 9e6625bda83966a458a5b5b70868c91a, type: 3}
+  icon: {fileID: 21300000, guid: 0943dbc31e3d1e748923b7094b5af666, type: 3}
   description: A piece of paper that has a value for some reason.
   itemEffect: 
   isActivable: 0
