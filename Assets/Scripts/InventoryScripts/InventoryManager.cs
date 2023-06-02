@@ -16,6 +16,7 @@ public class InventoryManager : MonoBehaviour
         _playerDetected = GameObject.Find("Player").GetComponent<PlayerDetected>();
         _objectEffects = GameObject.Find("GameManager").GetComponent<ObjectsEffects>();
         _simpleShoot = GameObject.Find("Player").GetComponentInChildren<SimpleShoot>();
+        _playerPossessedItems = new List<Item>();
     }
 
     private void Update()
@@ -61,6 +62,7 @@ public class InventoryManager : MonoBehaviour
                         else if (itemInSlot == null)
                         {
                             SpawnNewItem(itemToAdd, slot);
+                            _playerPossessedItems.Add(itemToAdd);
                             return true;
                         }
                     }
@@ -145,6 +147,7 @@ public class InventoryManager : MonoBehaviour
             {
                 if (itemInSlot.Item == itemToRemove)
                 {
+                    _playerPossessedItems.Remove(itemToRemove);
                     Destroy(itemInSlot.gameObject);
                     //break;
                 }
@@ -268,8 +271,10 @@ public class InventoryManager : MonoBehaviour
     PlayerDetected _playerDetected;
     ObjectsEffects _objectEffects;
     SimpleShoot _simpleShoot;
+    List<Item> _playerPossessedItems;
 
     public InventorySlot[] EnemyInventorySlots { get => _enemyInventorySlots; set => _enemyInventorySlots = value; }
     public InventorySlot[] InventorySlots { get => _inventorySlots; set => _inventorySlots = value; }
     public bool IsItemToPlayer { get => _isItemToPlayer; set => _isItemToPlayer = value; }
+    public List<Item> PlayerPossessedItems { get => _playerPossessedItems; set => _playerPossessedItems = value; }
 }

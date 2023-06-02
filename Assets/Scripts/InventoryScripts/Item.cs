@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Item/Create New Item")]
-public class Item : ScriptableObject
+public class Item : ScriptableObject, IComparable<Item>
 {
     public int id;
     [SerializeField] string itemName;
@@ -23,4 +24,9 @@ public class Item : ScriptableObject
     public string ItemEffect { get => itemEffect; set => itemEffect = value; }
     public bool IsActivable { get => isActivable; set => isActivable = value; }
     public bool IsStackable { get => isStackable; set => isStackable = value; }
+
+    public int CompareTo(Item other)
+    {
+        return ItemName.CompareTo(other.ItemName);
+    }
 }

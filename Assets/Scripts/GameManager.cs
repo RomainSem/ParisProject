@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _nbActualBullets;
     [SerializeField] TextMeshProUGUI _nbTotalBullets;
     [SerializeField] GameObject _player;
+    [SerializeField] OpenDoor _doorToOpenToWin;
 
     private void Awake()
     {
@@ -118,10 +117,11 @@ public class GameManager : MonoBehaviour
 
     private void ShowWinPanel()
     {
-        if (_enemyBehaviourScript.NbEnemies <= 0)
+        if (_doorToOpenToWin.IsSpecialDoorOpen /*_enemyBehaviourScript.NbEnemies <= 0*/)
         {
             _winPanel.SetActive(true);
-
+            _playerInputScript.enabled = false;
+            Time.timeScale = 0;
         }
     }
 
@@ -130,6 +130,8 @@ public class GameManager : MonoBehaviour
         if (_playerHealthScript.IsPlayerDead)
         {
             _losePanel.SetActive(true);
+            _playerInputScript.enabled = false;
+            Time.timeScale = 0;
         }
     }
 
