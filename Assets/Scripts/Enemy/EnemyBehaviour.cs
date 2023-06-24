@@ -14,6 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] bool _isBusy;
     [SerializeField] PlayerDetected _playerDetectedScript;
     [SerializeField] GameObject _canBeLootedFX;
+    [SerializeField] LayerMask _everythingButCone;
 
 
     #endregion
@@ -39,10 +40,6 @@ public class EnemyBehaviour : MonoBehaviour
             //Destroy(gameObject, 60f);
             //_isEnemyDead = false;
         }
-        if (!_isEnemyDead)
-        {
-            RaycastToPlayer();
-        }
         if (_isAttacked)
         {
             _coneDetectionScript.IsDetectedByEnemy = true;
@@ -61,6 +58,10 @@ public class EnemyBehaviour : MonoBehaviour
                 _agent.enabled = true;
             }
         }
+        if (!_isEnemyDead)
+        {
+            RaycastToPlayer();
+        }
     }
 
     #endregion
@@ -70,18 +71,19 @@ public class EnemyBehaviour : MonoBehaviour
     private void RaycastToPlayer()
     {
         RaycastHit hit;
-        if (Physics.Raycast(gameObject.transform.position, _player.transform.position - gameObject.transform.position, out hit))
+        Vector3 rayOrigin = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        Debug.DrawRay(rayOrigin, _player.transform.position - rayOrigin, Color.red);
+        if (Physics.Raycast(rayOrigin, _player.transform.position - rayOrigin, out hit, 50, _everythingButCone))
         {
-            if (hit.collider.gameObject.tag == "Player")
+            if (hit.collider.gameObject.CompareTag("Player"))
             {
-                //Debug.Log("RAYCAST TRUE");
                 IsEnemyRayHittingPlayer = true;
             }
             else
             {
-                //Debug.Log("RAYCAST FALSE");
                 IsEnemyRayHittingPlayer = false;
             }
+            Debug.Log("Enemy raycasthit : " + hit.collider.gameObject.name);
         }
     }
 
@@ -127,12 +129,12 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 directionToPlayer = _player.transform.position - transform.position;
-        Gizmos.DrawLine(transform.position, transform.position + directionToPlayer);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Vector3 directionToPlayer = _player.transform.position - transform.position;
+    //    Gizmos.DrawLine(transform.position, transform.position + directionToPlayer);
+    //}
 
     #endregion
 

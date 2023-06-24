@@ -20,12 +20,10 @@ public class EnemyWait : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
+        if (_coneDetectionScript != null)
         {
-            if (_coneDetectionScript != null)
-            {
-                animator.SetBool("IsPlayerDetected", _coneDetectionScript.IsDetectedByEnemy);
-            }
+            animator.SetBool("IsPlayerDetected", _coneDetectionScript.IsDetectedByEnemy);
+            Debug.Log("IsPlayerDetected: " + _coneDetectionScript.IsDetectedByEnemy);
         }
     }
 

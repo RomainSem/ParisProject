@@ -35,8 +35,6 @@ public class ConeDetection : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //Debug.LogError("COLLIDE PLAYER");
-            //_isPlayerInCone = true;
             if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
             {
                 IsDetectedByEnemy = true;
@@ -45,7 +43,21 @@ public class ConeDetection : MonoBehaviour
             {
                 IsDetectedByEnemy = false;
             }
-            //Debug.Log(IsDetectedByEnemy);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
+            {
+                IsDetectedByEnemy = true;
+            }
+            else
+            {
+                IsDetectedByEnemy = false;
+            }
         }
     }
 

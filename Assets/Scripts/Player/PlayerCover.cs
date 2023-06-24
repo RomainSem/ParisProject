@@ -25,7 +25,6 @@ public class PlayerCover : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C) && _isInCoverHitbox && !_isTakingCover)
         {
             if (hit.collider == null) return;
-            Debug.Log("Taking cover");
             _savedConstraints = _rgb.constraints;
             _savedPosition = transform.position;
             _savedColliderSize = _playerCollider.size;
@@ -39,7 +38,6 @@ public class PlayerCover : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.C) && _isTakingCover)
         {
-            Debug.Log("Leaving cover");
             _rgb.constraints = _savedConstraints;
             transform.position = _savedPosition;
             _playerCollider.size = _savedColliderSize;
@@ -51,12 +49,11 @@ public class PlayerCover : MonoBehaviour
     {
         Vector3 raycastOrigin = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
         Debug.DrawRay(raycastOrigin, transform.forward * 2f, Color.blue);
-        if (Physics.Raycast(raycastOrigin, transform.forward, out hit, 2f))
+        if (Physics.Raycast(raycastOrigin, transform.forward, out hit, 1.5f))
         {
-            Debug.Log(hit.transform.name);
+            Debug.Log("What is the ray hitting ? : " + hit.transform.tag);
             if (hit.collider.CompareTag("Obstacle"))
             {
-                Debug.Log("In cover hitbox");
                 _isInCoverHitbox = true;
             }
             else
