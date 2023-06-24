@@ -12,29 +12,7 @@ public class PlayerCover : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && _isInCoverHitbox && !_isTakingCover)
-        {
-            Debug.Log("Taking cover");
-            _savedConstraints = _rgb.constraints;
-            _savedPosition = transform.position;
-            _savedCollider = _playerCollider;
-            _savedCollider.size = _playerCollider.size;
-            Quaternion coverRotation = Quaternion.LookRotation(-hit.transform.parent.right);
-            Vector3 coverPosition = new Vector3( hit.point.x-0.25f, transform.position.y, hit.point.z-0.25f);
-            transform.position = coverPosition;
-            _rgb.MoveRotation(coverRotation);
-            _playerCollider.size = new Vector3(0.01f, 0.01f, 0.01f);
-            _rgb.constraints = RigidbodyConstraints.FreezeAll;
-            _isTakingCover = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.T) && _isTakingCover)
-        {
-            Debug.Log("Leaving cover");
-            _rgb.constraints = _savedConstraints;
-            transform.position = _savedPosition;
-            _playerCollider.size = _savedCollider.size;
-            _isTakingCover = false;
-        }
+        ToggleCover();
     }
 
     private void FixedUpdate()
@@ -42,10 +20,38 @@ public class PlayerCover : MonoBehaviour
         RaycastFromPlayerToForward();
     }
 
+    private void ToggleCover()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && _isInCoverHitbox && !_isTakingCover)
+        {
+            if (hit.collider == null) return;
+            Debug.Log("Taking cover");
+            _savedConstraints = _rgb.constraints;
+            _savedPosition = transform.position;
+            _savedColliderSize = _playerCollider.size;
+            Quaternion coverRotation = Quaternion.LookRotation(hit.normal);
+            Vector3 coverPosition = new Vector3(hit.point.x - 0.25f, transform.position.y, hit.point.z - 0.25f);
+            transform.position = coverPosition;
+            _rgb.MoveRotation(coverRotation);
+            _playerCollider.size = new Vector3(0.3f, 0.3f, 0.3f);
+            _rgb.constraints = RigidbodyConstraints.FreezeAll;
+            _isTakingCover = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.C) && _isTakingCover)
+        {
+            Debug.Log("Leaving cover");
+            _rgb.constraints = _savedConstraints;
+            transform.position = _savedPosition;
+            _playerCollider.size = _savedColliderSize;
+            _isTakingCover = false;
+        }
+    }
+
     private void RaycastFromPlayerToForward()
     {
-        Debug.DrawRay(transform.position, transform.forward * 2f, Color.red);
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+        Vector3 raycastOrigin = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
+        Debug.DrawRay(raycastOrigin, transform.forward * 2f, Color.blue);
+        if (Physics.Raycast(raycastOrigin, transform.forward, out hit, 2f))
         {
             Debug.Log(hit.transform.name);
             if (hit.collider.CompareTag("Obstacle"))
@@ -67,7 +73,7 @@ public class PlayerCover : MonoBehaviour
     Vector3 _savedPosition;
     RaycastHit hit;
     BoxCollider _playerCollider;
-    BoxCollider _savedCollider;
+    Vector3 _savedColliderSize;
 
-    public bool IsTakingCover { get => _isTakingCover; set => _isTakingCover = value; }
+    public bool IsTakingCover { get => _isTakingCover; }
 }
