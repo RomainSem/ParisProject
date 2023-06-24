@@ -23,6 +23,7 @@ public class PlayerAim : MonoBehaviour
     void Start()
     {
         _playerMovScript = GetComponent<PlayerMovement>();
+        _playerCoverScript = GetComponent<PlayerCover>();
         _animator = GetComponentInChildren<Animator>();
         _enemyInventory = _inventoryManager.GetComponent<EnemyInventory>();
         _kickCooldownScript = _animator.GetBehaviour<KickCooldown>();
@@ -44,7 +45,7 @@ public class PlayerAim : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_playerMovScript.IsRunning && !_kickCooldownScript.IsKickingAnim)
+        if (!_playerMovScript.IsRunning && !_kickCooldownScript.IsKickingAnim && !_playerCoverScript.IsTakingCover)
         {
             Aim();
         }
@@ -127,6 +128,7 @@ public class PlayerAim : MonoBehaviour
     #region Private & Protected
 
     PlayerMovement _playerMovScript;
+    PlayerCover _playerCoverScript;
     Ray _cameraRay;
     Animator _animator;
     KickCooldown _kickCooldownScript;

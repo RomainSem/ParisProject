@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbdy = GetComponent<Rigidbody>();
         _playerAimScript = GetComponent<PlayerAim>();
+        _playerCoverScript = GetComponent<PlayerCover>();
     }
 
     void Start()
@@ -100,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Rotate()
     {
+        if (_playerCoverScript.IsTakingCover) return;
         transform.forward = _heading;
     }
 
@@ -114,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
     bool _isRunning;
     bool _isMoving;
     PlayerAim _playerAimScript;
+    PlayerCover _playerCoverScript;
     Vector3 _heading;
 
     public float MoveSpeed { get => _speed; set => _speed = value; }

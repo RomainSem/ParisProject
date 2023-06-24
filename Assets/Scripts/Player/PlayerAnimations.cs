@@ -17,6 +17,7 @@ public class PlayerAnimations : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _playerMovScript = GetComponent<PlayerMovement>();
         _playerAimScript = GetComponent<PlayerAim>();
+        _playerCoverScript = GetComponent<PlayerCover>();
         _playerInputScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerInput>();
         _rgbd = GetComponent<Rigidbody>();
         if (_goToBedScript != null)
@@ -36,6 +37,7 @@ public class PlayerAnimations : MonoBehaviour
             _animator.SetFloat("moveSpeed", _playerMovScript.MoveSpeed);
         }
         _animator.SetBool("IsAiming", _playerAimScript.IsAiming);
+        _animator.SetBool("IsTakingCover", _playerCoverScript.IsTakingCover);
         if (_goToBedScript != null)
         {
             _animator.SetBool("IsSleeping", _goToBedScript.IsSleeping);
@@ -77,6 +79,7 @@ public class PlayerAnimations : MonoBehaviour
     PlayerMovement _playerMovScript;
     PlayerAim _playerAimScript;
     PlayerInput _playerInputScript;
+    PlayerCover _playerCoverScript;
     GoToBedScript _goToBedScript;
     Rigidbody _rgbd;
 

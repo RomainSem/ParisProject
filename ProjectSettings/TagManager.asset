@@ -21,6 +21,7 @@ TagManager:
   - EnemyLoot
   - EnemyWithGun
   - InventoryManager
+  - CoverHitbox
   layers:
   - Default
   - TransparentFX

@@ -15,6 +15,7 @@ public class OpenDoor : MonoBehaviour
     {
         _objectsEffects = GameObject.Find("GameManager").GetComponent<ObjectsEffects>();
         _inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+        _playerMoney = GameObject.Find("Player").GetComponent<PlayerMoney>();
     }
 
     private void Update()
@@ -57,16 +58,16 @@ public class OpenDoor : MonoBehaviour
                 }
                 
             }
-            else if (!_isSpecialDoor && _objectsEffects.NbOfKeys > 0)
+            else if (!_isSpecialDoor && _playerMoney.NbOfKeys.NbOfResource > 0)
             {
-                _objectsEffects.NbOfKeys--;
+                _playerMoney.NbOfKeys.NbOfResource--;
                 if (!_isMoving) // Vérifier si l'objet est déjà en mouvement
                 {
                     //Destroy(gameObject);
                     StartCoroutine(MoveDoor(posToGo, 3f));
                 }
             }
-            else if (collision.gameObject.CompareTag("Player") && _objectsEffects.NbOfKeys == 0)
+            else if (collision.gameObject.CompareTag("Player") && _playerMoney.NbOfKeys.NbOfResource == 0)
             {
                 _messageToPlayer.gameObject.SetActive(true);
                 _messageToPlayer.text = "I need a key to open this door";
@@ -105,6 +106,7 @@ public class OpenDoor : MonoBehaviour
 
     ObjectsEffects _objectsEffects;
     InventoryManager _inventoryManager;
+    PlayerMoney _playerMoney;
     bool _isSpecialDoorOpen;
     private bool _isMoving = false; // Ajout d'une variable pour suivre l'état de déplacement
     Vector3 posToGo;

@@ -9,10 +9,16 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] Animator _animPlayer;
     [SerializeField] Transform _playerTransform;
-    
+
     #endregion
 
     #region Unity Lyfecycle
+
+    private void Start()
+    {
+        _playerMoney = GameObject.Find("Player").GetComponent<PlayerMoney>();
+
+    }
 
     void Update()
     {
@@ -28,6 +34,8 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Level1");
+        _playerMoney.Money.NbOfResource = 0;
+        _playerMoney.NbOfKeys.NbOfResource = 0;
     }
 
     public void QuitGame()
@@ -43,6 +51,8 @@ public class MainMenuManager : MonoBehaviour
     #endregion
 
     #region Private & Protected
+
+    PlayerMoney _playerMoney;
 
     #endregion
 }
