@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PlayerCover : MonoBehaviour
 {
+
+    [SerializeField] LayerMask _coverMask;
+
     private void Start()
     {
         _rgb = GetComponent<Rigidbody>();
         _playerCollider = GetComponent<BoxCollider>();
+
     }
 
     private void Update()
@@ -48,10 +52,10 @@ public class PlayerCover : MonoBehaviour
     private void RaycastFromPlayerToForward()
     {
         Vector3 raycastOrigin = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
-        Debug.DrawRay(raycastOrigin, transform.forward * 2f, Color.blue);
-        if (Physics.Raycast(raycastOrigin, transform.forward, out hit, 1.5f))
+        Debug.DrawRay(raycastOrigin, transform.forward * 1.5f, Color.blue);
+        if (Physics.Raycast(raycastOrigin, transform.forward, out hit, 1.5f, _coverMask))
         {
-            Debug.Log("What is the ray hitting ? : " + hit.transform.tag);
+            //Debug.Log("What is the ray hitting ? : " + hit.transform.tag);
             if (hit.collider.CompareTag("Obstacle"))
             {
                 _isInCoverHitbox = true;

@@ -23,7 +23,6 @@ public class EnemyWait : StateMachineBehaviour
         if (_coneDetectionScript != null)
         {
             animator.SetBool("IsPlayerDetected", _coneDetectionScript.IsDetectedByEnemy);
-            Debug.Log("IsPlayerDetected: " + _coneDetectionScript.IsDetectedByEnemy);
         }
     }
 

@@ -15,7 +15,9 @@ public class HideWallIfPlayerBehind : MonoBehaviour
     private void RaycastFromCameraToPlayer()
     {
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, transform.position - Camera.main.transform.position, out hit, Mathf.Infinity))
+        Vector3 rayEnd = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+        Debug.DrawRay(Camera.main.transform.position, rayEnd - Camera.main.transform.position, Color.yellow);
+        if (Physics.Raycast(Camera.main.transform.position, rayEnd - Camera.main.transform.position, out hit, Mathf.Infinity))
         {
             if (hit.collider.gameObject.CompareTag("Obstacle") && _isPlayerBehindWall == false)
             {

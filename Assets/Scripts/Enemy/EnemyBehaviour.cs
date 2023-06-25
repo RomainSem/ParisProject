@@ -71,9 +71,10 @@ public class EnemyBehaviour : MonoBehaviour
     private void RaycastToPlayer()
     {
         RaycastHit hit;
-        Vector3 rayOrigin = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-        Debug.DrawRay(rayOrigin, _player.transform.position - rayOrigin, Color.red);
-        if (Physics.Raycast(rayOrigin, _player.transform.position - rayOrigin, out hit, 50, _everythingButCone))
+        Vector3 rayOrigin = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+        Vector3 rayEnd = new Vector3(_player.transform.position.x, _player.transform.position.y + 1f, _player.transform.position.z);
+        Debug.DrawRay(rayOrigin, rayEnd - rayOrigin, Color.red);
+        if (Physics.Raycast(rayOrigin, rayEnd - rayOrigin, out hit, 50, _everythingButCone))
         {
             if (hit.collider.gameObject.CompareTag("Player"))
             {
@@ -83,7 +84,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 IsEnemyRayHittingPlayer = false;
             }
-            Debug.Log("Enemy raycasthit : " + hit.collider.gameObject.name);
+            //Debug.Log("Enemy raycasthit : " + hit.collider.gameObject.name);
         }
     }
 
