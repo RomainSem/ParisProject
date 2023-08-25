@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
@@ -22,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbdy = GetComponent<Rigidbody>();
         _playerAimScript = GetComponent<PlayerAim>();
         _playerCoverScript = GetComponent<PlayerCover>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
@@ -45,45 +48,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (_isMoving)
-        {
-            ComputeHeading();
-            Move();
-            if (!_playerAimScript.IsAiming)
-            {
-               // ROTATE
-               Rotate();
-            }
-        }
-        else
-        {
-            IsRunning = false;
-            MoveSpeed = 0f;
-        }
-    }
-
     #endregion
 
     #region Methods
 
-    void Move()
+    public void Move(float speed)
     {
-        if (Input.GetButton("Fire3") && !_playerAimScript.IsAiming)
-        {
-            IsRunning = true;
-            MoveSpeed = _runSpeed;
-        }
-        else
-        {
-            IsRunning = false;
-            MoveSpeed = _walkSpeed;
-        }
+        ComputeHeading();
+        Rotate();
         if (_heading.magnitude >= 0.1f)
         {
             _heading.Normalize();
-            _rigidbdy.AddForce(_heading * MoveSpeed, ForceMode.VelocityChange);
+            _rigidbdy.AddForce(_heading * speed * Time.deltaTime, ForceMode.VelocityChange);
         }
         else
         {
@@ -91,7 +67,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void ComputeHeading()
+    public void Run()
+    {
+        _animator.SetBool("IsRunning", true);
+    }
+
+    public void RunEnd()
+    {
+          _animator.SetBool("IsRunning", false);
+    }
+
+    public void ComputeHeading()
     {
         _heading.x = Vector3.Project(PlayerInput._leftStickDirection, forward).x;
         _heading.z = Vector3.Project(PlayerInput._leftStickDirection, right).z;
@@ -99,9 +85,9 @@ public class PlayerMovement : MonoBehaviour
         _heading = _heading.normalized;
     }
 
-    void Rotate()
+    public void Rotate()
     {
-        if (_playerCoverScript.IsTakingCover) return;
+        if (_playerCoverScript.IsTakingCover || _heading.magnitude < 0.1f) return;
         transform.forward = _heading;
     }
 
@@ -113,16 +99,19 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody _rigidbdy;
     Vector3 right;
     Vector3 forward;
-    bool _isRunning;
     bool _isMoving;
+    bool _isRunning;
     PlayerAim _playerAimScript;
     PlayerCover _playerCoverScript;
     Vector3 _heading;
+    Animator _animator;
 
     public float MoveSpeed { get => _speed; set => _speed = value; }
-    public bool IsRunning { get => _isRunning; set => _isRunning = value; }
     public Vector3 Heading { get => _heading; set => _heading = value; }
     public bool IsMoving { get => _isMoving; set => _isMoving = value; }
+    public float WalkSpeed { get => _walkSpeed; }
+    public float RunSpeed { get => _runSpeed; }
+    public bool IsRunning { get => _isRunning; private set => _isRunning = value; }
 
     #endregion
 }

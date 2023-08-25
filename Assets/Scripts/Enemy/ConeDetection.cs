@@ -23,7 +23,8 @@ public class ConeDetection : MonoBehaviour
 
     void Update()
     {
-        
+        Debug.Log("RAY : " + _enemyBehaviourScript.IsEnemyRayHittingPlayer);
+        Debug.Log("COLLIDER : " + IsDetectedByEnemy);
     }
 
 
@@ -39,25 +40,33 @@ public class ConeDetection : MonoBehaviour
             {
                 IsDetectedByEnemy = true;
             }
-            else
-            {
-                IsDetectedByEnemy = false;
-            }
+            //else
+            //{
+            //    IsDetectedByEnemy = false;
+            //}
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
+    //        {
+    //            IsDetectedByEnemy = true;
+    //        }
+    //        else
+    //        {
+    //            IsDetectedByEnemy = false;
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (_enemyBehaviourScript.IsEnemyRayHittingPlayer)
-            {
-                IsDetectedByEnemy = true;
-            }
-            else
-            {
                 IsDetectedByEnemy = false;
-            }
         }
     }
 

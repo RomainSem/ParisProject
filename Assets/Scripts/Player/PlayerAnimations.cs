@@ -36,7 +36,7 @@ public class PlayerAnimations : MonoBehaviour
         {
             _animator.SetFloat("moveSpeed", _playerMovScript.MoveSpeed);
         }
-        _animator.SetBool("IsAiming", _playerAimScript.IsAiming);
+        //_animator.SetBool("IsAiming", _playerAimScript.IsAiming);
         _animator.SetBool("IsTakingCover", _playerCoverScript.IsTakingCover);
         if (_goToBedScript != null)
         {
